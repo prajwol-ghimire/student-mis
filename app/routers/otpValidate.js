@@ -12,7 +12,7 @@ async function compareOTP(hashedotp, otpvalue, res, sid_user) {
                 console.error('Error inserting data: ', err);
                 res.render("otpverify.hbs", {error500insert : true})
             }else{
-                res.render("upload.hbs")
+                res.render("index.hbs")
             }
         });
        

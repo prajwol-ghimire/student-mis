@@ -6,7 +6,8 @@ let upload = require('../config/multer.config.js');
 const bodyParser = require('body-parser')
 const {check, validationResult } = require('express-validator')
 const urlencodedParser = bodyParser.urlencoded({extended: false})
- 
+const cookieParser = require("cookie-parser");
+
 const firstsem = require('../controllers/firstsem.controller.js');
 const secondsem = require('../controllers/secondsem.controller.js');
 const thirdsem = require('../controllers/thirdsem.controller.js');
@@ -15,6 +16,7 @@ const thirdsem = require('../controllers/thirdsem.controller.js');
 let path = __basedir + '/views/';
 
 app.set('view engine', 'hbs');
+app.use(cookieParser());
 
 router.get('/uploadfiles', (req,res) => {
     res.render(path + "upload.hbs")
@@ -115,9 +117,7 @@ router.post('/registeruser', urlencodedParser,[
     signupValidate(req, res);
 });
 
-router.post('/loginuser', urlencodedParser,[
-    check('u_email', 'Email is not valid').isEmail().normalizeEmail()
-],(req,res) => { 
+router.post('/loginuser', urlencodedParser,(req,res) => { 
     signinValidate(req, res);
 });
 

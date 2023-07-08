@@ -127,8 +127,11 @@
                     HTTP Status Code 500
             {{/if}}
                
-            {{#if nosuchemail}}
+            {{#if nosuchuser}}
                    You are not signed up
+            {{/if}}
+              {{#if incoorectpass}}
+                   Incorrect Password
             {{/if}}
                
         
@@ -149,7 +152,7 @@
                 <div class="login">
                     <form action="/loginuser" method="POST">
                         <label for="chk" aria-hidden="true">Login</label>
-                        <input type="text" name="u_email" placeholder="Email">
+                        <input type="text" name="user_name" placeholder="username">
                         <input type="password" name="passwd" placeholder="Password">
                         <button>Login</button>
                     </form>

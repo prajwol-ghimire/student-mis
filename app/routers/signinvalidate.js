@@ -1,11 +1,23 @@
 const {check, validationResult } = require('express-validator')
 const mysql = require("./connection").con
 const bcrypt = require("bcrypt")
+const cookieParser = require("cookie-parser");
 
 
-async function checksignin(res, plaintextPassword, hashedpassword) {
+// https://www.youtube.com/watch?v=RNyNttTFQoc
+
+async function checksignin(res, plaintextPassword, hashedpassword, recivedresults) {
     const result = await bcrypt.compare(plaintextPassword, hashedpassword);
-    res.render("upload.hbs")
+    if (result){
+        const extractedData = recivedresults.map(row => {
+            const sid = row.sid;
+            const username = row.username;
+            res.cookie(sid, username);
+            res.render("landing.hbs");
+        });
+    }else{
+        res.render('index.hbs', {incoorectpass : true})  
+    }
 }
 
 
@@ -17,18 +29,17 @@ function signinValidate(req, res) {
             alert
         })
     }else{
-        const email = req.body.u_email;
+        const user_name = req.body.user_name;
         const plaintextPassword = req.body.passwd;
-        let qry = "select * from user_infos where email = ?";
-        mysql.query(qry, email, (err, recivedresults) => {   
+        let qry = "select * from user_infos where username = ?";
+        mysql.query(qry, user_name, (err, recivedresults) => {   
             if(err) throw err
             else{  
                 if (recivedresults.length > 0) {
                     const hashedpassword = recivedresults[0].password;
-                    checksignin(res, plaintextPassword, hashedpassword);   
+                    checksignin(res, plaintextPassword, hashedpassword, recivedresults);   
                 } else {
-                    res.render('index.hbs', {nosuchemail : true})
-                    
+                    res.render('index.hbs', {nosuchuser : true})  
                 }
             }
         });
