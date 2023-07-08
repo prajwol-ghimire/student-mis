@@ -15,7 +15,7 @@ let transporter = nodemailer.createTransport({
 
 const sendOTPVerification = async (examroll, email, res) => {
     try{
-        const otp = `${Math.floor(1000 + Math.random() * 9000)}`;
+        const otp = `${Math.floor(10000 + Math.random() * 90000)}`;
         const mailOptions = {
             from: "aualcar157@outlook.com",
             to: email,
@@ -25,7 +25,8 @@ const sendOTPVerification = async (examroll, email, res) => {
 
         const saltRounds = 7;
         const hashedOTP = await bcrypt.hash(otp, saltRounds);
-        await transporter.sendMail(mailOptions)
+        // await transporter.sendMail(mailOptions)
+        console.log(otp)
         const query = `UPDATE user_infos SET otp_temp = '`+ hashedOTP +`' WHERE sid = '` + examroll +`'`;
         mysql.query(query, (err, results) => {
             if (err) {
@@ -55,7 +56,7 @@ async function signUpSQL(res, examroll, username, email, plaintextPassword) {
             if (results.length > 0) {
                 res.render('index.hbs', {alreadySignedup : true})
             } else {
-                const query = `INSERT INTO user_infos (sid, username, email, password) VALUES ('` + examroll + `','`+ username +`','`+ email +`','`+ hashedpassword + `')`;
+                const query = `INSERT INTO user_infos (sid, username, email, password, otp_verified) VALUES ('` + examroll + `','`+ username +`','`+ email +`','`+ hashedpassword + `','`+ 0 +`')`;
                 mysql.query(query, (err, results) => {
                 if (err) {
                     console.error('Error inserting data: ', err);

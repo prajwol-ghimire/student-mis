@@ -7,14 +7,18 @@
 </head>
 <body>
     <form action="/verifyotp" method="POST">
+    {{sid}}
         <input type = "text" name="otpvalue" required>
-        <input type = "text" name="sid_user" value = {{sid}} disabled required> 
+        <input type = "text" name="sid_user" value = {{sid}} hidden required> 
         <button>Verify</button>
             {{#if wrongvalue}}
                 <h5>Otp invalid !!</h5>
             {{/if}}
               {{#if blankvalue}}
                 <h5>Type otp !!</h5>
+            {{/if}}
+            {{#if error500insert}}
+                <h5>HTTP Status Code 500</h5>
             {{/if}}
     </form>
 </body>

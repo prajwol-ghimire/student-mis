@@ -20,6 +20,9 @@ module.exports = (sequelize, Sequelize) => {
 	otp_temp: {
 		type: Sequelize.STRING
 	},
+	otp_verified: {
+		type: Sequelize.BOOLEAN,
+	},
 	});
 	return Results;
 }
