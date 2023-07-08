@@ -1,10 +1,10 @@
 module.exports = (sequelize, Sequelize) => {
-	const Results = sequelize.define('semester3', {	
+	const Cookie = sequelize.define('semester3', {	
 	sid: {
 		type: Sequelize.INTEGER,
 		allowNull: false
 	},
-	mathiii: {
+	user_name: {
 		type: Sequelize.STRING
 	},
 	sef: {
@@ -35,5 +35,5 @@ module.exports = (sequelize, Sequelize) => {
 
 	});
 	
-	return Results;
+	return Cookie;
 }

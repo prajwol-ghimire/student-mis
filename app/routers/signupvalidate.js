@@ -62,7 +62,15 @@ async function signUpSQL(res, examroll, username, email, plaintextPassword) {
                     console.error('Error inserting data: ', err);
                     res.render('index.hbs', {error500insert : true})
                 }else{
-                    sendOTPVerification(examroll,email, res)
+                    const query = `INSERT INTO user_cookies (sid) VALUES ('` + examroll + `')`;
+                    mysql.query(query, (err, results) => {
+                    if (err) {
+                        console.error('Error inserting data: ', err);
+                        res.render('index.hbs', {error500insert : true})
+                    }else{
+                        sendOTPVerification(examroll,email, res)
+                    }
+                    });          
                 }
                 });     
             }

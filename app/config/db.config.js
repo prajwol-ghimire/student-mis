@@ -18,9 +18,10 @@ const db = {};
  
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
-db.Result = require('../models/user_info.js')(sequelize, Sequelize);
+db.User_info = require('../models/user_info.js')(sequelize, Sequelize);
 db.Result = require('../models/3rd.model.js')(sequelize, Sequelize);
 db.Result = require('../models/2nd.model.js')(sequelize, Sequelize);
 db.Result = require('../models/1st.model.js')(sequelize, Sequelize);
+db.User_cookie = require('../models/user_cookie.js')(sequelize, Sequelize);
 
 module.exports = db;

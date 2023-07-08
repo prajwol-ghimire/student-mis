@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-	const Results = sequelize.define('user_info', {	
+	const User_info = sequelize.define('user_info', {	
 	sid: {
 		type: Sequelize.INTEGER,
 		allowNull: false,
@@ -24,5 +24,5 @@ module.exports = (sequelize, Sequelize) => {
 		type: Sequelize.BOOLEAN,
 	},
 	});
-	return Results;
+	return User_info;
 }

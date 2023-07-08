@@ -4,16 +4,30 @@ const bcrypt = require("bcrypt")
 const cookieParser = require("cookie-parser");
 
 
-// https://www.youtube.com/watch?v=RNyNttTFQoc
+// https://www.youtube.com/watch?v=RNyNttTFQoc'
+async function storeCookie(res, username, examroll) {
+    const intexamroll = examroll.toString();
+    const hashedusername = await bcrypt.hash(username, 5);
+    const hashedsid = await bcrypt.hash(intexamroll, 5);
+    res.cookie("_user_auth", hashedusername);
+    res.cookie("_user_sid", hashedsid);
+    const query = `UPDATE user_cookies SET username_cookie = '`+ hashedusername +`', sid_cookie = '`+ hashedsid +`' WHERE sid = '` + examroll +`'`;
+    mysql.query(query, (err, results) => {
+    if (err) {
+        console.error('Error inserting data: ', err);
+    }else{
+        res.render("landing.hbs", {cookies : true, rollno : examroll, user_name : username}); 
+    }
+    });     
+}
 
 async function checksignin(res, plaintextPassword, hashedpassword, recivedresults) {
     const result = await bcrypt.compare(plaintextPassword, hashedpassword);
     if (result){
         const extractedData = recivedresults.map(row => {
-            const sid = row.sid;
             const username = row.username;
-            res.cookie(sid, username);
-            res.render("landing.hbs");
+            const examroll = row.sid;
+            storeCookie(res, username, examroll)
         });
     }else{
         res.render('index.hbs', {incoorectpass : true})  

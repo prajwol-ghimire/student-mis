@@ -6,8 +6,12 @@
     <title>Document</title>
 </head>
 <body>
-
-        <button>login</button>
-        
+    landing 
+    {{#if cookies}}
+        {{rollno}}
+        {{user_name}}
+    {{else}}
+        <a href="/login"><button>login</button></a> 
+    {{/if}}    
 </body>
 </html>
