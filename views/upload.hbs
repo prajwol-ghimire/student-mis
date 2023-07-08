@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Document</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/static/js/uploaddownloadfiles.js"></script>
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<h3>Upload File</h3>
+			<div>
+				<br><br>
+				<form class="uploadSingleFileForm" data-param="sem1">
+					<div class="form-group">
+						<label>Semester 1</label>
+						<input type="file" class="form-control" placeholder="Choose a upload file" name="file" required></input>		
+					</div>
+					<button type="submit" class="btn btn-danger">Submit</button>
+				</form>
+
+				<form class="uploadSingleFileForm" data-param="sem2">
+					<div class="form-group">
+						<label>Semester 2</label>
+						<input type="file" class="form-control" placeholder="Choose a upload file" name="file" required></input>		
+					</div>
+					<button type="submit" class="btn btn-danger">Submit</button>
+
+				</form>
+
+				<form class="uploadSingleFileForm" data-param="sem3">
+					<div class="form-group">
+						<label>Semester 3</label>
+						<input type="file" class="form-control" placeholder="Choose a upload file" name="file" required></input>		
+					</div>
+					<button type="submit" class="btn btn-danger">Submit</button>
+				</form>
+
+				<form class="uploadSingleFileForm" data-param="sem4">
+					<div class="form-group">
+						<label>Semester 4</label>
+						<input type="file" class="form-control" placeholder="Choose a upload file" name="file" required></input>			
+					</div>
+					<button type="submit" class="btn btn-danger">Submit</button>
+				</form>
+
+				<form class="uploadSingleFileForm" data-param="sem5">
+					<div class="form-group">
+						<label>Semester 5</label>
+						<input type="file" class="form-control" placeholder="Choose a upload file" name="file" required></input>			
+					</div>
+					<button type="submit" class="btn btn-danger">Submit</button>
+				</form>
+
+			</div>
+			<div id="response" style="display:none">
+			</div>
+		</div>
+	</div>
+	<div class="menu">
+		<center><a href="/searchstudent">View result</a></center>
+		<center><a href="/uploadnotice">upload notice</a></center>
+	</div>
+</body>
+</html>

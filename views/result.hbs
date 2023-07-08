@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <title>Document</title>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
+    
+    {{!-- <script  type="text/javascript" src="/static/js/stringcompare.js"> --}}
+    {{!-- <script type="text/javascript" src="/static/js/uploaddownloadfiles.js"></script> --}}
+    
+    </script>
+
+</head>
+<body>
+<center>
+  <form action="/searchstudent">
+    <div class="form-group">
+      <label for="text">Roll Number</label>
+      <label >Semester 1</label>
+      <input type="text" class="form-control" style="width: 200px" aria-describedby="text" name="semfinder" value="semester1s" hidden>
+      <input type="text" class="form-control" style="width: 200px" aria-describedby="text" placeholder="Enter roll" name="roll">
+      <small id="text" class="form-text text-muted">Search Number</small>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+
+    
+      <br>
+      {{#if mesg1}}
+          
+         <form action="/updatestudent">
+
+             {{!-- {{#ifEquals checker "semester1s"}}
+             check
+            {{/ifEquals}}  --}}
+          
+            <table class="table">
+              {{#data}}
+              <thead>
+                <tr>
+                  <th scope="col">Roll No</th>
+                  <th scope="col">Math 1</th>
+                  <th scope="col">C Prog</th>
+                  <th scope="col">FIT</th>
+                  <th scope="col">PST</th>
+                  <th scope="col">Physic</th>
+
+                  <th scope="col">CT</th>
+                  <th scope="col">SGPA</th>
+                </tr>
+              </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row"> {{sid}}</th>
+                    <td>{{mathi}}</td>
+                    <td>{{cprog}}</td>
+                    <td>{{fit}}</td>
+                    <td>{{pst}}</td>
+                    <td>{{physics}}</td>
+                    <td>{{ct}}</td>
+                    <td>{{sgpa}}</td>
+                  </tr>
+                </tbody>
+                 <thead>
+               
+                {{!-- <tr>
+                  <th scope="col">Roll No</th>
+                  <th scope="col">Math 2</th>
+                  <th scope="col">LC</th>
+                  <th scope="col">OOP</th>
+                  <th scope="col">WT</th>
+                  <th scope="col">drawing</th>
+                  <th scope="col">MFCS</th>
+                  <th scope="col">SGPA</th>
+                </tr> --}}
+              </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">{{sid}}</th>
+                    <td>{{mathii}}</td>
+                    <td>{{lc}}</td>
+                    <td>{{oop}}</td>
+                    <td>{{wt}}</td>
+                    <td>{{drawing}}</td>
+                    <td>{{mfcs}}</td>
+                    <td>{{sgpa}}</td>
+                  </tr>
+                </tbody>
+                 <thead>
+                {{!-- <tr>
+                  <th scope="col">Roll No</th>
+                  <th scope="col">Math 3</th>
+                  <th scope="col">DSA</th>
+                  <th scope="col">SEF</th>
+                  <th scope="col">PQT</th>
+                  <th scope="col">JAVA</th>
+                  <th scope="col">MALP</th>
+                  <th scope="col">SGPA</th>
+                </tr> --}}
+              </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">{{sid}}</th>
+                    <td>{{mathiii}}</td>
+                    <td>{{sef}}</td>
+                    <td>{{dsa}}</td>
+                    <td>{{pqt}}</td>
+                    <td>{{java}}</td>
+                    <td>{{malp}}</td>
+                    <td>{{sgpa}}</td>
+                  </tr>
+                </tbody>
+               {{/data}}
+            </table>
+         
+          </form>
+        
+        
+      {{/if}}
+
+      {{#if mesg2}}
+        <h3>Not Found</h3>
+      {{/if}}
+
+</center>
+      
+</body>
+</html>
