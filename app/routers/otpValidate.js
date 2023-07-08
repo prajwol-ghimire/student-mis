@@ -21,7 +21,7 @@ async function compareOTP(hashedotp, otpvalue, res, sid_user) {
     }
 }
 
-async function otpValidate(req, res) {
+function otpValidate(req, res) {
     const otpvalue = req.body.otpvalue;
     const sid_user = req.body.sid_user;
     // if (otpvalue == null && sid_user == null){

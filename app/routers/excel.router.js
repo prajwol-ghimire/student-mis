@@ -33,78 +33,21 @@ router.get('/login', (req,res) => {
     res.render(path + "index.hbs")
 });
 
+router.get('/logout', (req,res) => {
+    res.clearCookie('_user_auth');
+    res.clearCookie('_user_sid');
+    res.redirect('/');
+});
 
 
-
-
-async function compareCookie(username,rollno,nonhashedroll,nonhashedusername,res) {
-    const intexamroll = nonhashedroll.toString();
-    const user_name = await bcrypt.compare(nonhashedusername, username);
-    const roll_no = await bcrypt.compare(intexamroll, rollno);
-    if (user_name && roll_no){
-            res.render("landing.hbs", {cookies : true, rollno : nonhashedroll, user_name : nonhashedusername}); 
-    }
-    else{
-        res.render("landing.hbs"); 
-    }
-}
-
-function getUsername(username,rollno,nonhashedroll,res) {
-    let qry = "select username from user_infos where sid = ?";
-    mysql.query(qry, nonhashedroll, (err, recivedresults) => {   
-        if(err) throw err
-        else{  
-            if (recivedresults.length > 0) {
-                const nonhashedusername = recivedresults[0].username;
-                compareCookie(username,rollno,nonhashedroll,nonhashedusername,res);    
-            }else {
-                res.render("landing.hbs"); 
-            }
-        }
-    });
-}
+const cookies_manager = require('../routers/cookies_manager.js');
 
 router.get('/', (req,res) => {
-    const rawCookieHeader = req.header('Cookie');
-    let username = null;
-    let rollno = null;
-
-    if (rawCookieHeader) {
-        const cookies = rawCookieHeader.split('; ');
-
-        for (const cookie of cookies) {
-        const [cookieName, cookieValue] = cookie.split('=');
-
-        if (cookieName === '_user_auth') {
-            username = cookieValue;
-        } else if (cookieName === '_user_sid') {
-            rollno = cookieValue;
-        }
-        }
-    }
-
-
-    if (username && rollno) {
-        let nusername  = decodeURIComponent(username)
-        let npassword =decodeURIComponent(rollno)
-        let qry = "select sid from user_cookies where username_cookie = ?";
-        mysql.query(qry, nusername, (err, recivedresults) => {   
-            if(err) throw err
-            else{  
-                if (recivedresults.length > 0) {
-                    const nonhashedroll = recivedresults[0].sid;
-                    getUsername(nusername,npassword,nonhashedroll,res);       
-                }else {
-                    res.render("landing.hbs"); 
-                }
-
-            }
-        });
-    
-    } else {
-        res.render("landing.hbs"); 
-    }
+    cookies_manager(req, res);
 });
+
+
+
 
 
 router.get('/searchstudent', (req,res) => {
@@ -186,7 +129,7 @@ router.post('/sendnotice', urlencodedParser,(req,res) => {
 
 const signupValidate = require('../routers/signupvalidate.js');
 const signinValidate = require('../routers/signinvalidate.js');
-const otpValidate = require('../routers/otpValidate.js')
+const otpValidate = require('../routers/otpValidate.js');
 
 router.post('/registeruser', urlencodedParser,[
     check('txt', 'This username must me 3+ characters long').exists().isLength({ min: 3 }),
