@@ -7,8 +7,12 @@
 </head>
 <body>
     <form action="/verifyotp" method="POST">
-        <input type = "text" name="otp" required>
-         <button>Verify</button>
+        <input type = "text" name="otpvalue" required>
+        <input type = "text" name="sid_user" value = {{sid}} required> 
+        <button>Verify</button>
+            {{#if wrongvalue}}
+                <h5>Otp invalid !!</h5>
+            {{/if}}
     </form>
 </body>
 </html>

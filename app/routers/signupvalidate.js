@@ -7,8 +7,6 @@ const { await } = require('await')
 
 let transporter = nodemailer.createTransport({
     host: "smtp-mail.outlook.com",
-    // port: 465,
-    // secure: true,
     auth : {
         user : "aualcar157@outlook.com",
         pass : "aspire5610",
@@ -17,8 +15,6 @@ let transporter = nodemailer.createTransport({
 
 const sendOTPVerification = async (examroll, email, res) => {
     try{
-        console.log(examroll)
-        console.log(email)
         const otp = `${Math.floor(1000 + Math.random() * 9000)}`;
         const mailOptions = {
             from: "aualcar157@outlook.com",
@@ -29,14 +25,14 @@ const sendOTPVerification = async (examroll, email, res) => {
 
         const saltRounds = 7;
         const hashedOTP = await bcrypt.hash(otp, saltRounds);
-        // await transporter.sendMail(mailOptions)
+        await transporter.sendMail(mailOptions)
         const query = `UPDATE user_infos SET otp_temp = '`+ hashedOTP +`' WHERE sid = '` + examroll +`'`;
         mysql.query(query, (err, results) => {
             if (err) {
                 console.error('Error inserting data: ', err);
                 res.render('index.hbs', {error500insert : true})
             }else{
-                res.render("otpverify.hbs") 
+                res.render("otpverify.hbs", {sid : examroll}) 
             }
         });
     }
@@ -50,8 +46,6 @@ const sendOTPVerification = async (examroll, email, res) => {
 }
 
 
-
-
 async function signUpSQL(res, examroll, username, email, plaintextPassword) {
     const hashedpassword = await bcrypt.hash(plaintextPassword, 10);
     let qry = "select * from user_infos where sid = ?";
@@ -61,20 +55,15 @@ async function signUpSQL(res, examroll, username, email, plaintextPassword) {
             if (results.length > 0) {
                 res.render('index.hbs', {alreadySignedup : true})
             } else {
-                console.log(examroll);
                 const query = `INSERT INTO user_infos (sid, username, email, password) VALUES ('` + examroll + `','`+ username +`','`+ email +`','`+ hashedpassword + `')`;
                 mysql.query(query, (err, results) => {
-                    if (err) {
-                        console.error('Error inserting data: ', err);
-                        res.render('index.hbs', {error500insert : true})
-                    }else{
-                        console.log('Data inserted successfully.');
-                        console.log('Affected rows:', results.affectedRows);
-                        sendOTPVerification(examroll,email, res)
-                        // res.render("upload.hbs")
-                    }
-                    });
-                    
+                if (err) {
+                    console.error('Error inserting data: ', err);
+                    res.render('index.hbs', {error500insert : true})
+                }else{
+                    sendOTPVerification(examroll,email, res)
+                }
+                });     
             }
         }
     });
@@ -85,70 +74,55 @@ async function signUpSQL(res, examroll, username, email, plaintextPassword) {
 function validateEmail(email) {
     const parts = email.split("@");
     if (parts.length !== 2) {
-        console.log("1");
       return false;
     }
-  
     const [username, domain] = parts;
     const usernameParts = username.split(".");
     if (usernameParts.length !== 2) {
-        console.log("2");
       return false;
     }
-
     if (!(/^[a-z]/.test(usernameParts[0]))) {
-        console.log("3");
       return false;
-      }
-
+    }
     if (!(/^[0-9]/.test(usernameParts[1]))) {
-        console.log("5");
         return false;
     }
-  
     const domainParts = domain.split(".");
     if (domainParts.length < 3 || domainParts[domainParts.length - 1] !== "np") {
-        console.log("4");
       return false;
     }
-  
     if (
       domainParts[domainParts.length - 2] !== "edu" ||
       domainParts[domainParts.length - 3] !== "ncit"
     ) {
-        console.log("5");
       return false;
     }
-
     return true;
-  }
+}
   
-
-
-
-
 
 function signupValidate(req, res) {
     
     const email = req.body.email;
     const isValid = validateEmail(email);
     console.log(isValid);
-    
-
-    const errors = validationResult(req)
-    if(!errors.isEmpty()) {
-        const alert = errors.array()
-        res.render('index.hbs', {
-            alert
-        })
+    if (isValid){
+        const errors = validationResult(req)
+        if(!errors.isEmpty()) {
+            const alert = errors.array()
+            res.render('index.hbs', {
+                alert
+            })
+        }else{
+            const examroll = req.body.examroll;
+            const username = req.body.txt;
+            const email = req.body.email;
+            const plaintextPassword = req.body.pswd;
+            signUpSQL(res, examroll, username, email, plaintextPassword);
+        }
     }else{
-        const examroll = req.body.examroll;
-        const username = req.body.txt;
-        const email = req.body.email;
-        const plaintextPassword = req.body.pswd;
-        signUpSQL(res, examroll, username, email, plaintextPassword);
+        //show here email not valid wala step
     }
 }
 
-  
 module.exports = signupValidate;
