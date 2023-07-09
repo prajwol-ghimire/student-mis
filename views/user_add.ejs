@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title><%= title %></title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+  <h2><%= title %></h2>
+  <form action="/save" method="post">
+    <div class="form-group">
+      <label for="sid">ID:</label>
+      <input type="number" class="form-control" id="sid" placeholder="Enter ID" name="sid" required>
+    </div>
+    <div class="form-group">
+      <label for="username">Name:</label>
+      <input type="text" class="form-control" id="username" placeholder="Enter Name" name="username" required>
+    </div>
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" class="form-control" id="email" placeholder="Enter Email" name="email" required>
+    </div>
+    
+    
+    <div class="form-group">
+      <label for="permission_type">Role:</label>
+      <select  for="permission_type" name="permission_type" id="permission_type">
+        <option value="Student">Student</option>
+        <option value="Department Member">Department Member</option>
+        <option value="Moderator">Moderator</option>
+        <option value="Administrator">Administrator</option>
+      </select>
+    </div>
+
+
+    
+
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
+
+</body>
+</html>
