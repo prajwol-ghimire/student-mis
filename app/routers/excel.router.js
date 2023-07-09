@@ -53,6 +53,10 @@ router.get('/login', (req,res) => {
     res.render(path + "login.hbs")
 });
 
+router.get('/password_reset', (req,res) => {
+    res.render(path + "password_reset.hbs")
+});
+
 router.get('/logout', (req,res) => {
     res.clearCookie('_user_auth');
     res.clearCookie('_user_sid');
