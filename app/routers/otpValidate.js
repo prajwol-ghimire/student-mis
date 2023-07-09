@@ -16,7 +16,6 @@ async function compareOTP(hashedotp, otpvalue, res, sid_user, username, permissi
                 res.redirect('/');
             }
         });
-       
     }else{
         res.render("landing.hbs", {otpwrong: true, otpnotverified : true, cookies : true, rollno : sid_user, user_name : username, permission : permission}); 
     }
