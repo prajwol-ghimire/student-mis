@@ -4,9 +4,54 @@ const cookieParser = require("cookie-parser");
 app.use(cookieParser());
 const bcrypt = require("bcrypt")
 const mysql = require("./connection").con
+const nodemailer = require("nodemailer")
+const { await } = require('await')
 
 
-async function compareCookie(username,rollno,nonhashedroll,nonhashedusername,permission,res) {
+// Generate a random job title
+
+
+let transporter = nodemailer.createTransport({
+    host: "smtp-mail.outlook.com",
+    auth : {
+        user : "aualcar157@outlook.com",
+        pass : "aspire5610",
+    },
+})
+
+
+const sendOTPVerification = async (nonhashedroll, email, res, nonhashedusername, permission) => {
+    try{
+        const otp = `${Math.floor(10000 + Math.random() * 90000)}`;
+        const mailOptions = {
+            from: "aualcar157@outlook.com",
+            to: email,
+            subject: "Verify Your Email",
+            html : `<p> Enter ${otp} in the app to verify email address and complete the signup`,
+        };
+
+        const saltRounds = 7;
+        const hashedOTP = await bcrypt.hash(otp, saltRounds);
+        // await transporter.sendMail(mailOptions)
+        console.log(otp)
+        const query = `UPDATE user_infos SET otp_temp = '`+ hashedOTP +`' WHERE sid = '` + nonhashedroll +`'`;
+        mysql.query(query, (err, results) => {
+            if (err) {
+                res.render("landing.hbs", {otpnotverified : false, cookies : true, rollno : nonhashedroll, user_name : nonhashedusername, permission : permission}); 
+            }else{
+                res.render("landing.hbs", {otpnotverified : true, cookies : true, rollno : nonhashedroll, user_name : nonhashedusername, permission : permission}); 
+            }
+        });
+    }
+    catch(error){
+        res.json({
+            status : "FAILED",
+            message : error.message,
+        });
+    }
+}
+
+async function compareCookie(username,rollno,nonhashedroll,nonhashedusername,permission,res, email) {
     const intexamroll = nonhashedroll.toString();
     const user_name = await bcrypt.compare(nonhashedusername, username);
     const roll_no = await bcrypt.compare(intexamroll, rollno);
@@ -22,7 +67,7 @@ async function compareCookie(username,rollno,nonhashedroll,nonhashedusername,per
                         res.render("landing.hbs", {otpnotverified : false, cookies : true, rollno : nonhashedroll, user_name : nonhashedusername, permission : permission}); 
                     }
                     else{
-                        res.render("landing.hbs", {otpnotverified : true, cookies : true, rollno : nonhashedroll, user_name : nonhashedusername, permission : permission}); 
+                        sendOTPVerification(nonhashedroll, email, res, nonhashedusername, permission) 
                     }
                 } else {
                     res.render('login.hbs', {nosuchuser : true})  
@@ -45,7 +90,8 @@ function getUsername(username,rollno,nonhashedroll,res) {
             if (recivedresults.length > 0) {
                 const nonhashedusername = recivedresults[0].username;
                 const permission = recivedresults[0].permission_type;
-                compareCookie(username,rollno,nonhashedroll,nonhashedusername,permission,res);    
+                const email = recivedresults[0].permission_type;
+                compareCookie(username,rollno,nonhashedroll,nonhashedusername,permission,res,email);    
             }else {
                 res.render("landing.hbs"); 
             }

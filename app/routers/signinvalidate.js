@@ -2,10 +2,56 @@ const {check, validationResult } = require('express-validator')
 const mysql = require("./connection").con
 const bcrypt = require("bcrypt")
 const cookieParser = require("cookie-parser");
+const nodemailer = require("nodemailer")
+const { await } = require('await')
 
 
-// https://www.youtube.com/watch?v=RNyNttTFQoc'
-async function storeCookie(res, username, examroll) {
+// Generate a random job title
+
+
+let transporter = nodemailer.createTransport({
+    host: "smtp-mail.outlook.com",
+    auth : {
+        user : "aualcar157@outlook.com",
+        pass : "aspire5610",
+    },
+})
+
+
+const sendOTPVerification = async (examroll, email, res) => {
+    try{
+        const otp = `${Math.floor(10000 + Math.random() * 90000)}`;
+        const mailOptions = {
+            from: "aualcar157@outlook.com",
+            to: email,
+            subject: "Verify Your Email",
+            html : `<p> Enter ${otp} in the app to verify email address and complete the signup`,
+        };
+
+        const saltRounds = 7;
+        const hashedOTP = await bcrypt.hash(otp, saltRounds);
+        // await transporter.sendMail(mailOptions)
+        console.log(otp)
+        const query = `UPDATE user_infos SET otp_temp = '`+ hashedOTP +`' WHERE sid = '` + examroll +`'`;
+        mysql.query(query, (err, results) => {
+            if (err) {
+                console.error('Error inserting data: ', err);
+                res.render('signup.hbs', {error500insert : true})
+            }else{
+                res.redirect('/viewsusers');
+            }
+        });
+    }
+    catch(error){
+        res.json({
+            status : "FAILED",
+            message : error.message,
+        });
+    }
+
+}
+
+async function storeCookie(res, username, examroll, email) {
     const intexamroll = examroll.toString();
     const hashedusername = await bcrypt.hash(username, 5);
     const hashedsid = await bcrypt.hash(intexamroll, 5);
@@ -43,6 +89,7 @@ async function storeCookie(res, username, examroll) {
                         res.render('landing.hbs', {otpnotverified : false})  
                     }
                     else{
+                        sendOTPVerification(examroll, email, res)
                         res.render('landing.hbs', {otpnotverified : true})  
                     }
                 } else {
@@ -61,7 +108,8 @@ async function checksignin(res, plaintextPassword, hashedpassword, recivedresult
         const extractedData = recivedresults.map(row => {
             const username = row.username;
             const examroll = row.sid;
-            storeCookie(res, username, examroll)
+            const email = row.email;
+            storeCookie(res, username, examroll, email)
         });
     }else{
         res.render('index.hbs', {incorrectpass : true})  
