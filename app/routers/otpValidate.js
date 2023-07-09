@@ -23,7 +23,7 @@ async function compareOTP(hashedotp, otpvalue, res, sid_user) {
 
 function otpValidate(req, res) {
     const otpvalue = req.body.otpvalue;
-    const sid_user = req.body.sid_user;
+    const sid_user = req.body.rollno;
     // if (otpvalue == null && sid_user == null){
         let qry = "select otp_temp from user_infos where sid = ?";
         mysql.query(qry, sid_user, (err, recivedresults) => {   

@@ -11,7 +11,26 @@ async function compareCookie(username,rollno,nonhashedroll,nonhashedusername,per
     const user_name = await bcrypt.compare(nonhashedusername, username);
     const roll_no = await bcrypt.compare(intexamroll, rollno);
     if (user_name && roll_no){
-            res.render("landing.hbs", {cookies : true, rollno : nonhashedroll, user_name : nonhashedusername, permission : permission}); 
+
+        const query = `SELECT otp_verified from user_infos where sid = ?`;
+        mysql.query(query, nonhashedroll, (err, results) => {
+            if(err) throw err
+            else{  
+                if (results.length > 0) {
+                    const otpverified = results[0].otp_verified;
+                    if (otpverified){
+                        res.render("landing.hbs", {otpnotverified : false, cookies : true, rollno : nonhashedroll, user_name : nonhashedusername, permission : permission}); 
+                    }
+                    else{
+                        res.render("landing.hbs", {otpnotverified : true, cookies : true, rollno : nonhashedroll, user_name : nonhashedusername, permission : permission}); 
+                    }
+                } else {
+                    res.render('login.hbs', {nosuchuser : true})  
+                }
+            }
+        });
+
+            
     }
     else{
         res.render("landing.hbs"); 
@@ -65,6 +84,7 @@ function cookie_manager(req, res) {
                     const nonhashedroll = recivedresults[0].sid;
                     getUsername(nusername,npassword,nonhashedroll,res);       
                 }else {
+                   
                     res.render("landing.hbs"); 
                 }
 

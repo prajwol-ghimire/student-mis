@@ -32,7 +32,25 @@ async function storeCookie(res, username, examroll) {
     if (err) {
         console.error('Error inserting data: ', err);
     }else{
-        res.redirect('/');
+        // const query = `UPDATE user_cookies SET username_cookie = '`+ hashedusername +`', sid_cookie = '`+ hashedsid +`' WHERE sid = '` + examroll +`'`;
+        const query = `SELECT otp_verified from user_infos where sid = ?`;
+        mysql.query(query, examroll, (err, results) => {
+            if(err) throw err
+            else{  
+                if (results.length > 0) {
+                    const otpverified = results[0].otp_verified;
+                    if (otpverified){
+                        res.render('landing.hbs', {otpnotverified : false})  
+                    }
+                    else{
+                        res.render('landing.hbs', {otpnotverified : true})  
+                    }
+                } else {
+                    res.render('login.hbs', {nosuchuser : true})  
+                }
+            }
+        });
+            // res.redirect('/');
     }
     });     
 }
@@ -69,7 +87,7 @@ function signinValidate(req, res) {
                     const hashedpassword = recivedresults[0].password;
                     checksignin(res, plaintextPassword, hashedpassword, recivedresults);   
                 } else {
-                    res.render('index.hbs', {nosuchuser : true})  
+                    res.render('login.hbs', {nosuchuser : true})  
                 }
             }
         });

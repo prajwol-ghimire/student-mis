@@ -104,9 +104,30 @@
     </div>
   </header><!-- End Header -->
   <!-- End Header -->
+ {{#if otpnotverified}}
+    <div class="modal-overlay"></div>
+    <div class="modal">
+      <div class="modal-content">
+        <h2>Please Verify OTP</h2>
+        <p>If otp not available on inbox Check your spam folder.</p>
+        <form action="/otpverification" method="post">
+          <input type="hidden" name="rollno" value="{{rollno}}">
+          <input type="text" name="otpvalue" required>
+          <button value="sendotp">send</button>
+        </form>
+      </div>
+    </div>
 
-
-
+    <script>
+      window.onload = function() {
+        const modalOverlay = document.querySelector('.modal-overlay');
+        const modal = document.querySelector('.modal');
+        modalOverlay.style.display = 'block';
+        modal.classList.add('show');
+        document.body.style.overflow = 'hidden';
+      };
+    </script>
+  {{/if}}
 
   <!-- ======= Hero Section ======= -->
   <section id="hero" class="hero">
