@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>{{ title }}</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+  <h2>{{ title }}</h2>
+  <a href="/signup" class="btn btn-sm btn-primary">Add User</a><br/><br/>
+
+  <form action="/search" method="post">
+    <input type="number">  <button type="submit" class="btn btn-secondary">Search User</button> <br></br>
+  </form>
+  
+  <table class="table table-dark table-striped">
+    <thead>
+      <tr style="background-color: rgb(107, 173, 249);color: rgb(54, 51, 51);">
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+        {{#each user_infos}}
+            <tr>
+                <td>{{this.sid}}</td>
+                <td>{{this.username}}</td>
+                <td>{{this.email}}</td>
+                <td>{{this.permission_type}}</td>
+
+                <td>
+
+                   <form action="/edit" method="POST">
+                        <input type="text" name="sid" value="{{this.sid}}" hidden>
+                        <button class="btn btn-sm btn-primary">Edit</button>
+                  </form>
+                  
+                  <form action="/delete" method="POST">
+                        <input type="text" name="sid" value="{{this.sid}}" hidden>
+                        <button class="btn btn-sm btn-danger">Delete</button>
+                  </form>
+ 
+                </td>
+            </tr>
+        {{/each}}
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>

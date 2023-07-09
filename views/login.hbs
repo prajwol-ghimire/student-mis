@@ -1,0 +1,53 @@
+  <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Slide Navbar</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/login.css">
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
+           
+    </head>
+    <body>
+       
+            {{#if alert}}
+             <div class="errormsg"></div>
+                {{#each alert}}
+                    <div class="check" role="alert">
+                    {{msg}}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                {{/each}}
+                </div>
+            {{/if}}
+            
+            {{#if alreadySignedup}}
+                    Roll no already signed up
+            {{/if}}
+
+            {{#if error500insert}}
+                    HTTP Status Code 500
+            {{/if}}
+               
+            {{#if nosuchuser}}
+                   You are not signed up
+            {{/if}}
+            {{#if incorrectpass}}
+                   Incorrect Password
+            {{/if}}
+               
+        
+        <div class="main">  	
+            <input type="checkbox" id="chk" aria-hidden="true">
+                <div class="login">
+                    <form action="/loginuser" method="POST">
+                        <label for="chk" aria-hidden="true">Login</label>
+                        <input type="text" name="user_name" placeholder="username">
+                        <input type="password" name="passwd" placeholder="Password">
+                        <button>Login</button>
+                    </form>
+        </div>
+        </div>
+    </body>
+    </html>
+

@@ -5,6 +5,9 @@ const nodemailer = require("nodemailer")
 const { await } = require('await')
 
 
+// Generate a random job title
+
+
 let transporter = nodemailer.createTransport({
     host: "smtp-mail.outlook.com",
     auth : {
@@ -13,62 +16,85 @@ let transporter = nodemailer.createTransport({
     },
 })
 
-const sendOTPVerification = async (examroll, email, res) => {
-    try{
-        const otp = `${Math.floor(10000 + Math.random() * 90000)}`;
+// const sendOTPVerification = async (examroll, email, res) => {
+//     try{
+//         const otp = `${Math.floor(10000 + Math.random() * 90000)}`;
+//         const mailOptions = {
+//             from: "aualcar157@outlook.com",
+//             to: email,
+//             subject: "Verify Your Email",
+//             html : `<p> Enter ${otp} in the app to verify email address and complete the signup`,
+//         };
+
+//         const saltRounds = 7;
+//         const hashedOTP = await bcrypt.hash(otp, saltRounds);
+//         await transporter.sendMail(mailOptions)
+//         console.log(otp)
+//         const query = `UPDATE user_infos SET otp_temp = '`+ hashedOTP +`' WHERE sid = '` + examroll +`'`;
+//         mysql.query(query, (err, results) => {
+//             if (err) {
+//                 console.error('Error inserting data: ', err);
+//                 res.render('signup.hbs', {error500insert : true})
+//             }else{
+//                 res.redirect('/viewsusers');
+//             }
+//         });
+//     }
+//     catch(error){
+//         res.json({
+//             status : "FAILED",
+//             message : error.message,
+//         });
+//     }
+
+// }
+
+async function sendUserDetails(examroll,email, password,username,res){
         const mailOptions = {
             from: "aualcar157@outlook.com",
             to: email,
-            subject: "Verify Your Email",
-            html : `<p> Enter ${otp} in the app to verify email address and complete the signup`,
+            subject: "STUDENT MIS REGISTRATION",
+            html : `<p> Use the following credentials to login : url dinu parxa
+            <p>
+            examroll :  ${examroll} <br>
+            email :  ${email} <br>
+            username : ${username} <br>
+            password : ${password} <br>
+            `,
         };
-
-        const saltRounds = 7;
-        const hashedOTP = await bcrypt.hash(otp, saltRounds);
         // await transporter.sendMail(mailOptions)
-        console.log(otp)
-        const query = `UPDATE user_infos SET otp_temp = '`+ hashedOTP +`' WHERE sid = '` + examroll +`'`;
-        mysql.query(query, (err, results) => {
-            if (err) {
-                console.error('Error inserting data: ', err);
-                res.render('index.hbs', {error500insert : true})
-            }else{
-                res.render("otpverify.hbs", {sid : examroll}) 
-            }
-        });
-    }
-    catch(error){
-        res.json({
-            status : "FAILED",
-            message : error.message,
-        });
-    }
-
+        res.redirect('/viewsusers');
 }
 
 
-async function signUpSQL(res, examroll, username, email, plaintextPassword) {
+async function signUpSQL(res, examroll, username, email, permission) {
+
+    min = Math.ceil(11111);
+    max = Math.floor(999999);
+    const randomnum1 =  Math.floor(Math.random() * (max - min)) + min;
+    const randomnum2 =  Math.floor(Math.random() * (max - min)) + min;
+    plaintextPassword = randomnum1 + "@ncit!" + randomnum2
     const hashedpassword = await bcrypt.hash(plaintextPassword, 10);
     let qry = "select * from user_infos where sid = ?";
     mysql.query(qry, examroll, (err, results) => {
         if(err) throw err
         else{
             if (results.length > 0) {
-                res.render('index.hbs', {alreadySignedup : true})
+                res.render('signup.hbs', {alreadySignedup : true})
             } else {
-                const query = `INSERT INTO user_infos (sid, username, email, password, otp_verified) VALUES ('` + examroll + `','`+ username +`','`+ email +`','`+ hashedpassword + `','`+ 0 +`')`;
+                const query = `INSERT INTO user_infos (sid, username, email, password, otp_verified, permission_type) VALUES ('` + examroll + `','`+ username +`','`+ email +`','`+ hashedpassword + `','`+ 0 +`','`+ permission +`')`;
                 mysql.query(query, (err, results) => {
                 if (err) {
                     console.error('Error inserting data: ', err);
-                    res.render('index.hbs', {error500insert : true})
+                    res.render('signup.hbs', {error500insert : true})
                 }else{
                     const query = `INSERT INTO user_cookies (sid) VALUES ('` + examroll + `')`;
                     mysql.query(query, (err, results) => {
                     if (err) {
                         console.error('Error inserting data: ', err);
-                        res.render('index.hbs', {error500insert : true})
+                        res.render('signup.hbs', {error500insert : true})
                     }else{
-                        sendOTPVerification(examroll,email, res)
+                        sendUserDetails(examroll,email, plaintextPassword,username,res)
                     }
                     });          
                 }
@@ -111,25 +137,15 @@ function validateEmail(email) {
   
 
 function signupValidate(req, res) {
-    
     const email = req.body.email;
     const isValid = validateEmail(email);
-    console.log(isValid);
     if (isValid){
-        const errors = validationResult(req)
-        if(!errors.isEmpty()) {
-            const alert = errors.array()
-            res.render('index.hbs', {
-                alert
-            })
-        }else{
-            const examroll = req.body.examroll;
-            const username = req.body.txt;
-            const email = req.body.email;
-            const plaintextPassword = req.body.pswd;
-            signUpSQL(res, examroll, username, email, plaintextPassword);
+            const sid = req.body.examroll;
+            const username = req.body.username;
+            const permission = req.body.permission_type;
+            signUpSQL(res, sid, username, email,permission);
         }
-    }else{
+    else{
         //show here email not valid wala step
     }
 }

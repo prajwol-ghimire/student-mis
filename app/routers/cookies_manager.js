@@ -6,12 +6,12 @@ const bcrypt = require("bcrypt")
 const mysql = require("./connection").con
 
 
-async function compareCookie(username,rollno,nonhashedroll,nonhashedusername,res) {
+async function compareCookie(username,rollno,nonhashedroll,nonhashedusername,permission,res) {
     const intexamroll = nonhashedroll.toString();
     const user_name = await bcrypt.compare(nonhashedusername, username);
     const roll_no = await bcrypt.compare(intexamroll, rollno);
     if (user_name && roll_no){
-            res.render("landing.hbs", {cookies : true, rollno : nonhashedroll, user_name : nonhashedusername}); 
+            res.render("landing.hbs", {cookies : true, rollno : nonhashedroll, user_name : nonhashedusername, permission : permission}); 
     }
     else{
         res.render("landing.hbs"); 
@@ -25,7 +25,8 @@ function getUsername(username,rollno,nonhashedroll,res) {
         else{  
             if (recivedresults.length > 0) {
                 const nonhashedusername = recivedresults[0].username;
-                compareCookie(username,rollno,nonhashedroll,nonhashedusername,res);    
+                const permission = recivedresults[0].permission_type;
+                compareCookie(username,rollno,nonhashedroll,nonhashedusername,permission,res);    
             }else {
                 res.render("landing.hbs"); 
             }

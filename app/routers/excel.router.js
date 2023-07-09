@@ -10,6 +10,7 @@ let upload = require('../config/multer.config.js');
 const bodyParser = require('body-parser')
 const {check, validationResult } = require('express-validator')
 const urlencodedParser = bodyParser.urlencoded({extended: false})
+// const faker = require('faker');
 
 
 const firstsem = require('../controllers/firstsem.controller.js');
@@ -19,7 +20,26 @@ const thirdsem = require('../controllers/thirdsem.controller.js');
 
 let path = __basedir + '/views/';
 
+
+router.use(express.static(path));
+
 app.set('view engine', 'hbs');
+
+router.get('/signup', (req,res) => {
+    res.render(path + "signup.hbs")
+});
+
+router.get('/viewsusers',(req, res) => {    
+    let sql = "SELECT * FROM user_infos";
+    let query = mysql.query(sql, (err, rows) => {
+        if(err) throw err;
+        res.render(path + 'viewsusers.hbs', {
+            title : 'Manage User',
+            user_infos : rows
+        });
+    });
+});
+
 
 
 router.get('/uploadfiles', (req,res) => {
@@ -30,7 +50,7 @@ router.get('/uploadnotice', (req,res) => {
 });
 
 router.get('/login', (req,res) => {
-    res.render(path + "index.hbs")
+    res.render(path + "login.hbs")
 });
 
 router.get('/logout', (req,res) => {
@@ -45,6 +65,7 @@ const cookies_manager = require('../routers/cookies_manager.js');
 router.get('/', (req,res) => {
     cookies_manager(req, res);
 });
+
 
 
 
@@ -124,6 +145,40 @@ router.post('/sendnotice', urlencodedParser,(req,res) => {
     noticeUpload(req, res);
 });
 
+router.post('/delete', urlencodedParser,(req,res) => { 
+    const sid = req.body.sid;
+    let sql = `DELETE from user_infos where sid = ${sid}`;
+    let query = mysql.query(sql,(err, result) => {
+        if(err) throw err;
+        res.redirect('/viewsusers');
+    });
+});
+
+router.post('/edit',urlencodedParser, (req, res) => {
+    const sid = req.body.sid;
+    let sql = `Select * from user_infos where sid = ${sid}`;
+    let query = mysql.query(sql,(err, result) => {
+        if(err) throw err;
+        res.render(path + 'user_edit.hbs', {title : 'Edit User ',user : result[0]});
+    });
+});
+
+
+router.post('/update',urlencodedParser,  (req, res) => {
+    const sid = req.body.sid;
+    const { username, email, permission_type } = req.body;
+    let sql = `UPDATE user_infos SET
+                username = '${username}',
+                email = '${email}',
+                permission_type = '${permission_type}'
+                WHERE sid = ${sid}`;
+  
+    let query = mysql.query(sql, (err, results) => {
+      if (err) throw err;
+      res.redirect('/viewsusers');
+    });
+  });
+
 
 ///////////////////login, signup ani otp wala part /////////////////////////
 
@@ -131,10 +186,7 @@ const signupValidate = require('../routers/signupvalidate.js');
 const signinValidate = require('../routers/signinvalidate.js');
 const otpValidate = require('../routers/otpValidate.js');
 
-router.post('/registeruser', urlencodedParser,[
-    check('txt', 'This username must me 3+ characters long').exists().isLength({ min: 3 }),
-    check('email', 'Email is not valid').isEmail().normalizeEmail()
-],(req,res) => { 
+router.post('/registeruser', urlencodedParser,(req,res) => { 
     signupValidate(req, res);
 });
 

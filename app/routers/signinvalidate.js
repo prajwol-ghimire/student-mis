@@ -46,7 +46,7 @@ async function checksignin(res, plaintextPassword, hashedpassword, recivedresult
             storeCookie(res, username, examroll)
         });
     }else{
-        res.render('index.hbs', {incoorectpass : true})  
+        res.render('index.hbs', {incorrectpass : true})  
     }
 }
 
