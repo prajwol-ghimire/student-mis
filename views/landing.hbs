@@ -110,11 +110,17 @@
       <div class="modal-content">
         <h2>Please Verify OTP</h2>
         <p>If otp not available on inbox Check your spam folder.</p>
-        <form action="/otpverification" method="post">
+        <form action="/verifyotp" method="post">
           <input type="hidden" name="rollno" value="{{rollno}}">
+          <input type="hidden" name="username" value="{{user_name}}">
+          <input type="hidden" name="permission" value="{{permission}}">
           <input type="text" name="otpvalue" required>
-          <button value="sendotp">send</button>
+          <button value="sendotp">send</button>  
         </form>
+        <a href="/logout"><button>logout</button></a> 
+         {{#if otpwrong}}
+                <h7>wrong otp</h7>
+          {{/if}}
       </div>
     </div>
 

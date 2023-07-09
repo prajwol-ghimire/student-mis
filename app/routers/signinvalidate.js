@@ -31,14 +31,13 @@ const sendOTPVerification = async (examroll, email, res) => {
         const saltRounds = 7;
         const hashedOTP = await bcrypt.hash(otp, saltRounds);
         // await transporter.sendMail(mailOptions)
-        console.log(otp)
         const query = `UPDATE user_infos SET otp_temp = '`+ hashedOTP +`' WHERE sid = '` + examroll +`'`;
         mysql.query(query, (err, results) => {
             if (err) {
                 console.error('Error inserting data: ', err);
                 res.render('signup.hbs', {error500insert : true})
             }else{
-                res.redirect('/viewsusers');
+                res.redirect('/');
             }
         });
     }
@@ -78,22 +77,20 @@ async function storeCookie(res, username, examroll, email) {
     if (err) {
         console.error('Error inserting data: ', err);
     }else{
-        // const query = `UPDATE user_cookies SET username_cookie = '`+ hashedusername +`', sid_cookie = '`+ hashedsid +`' WHERE sid = '` + examroll +`'`;
         const query = `SELECT otp_verified from user_infos where sid = ?`;
         mysql.query(query, examroll, (err, results) => {
             if(err) throw err
             else{  
                 if (results.length > 0) {
                     const otpverified = results[0].otp_verified;
-                    if (otpverified){
-                        res.render('landing.hbs', {otpnotverified : false})  
+                    if (otpverified){ 
+                        res.redirect('/');
                     }
                     else{
                         sendOTPVerification(examroll, email, res)
-                        res.render('landing.hbs', {otpnotverified : true})  
                     }
                 } else {
-                    res.render('login.hbs', {nosuchuser : true})  
+                    res.render('landing.hbs', {nosuchuser : true})  
                 }
             }
         });
