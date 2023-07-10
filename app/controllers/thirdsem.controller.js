@@ -80,7 +80,7 @@ exports.uploadFilesem3 = (req, res) => {
             filename: req.file.originalname,
             message: "Upload Error! message = " + error.message
         }
-        res.json(results);
+       
     }
 }
 
