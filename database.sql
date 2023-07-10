@@ -30,7 +30,11 @@ CREATE TABLE IF NOT EXISTS `semester` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8mb4;
 
--- Data exporting was unselected.
+-- Dumping data for table test11.semester: ~3 rows (approximately)
+INSERT INTO `semester` (`sid`, `mathiii`, `sef`, `dsa`, `pqt`, `java`, `malp`, `sgpa`, `id`, `createdAt`, `updatedAt`) VALUES
+	(55, 'A', 'A', 'A', 'F', 'A', 'F', '-', 1, '2023-06-30 03:28:52', '2023-06-30 03:28:52'),
+	(55, '', '', '', 'A', '', '', '-', 2, '2023-06-30 03:28:53', '2023-06-30 03:28:53'),
+	(55, '', '', '', '', '', 'A', '-', 3, '2023-06-30 03:28:54', '2023-06-30 03:28:52');
 
 -- Dumping structure for table test11.semester1s
 CREATE TABLE IF NOT EXISTS `semester1s` (
@@ -48,7 +52,10 @@ CREATE TABLE IF NOT EXISTS `semester1s` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8mb4;
 
--- Data exporting was unselected.
+-- Dumping data for table test11.semester1s: ~2 rows (approximately)
+INSERT INTO `semester1s` (`sid`, `mathi`, `cprog`, `fit`, `pst`, `physics`, `ct`, `sgpa`, `id`, `createdAt`, `updatedAt`) VALUES
+	(45678, 'B-', 'B-', 'B-', 'C-', 'F', 'D+', '-', 1, '2023-07-09 16:05:40', '2023-07-09 16:05:40'),
+	(45678, NULL, NULL, NULL, NULL, 'A', NULL, '-', 2, '2023-07-09 16:05:40', '2023-07-09 16:05:40');
 
 -- Dumping structure for table test11.semester2s
 CREATE TABLE IF NOT EXISTS `semester2s` (
@@ -66,7 +73,10 @@ CREATE TABLE IF NOT EXISTS `semester2s` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
--- Data exporting was unselected.
+-- Dumping data for table test11.semester2s: ~2 rows (approximately)
+INSERT INTO `semester2s` (`sid`, `mathii`, `lc`, `oop`, `wt`, `drawing`, `mfcs`, `sgpa`, `id`, `createdAt`, `updatedAt`) VALUES
+	(45678, 'B-', 'B-', 'B-', 'F', 'B-', 'B-', '-', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+	(45678, NULL, NULL, NULL, 'A', NULL, NULL, '-', 2, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 -- Dumping structure for table test11.semester3s
 CREATE TABLE IF NOT EXISTS `semester3s` (
@@ -84,7 +94,7 @@ CREATE TABLE IF NOT EXISTS `semester3s` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Data exporting was unselected.
+-- Dumping data for table test11.semester3s: ~0 rows (approximately)
 
 -- Dumping structure for table test11.user_cookies
 CREATE TABLE IF NOT EXISTS `user_cookies` (
@@ -92,12 +102,16 @@ CREATE TABLE IF NOT EXISTS `user_cookies` (
   `username_cookie` varchar(255) DEFAULT NULL,
   `sid_cookie` varchar(255) DEFAULT NULL,
   `reset_token_temp` varchar(255) DEFAULT NULL,
+  `reset_token_time` int(11) DEFAULT NULL,
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL,
   PRIMARY KEY (`sid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Data exporting was unselected.
+-- Dumping data for table test11.user_cookies: ~2 rows (approximately)
+INSERT INTO `user_cookies` (`sid`, `username_cookie`, `sid_cookie`, `reset_token_temp`, `reset_token_time`, `createdAt`, `updatedAt`) VALUES
+	(1231, '$2b$05$C788RkgvQpbrnjgQnVPL2uzyeEd1hn9jdjFLTVT6n74/Vj9D7xj1u', '$2b$05$3wkWsjB99UMYbWc/GC9UbuYrmRYnLXBlszl22vI87P/R4LtAdaVBG', 'none', 2147483647, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+	(45678, '$2b$05$C788RkgvQpbrnjgQnVPL2uzyeEd1hn9jdjFLTVT6n74/Vj9D7xj1u', '$2b$05$3wkWsjB99UMYbWc/GC9UbuYrmRYnLXBlszl22vI87P/R4LtAdaVBG', 'none', 2147483647, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 -- Dumping structure for table test11.user_infos
 CREATE TABLE IF NOT EXISTS `user_infos` (
@@ -113,7 +127,9 @@ CREATE TABLE IF NOT EXISTS `user_infos` (
   PRIMARY KEY (`sid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Data exporting was unselected.
+-- Dumping data for table test11.user_infos: ~1 rows (approximately)
+INSERT INTO `user_infos` (`sid`, `username`, `email`, `password`, `permission_type`, `otp_temp`, `otp_verified`, `createdAt`, `updatedAt`) VALUES
+	(45678, 'prajwol', 'prajwol.201723@ncit.edu.np', '$2b$10$qMA.r3LmYvVGNy0xu8pAYORywfTWFrtBiOgncNbccKA0n8yKFQoZm', 'Student', '$2b$07$GoVZNdhGejLjreTZga4jCevCbvlp3dkH091Ant9QyGV7tONwP4YFm', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
