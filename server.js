@@ -11,6 +11,7 @@ db.sequelize.sync({force: false}).then(() => {
 require('./app/routers/autofunctions.js');
 let router = require('./app/routers/excel.router.js');
 
+
 app.use(express.static('resources'));
 app.use('/', router);   
 const server = app.listen(8080, function () {

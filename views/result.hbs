@@ -10,49 +10,116 @@
 </head>
 <body>
     <br>
+
+
     {{#if sem1}}  
       <div class="card">
         {{#each sem1result}}
           <div class="container">
+            
             <hr>
             <h4>Semester 1</h4>  
             <hr>
+
             <b>Roll No :</b>  {{sid}} <br/>
-            <b>Engineering Mathematics I :</b> {{mathi}} <br/>
-            <b>C Programming :</b>  {{cprog}} <br/>
-            <b>Fundamentals of IT :</b> {{fit}} <br/>
-            <b>Problem Solving Technique :</b>  {{pst}} <br/>
-            <b>Physic :</b> {{physics}} <br/>
-            <b>Communication Techniques	:</b>  {{ct}} <br/>
-            <b>SGPA :</b> {{sgpa}} <br/>
+
+            {{#isBlank mathi}}
+            {{else}}
+              <b>Engineering Mathematics I :</b> {{mathi}} <br/>
+            {{/isBlank}}
+
+            {{#isBlank cprog}}
+            {{else}}
+                <b>C Programming :</b>  {{cprog}} <br/>
+            {{/isBlank}}
+
+            {{#isBlank fit}}
+            {{else}}
+              <b>Fundamentals of IT :</b> {{fit}} <br/>
+            {{/isBlank}}
+
+            {{#isBlank pst}}
+            {{else}}
+              <b>Problem Solving Technique :</b>  {{pst}} <br/>
+            {{/isBlank}}
+
+            {{#isBlank physics}}
+            {{else}}
+                <span class="{{physics}}color"><b>Physic :</b> {{physics}} <br/></span>
+            {{/isBlank}}
+
+            {{#isBlank ct}}
+            {{else}}
+              <span class="{{ct}}color"><b>Communication Technique :</b> {{ct}} <br/></span>
+            {{/isBlank}}
+
+            {{#compareString sgpa "-"}}  
+            {{else}}
+              <b>SGPA :</b> {{sgpa}} <br/>
+            {{/compareString}}
+            
           </div>
         {{/each}} 
       </div> 
     {{/if}}
 
 
-    {{#if sem2}}  
+     {{#if sem2}}  
       <div class="card">
         {{#each sem2result}}
           <div class="container">
+            
             <hr>
             <h4>Semester 2</h4>  
             <hr>
+
             <b>Roll No :</b>  {{sid}} <br/>
-            <b>Engineering Mathematics II	:</b> {{mathii}} <br/>
-            <b>Logic Circuits :</b>  {{lc}} <br/>
-            <b>Object Oriented Programming in C++ :</b> {{oop}} <br/>
-            <b>Web Technology :</b>  {{wt}} <br/>
-            <b>Engineering Drawing :</b> {{drawing}} <br/>
-            <b>Mathematical Foundation of Computer Science :</b>  {{mfcs}} <br/>
-            <b>SGPA :</b> {{sgpa}} <br/>
+
+            {{#isBlank mathii}}
+            {{else}}
+              <b>Engineering Mathematics II :</b> {{mathii}} <br/>
+            {{/isBlank}}
+
+            {{#isBlank lc}}
+            {{else}}
+                <b>Logic Circuit :</b>  {{lc}} <br/>
+            {{/isBlank}}
+
+            {{#isBlank oop}}
+            {{else}}
+              <b>Object Oriented Programming in C++ :</b> {{oop}} <br/>
+            {{/isBlank}}
+
+            {{#isBlank wt}}
+            {{else}}
+              <b>Web Technology	:</b>  {{wt}} <br/>
+            {{/isBlank}}
+
+            {{#isBlank drawing}}
+            {{else}}
+                <span class="{{drawing}}color"><b>Engineering Drawing	:</b> {{drawing}} <br/></span>
+            {{/isBlank}}
+
+            {{#isBlank mfcs}}
+            {{else}}
+              <span class="{{mfcs}}color"><b>Mathematical Foundation of Computer Science	:</b> {{mfcs}} <br/></span>
+            {{/isBlank}}
+
+            {{#compareString sgpa "-"}}  
+            {{else}}
+              <b>SGPA :</b> {{sgpa}} <br/>
+            {{/compareString}}
+            
           </div>
         {{/each}} 
       </div> 
     {{/if}}
+
 
     {{#if mesg2}}
       <h3>Not Found</h3>
     {{/if}}  
+
+
 </body>
 </html>

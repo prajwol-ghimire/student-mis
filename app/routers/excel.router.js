@@ -9,6 +9,20 @@ let upload = require('../config/multer.config.js');
 const bodyParser = require('body-parser')
 const {check, validationResult } = require('express-validator')
 const urlencodedParser = bodyParser.urlencoded({extended: false})
+const handlebars = require('hbs');
+
+handlebars.registerHelper('compareString', function(a, b, options) {
+  return a === b ? options.fn(this) : options.inverse(this);
+});
+
+handlebars.registerHelper('isBlank', function (value, options) {
+  if (value === null || value === undefined) {
+    return options.fn(this);
+  }
+  return value.trim().length === 0 ? options.fn(this) : options.inverse(this);
+});
+
+
 
 const firstsem = require('../controllers/firstsem.controller.js');
 const secondsem = require('../controllers/secondsem.controller.js');
