@@ -37,7 +37,8 @@ async function send_Reset_Password(user_email,recivedresults,req, res) {
     const sid = recivedresults[0].sid;
     console.log(sid)
     console.log(html)
-    const query = `UPDATE user_cookies SET reset_token_temp = '`+ token +`' WHERE sid = '` + sid +`'`;
+    requesteddate = Date.now() + 30 * 1000
+    const query = `UPDATE user_cookies SET reset_token_temp = '`+ token +`', reset_token_time = '`+ requesteddate +`' WHERE sid = '` + sid +`'`;
     mysql.query(query, (err, results) => {
         if (err) {
             res.render('password_reset.hbs', {error500 : true})
