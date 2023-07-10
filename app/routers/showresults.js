@@ -1,36 +1,52 @@
 const {check, validationResult } = require('express-validator')
 const mysql = require("./connection").con
 const cookieParser = require("cookie-parser");
-const { await } = require('await')
+const { await } = require('await');
+const { Result } = require('../config/db.config');
 
 
 function getResults(sid,res) {
-
-    let qry = `
-        SELECT s1.*, s2.*, s3.*
-        FROM semester1s s1
-        JOIN semester2s s2 ON s1.sid = s2.sid
-        JOIN semester3s s3 ON s1.sid = s3.sid
-        WHERE s1.sid = ?;
-    `;
-    console.log(sid)
-    mysql.query(qry, sid, (err, results) => {
+    let qry1 = `SELECT * FROM semester1s where sid = '`+sid+`'`;
+    mysql.query(qry1, (err, results1) => {
         if (err) {
+            console.log(err)
             res.render("login.hbs"); 
         }   
         else{
-            // if (results.length > 0) {
-            //     console.log(results)
-            //     res.render(path + "result.hbs", { mesg1: true, data: results, checker: semfinder})
-            
-            // } else {
-            //     res.render(path + "result.hbs", { mesg2: true })
-            // }
-
-            console.log(results)
-
+            if (results1.length > 0) {
+                let qry2 = `SELECT * FROM semester2s where sid = '`+sid+`'`;
+                mysql.query(qry2, (err, results2) => {
+                    if (err) {
+                        console.log(err)
+                        res.render("login.hbs"); 
+                    }   
+                    else{
+                        if (results2.length > 0) { 
+                            let qry3 = `SELECT * FROM semester3s where sid = '`+sid+`'`;
+                            mysql.query(qry3, (err, results3) => {
+                                if (err) {
+                                    console.log(err)
+                                    res.render("login.hbs"); 
+                                }   
+                                else{
+                                    if (results3.length > 0) { 
+                                        res.render('result.hbs', {sem1: true, sem1result: results1 , sem2: true, sem2result: results2, sem3: true, sem3result: results3})  
+                                    }
+                                    else{
+                                        res.render('result.hbs', {sem1: true, sem1result: results1 , sem2: true, sem2result: results2})  
+                                    }
+                                }
+                            });
+                        } else {
+                            res.render('result.hbs', {sem1: true, sem1: results1})  
+                        }    
+                    }
+                });  
+            } else {
+                res.render('result.hbs')  
+            } 
         }
-    });
+    }); 
 }
 
 

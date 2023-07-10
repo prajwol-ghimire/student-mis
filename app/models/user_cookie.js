@@ -15,7 +15,7 @@ module.exports = (sequelize, Sequelize) => {
 		type: Sequelize.STRING
 	},
 	reset_token_time: {
-		type: Sequelize.INTEGER
+		type: Sequelize.BIGINT
 	},
 	});
 	return User_cookie;

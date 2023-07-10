@@ -4,7 +4,7 @@ module.exports = (sequelize, Sequelize) => {
 		type: Sequelize.INTEGER,
 		allowNull: false
 	},
-	user_name: {
+	mathiii: {
 		type: Sequelize.STRING
 	},
 	sef: {

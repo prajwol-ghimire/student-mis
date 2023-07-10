@@ -36,9 +36,6 @@ router.get('/reset-password', urlencodedParser, (req,res) => {
     verify_token(req,res);
 });
 
-router.get('/showresult', urlencodedParser, (req,res) => {
-    showresults(req,res)
-});
 
 router.get('/logout', (req,res) => {
     res.clearCookie('_user_auth');
@@ -74,8 +71,6 @@ router.get('/aboutus', (req,res) => {
     res.render(path + "signup.hbs")
 });
 
-
-
 router.get('/viewsusers',(req, res) => {    
     let sql = "SELECT * FROM user_infos";
     let query = mysql.query(sql, (err, rows) => {
@@ -87,7 +82,6 @@ router.get('/viewsusers',(req, res) => {
     });
 });
 
-
 // post request starts 
 
 const signupValidate = require('../routers/signupvalidate.js');
@@ -97,6 +91,7 @@ const noticeUpload = require('../routers/noticeUpload.js');
 const reset_password = require('../routers/reset_password.js');
 const change_password = require('../routers/change_password.js');
 
+// const ipAddress = req.ip;
 
 router.post('/registeruser', urlencodedParser,(req,res) => { 
     signupValidate(req, res);

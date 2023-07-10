@@ -109,7 +109,7 @@ async function checksignin(res, plaintextPassword, hashedpassword, recivedresult
             storeCookie(res, username, examroll, email)
         });
     }else{
-        res.render('index.hbs', {incorrectpass : true})  
+        res.render('login.hbs', {incorrectpass : true})  
     }
 }
 
@@ -118,7 +118,7 @@ function signinValidate(req, res) {
     const errors = validationResult(req)
     if(!errors.isEmpty()) {
         const alert = errors.array()
-        res.render('index.hbs', {
+        res.render('login.hbs', {
             alert
         })
     }else{

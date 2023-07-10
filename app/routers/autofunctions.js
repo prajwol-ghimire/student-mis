@@ -21,6 +21,6 @@ function CheckPasswordRequest() {
             }
         }
     });
-    setTimeout(CheckPasswordRequest, 3000);
+    setTimeout(CheckPasswordRequest, 30000);
 }
-setTimeout(CheckPasswordRequest, 10000);
+// setTimeout(CheckPasswordRequest, 10000);
