@@ -5,110 +5,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <title>Document</title>
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>    
-    </script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>    
+    <link rel="stylesheet" type="text/css" href="assets/css/result.css">
 </head>
 <body>
-<center>
-      <br>
-      {{#if sem1}}  
-        <h3>Semester 1</h3>     
-        <table class="table">
-            <tr>
-              <th scope="col">Roll No</th>
-              <th scope="col">Math 1</th>
-              <th scope="col">C Prog</th>
-              <th scope="col">FIT</th>
-              <th scope="col">PST</th>
-              <th scope="col">Physic</th>
-
-              <th scope="col">CT</th>
-              <th scope="col">SGPA</th>
-            </tr>
-            {{#each sem1result}}
-            <tbody>
-              <tr>
-                <th scope="row"> {{sid}}</th>
-                <td>{{mathi}}</td>
-                <td>{{cprog}}</td>
-                <td>{{fit}}</td>
-                <td>{{pst}}</td>
-                <td>{{physics}}</td>
-                <td>{{ct}}</td>
-                <td>{{sgpa}}</td>
-              </tr>
-            </tbody> 
-            {{/each}} 
-          </table>    
-      {{/if}}
+    <br>
+    {{#if sem1}}  
+      <div class="card">
+        {{#each sem1result}}
+          <div class="container">
+            <hr>
+            <h4>Semester 1</h4>  
+            <hr>
+            <b>Roll No :</b>  {{sid}} <br/>
+            <b>Engineering Mathematics I :</b> {{mathi}} <br/>
+            <b>C Programming :</b>  {{cprog}} <br/>
+            <b>Fundamentals of IT :</b> {{fit}} <br/>
+            <b>Problem Solving Technique :</b>  {{pst}} <br/>
+            <b>Physic :</b> {{physics}} <br/>
+            <b>Communication Techniques	:</b>  {{ct}} <br/>
+            <b>SGPA :</b> {{sgpa}} <br/>
+          </div>
+        {{/each}} 
+      </div> 
+    {{/if}}
 
 
-      {{#if sem2}}  
-        <h3>Semester 2</h3>     
-        <table class="table">
-            <tr>
-               <th scope="col">Roll No</th>
-                <th scope="col">Math 2</th>
-                <th scope="col">LC</th>
-                <th scope="col">OOP</th>
-                <th scope="col">WT</th>
-                <th scope="col">drawing</th>
-                <th scope="col">MFCS</th>
-                <th scope="col">SGPA</th>
-            </tr>
-            {{#each sem2result}}
-            <tbody>
-              <tr>
-                <th scope="row">{{sid}}</th>
-                <td>{{mathii}}</td>
-                <td>{{lc}}</td>
-                <td>{{oop}}</td>
-                <td>{{wt}}</td>
-                <td>{{drawing}}</td>
-                <td>{{mfcs}}</td>
-                <td>{{sgpa}}</td>
-              </tr>
-            </tbody> 
-             {{/each}} 
-          </table> 
-      {{/if}}
+    {{#if sem2}}  
+      <div class="card">
+        {{#each sem2result}}
+          <div class="container">
+            <hr>
+            <h4>Semester 2</h4>  
+            <hr>
+            <b>Roll No :</b>  {{sid}} <br/>
+            <b>Engineering Mathematics II	:</b> {{mathii}} <br/>
+            <b>Logic Circuits :</b>  {{lc}} <br/>
+            <b>Object Oriented Programming in C++ :</b> {{oop}} <br/>
+            <b>Web Technology :</b>  {{wt}} <br/>
+            <b>Engineering Drawing :</b> {{drawing}} <br/>
+            <b>Mathematical Foundation of Computer Science :</b>  {{mfcs}} <br/>
+            <b>SGPA :</b> {{sgpa}} <br/>
+          </div>
+        {{/each}} 
+      </div> 
+    {{/if}}
 
-      {{#if sem3}}  
-        <h3>Semester 3</h3>     
-        <table class="table">
-            <tr>
-                <th scope="col">Roll No</th>
-                <th scope="col">Math 3</th>
-                <th scope="col">DSA</th>
-                <th scope="col">SEF</th>
-                <th scope="col">PQT</th>
-                <th scope="col">JAVA</th>
-                <th scope="col">MALP</th>
-                <th scope="col">SGPA</th>
-            </tr>
-            {{#each sem3result}}
-            <tbody>
-              <tr>
-                  <th scope="row">{{sid}}</th>
-                  <td>{{mathiii}}</td>
-                  <td>{{sef}}</td>
-                  <td>{{dsa}}</td>
-                  <td>{{pqt}}</td>
-                  <td>{{java}}</td>
-                  <td>{{malp}}</td>
-                  <td>{{sgpa}}</td>
-              </tr>
-            </tbody> 
-             {{/each}} 
-          </table> 
-      {{/if}}
-
-      {{#if mesg2}}
-        <h3>Not Found</h3>
-      {{/if}}
-
-</center>
-      
+    {{#if mesg2}}
+      <h3>Not Found</h3>
+    {{/if}}  
 </body>
 </html>
