@@ -4,7 +4,6 @@ const bcrypt = require("bcrypt")
 const { await } = require('await')
 
 async function compareOTP(hashedotp, otpvalue, res, sid_user, username, permission) {
-    console.log("here1")
     const result = await bcrypt.compare(otpvalue, hashedotp);
     if (result){
         const query = `UPDATE user_infos SET otp_verified = '`+ 1 +`' WHERE sid = '` + sid_user +`'`;

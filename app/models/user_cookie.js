@@ -10,7 +10,10 @@ module.exports = (sequelize, Sequelize) => {
 	},
 	sid_cookie: {
 		type: Sequelize.STRING
-	}
+	},
+	reset_token_temp: {
+		type: Sequelize.STRING
+	},
 	});
 	return User_cookie;
 }

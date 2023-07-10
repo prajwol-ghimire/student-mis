@@ -5,40 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <title>Document</title>
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
-    
-    {{!-- <script  type="text/javascript" src="/static/js/stringcompare.js"> --}}
-    {{!-- <script type="text/javascript" src="/static/js/uploaddownloadfiles.js"></script> --}}
-    
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>    
     </script>
 
 </head>
 <body>
 <center>
-  <form action="/searchstudent">
+  {{!-- <form action="/showresult">
     <div class="form-group">
       <label for="text">Roll Number</label>
-      <label >Semester 1</label>
+
+
+      <label >Semester</label>
       <input type="text" class="form-control" style="width: 200px" aria-describedby="text" name="semfinder" value="semester1s" hidden>
       <input type="text" class="form-control" style="width: 200px" aria-describedby="text" placeholder="Enter roll" name="roll">
       <small id="text" class="form-text text-muted">Search Number</small>
     </div>
 
     <button type="submit" class="btn btn-primary">Submit</button>
-  </form>
+  </form> --}}
 
     
       <br>
-      {{#if mesg1}}
-          
-         <form action="/updatestudent">
-
-             {{!-- {{#ifEquals checker "semester1s"}}
-             check
-            {{/ifEquals}}  --}}
-          
+      {{#if mesg1}}       
             <table class="table">
-              {{#data}}
+
+              {{#each user_infos}}
               <thead>
                 <tr>
                   <th scope="col">Roll No</th>
@@ -116,7 +108,7 @@
                {{/data}}
             </table>
          
-          </form>
+        
         
         
       {{/if}}

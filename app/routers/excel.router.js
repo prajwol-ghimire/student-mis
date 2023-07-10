@@ -1,4 +1,3 @@
-
 let express = require('express');
 const app = express();
 const cookieParser = require("cookie-parser");
@@ -10,24 +9,72 @@ let upload = require('../config/multer.config.js');
 const bodyParser = require('body-parser')
 const {check, validationResult } = require('express-validator')
 const urlencodedParser = bodyParser.urlencoded({extended: false})
-// const faker = require('faker');
-
 
 const firstsem = require('../controllers/firstsem.controller.js');
 const secondsem = require('../controllers/secondsem.controller.js');
 const thirdsem = require('../controllers/thirdsem.controller.js');
 
-
 let path = __basedir + '/views/';
-
-
 router.use(express.static(path));
-
 app.set('view engine', 'hbs');
+
+//  Get request starts
+
+const cookies_manager = require('../routers/cookies_manager.js');
+const showresults = require('../routers/showresults.js');
+const verify_token = require('../routers/verify_token.js');
+
+router.get('/', (req,res) => {
+    cookies_manager(req, res);
+});
+
+router.get('/showresult', urlencodedParser, (req,res) => {
+    showresults(req,res)
+});
+
+router.get('/reset-password', urlencodedParser, (req,res) => {
+    verify_token(req,res);
+});
+
+router.get('/showresult', urlencodedParser, (req,res) => {
+    showresults(req,res)
+});
+
+router.get('/logout', (req,res) => {
+    res.clearCookie('_user_auth');
+    res.clearCookie('_user_sid');
+    res.redirect('/');
+});
+
+router.get('/password_reset', (req,res) => {
+    res.render(path + "password_reset.hbs")
+});
+
+router.get('/uploadfiles', (req,res) => {
+    res.render(path + "upload.hbs")
+});
+
+router.get('/uploadnotice', (req,res) => {
+    res.render(path + "noticeupload.hbs")
+});
+
+router.get('/fee-structure', (req,res) => {
+    res.render(path + "fee-structure.hbs")
+});
+
+router.get('/login', (req,res) => {
+    res.render(path + "login.hbs")
+});
 
 router.get('/signup', (req,res) => {
     res.render(path + "signup.hbs")
 });
+
+router.get('/aboutus', (req,res) => {
+    res.render(path + "signup.hbs")
+});
+
+
 
 router.get('/viewsusers',(req, res) => {    
     let sql = "SELECT * FROM user_infos";
@@ -41,112 +88,53 @@ router.get('/viewsusers',(req, res) => {
 });
 
 
+// post request starts 
 
-router.get('/uploadfiles', (req,res) => {
-    res.render(path + "upload.hbs")
-});
-router.get('/uploadnotice', (req,res) => {
-    res.render(path + "noticeupload.hbs")
-});
-
-router.get('/login', (req,res) => {
-    res.render(path + "login.hbs")
-});
-
-router.get('/password_reset', (req,res) => {
-    res.render(path + "password_reset.hbs")
-});
-
-router.get('/logout', (req,res) => {
-    res.clearCookie('_user_auth');
-    res.clearCookie('_user_sid');
-    res.redirect('/');
-});
-
-
-const cookies_manager = require('../routers/cookies_manager.js');
-
-router.get('/', (req,res) => {
-    cookies_manager(req, res);
-});
-
-
-
-
-
-
-router.get('/searchstudent', (req,res) => {
-    const{roll} = req.query;
-    const{semfinder} = req.query;
-    if (roll == null || roll == ""){
-        res.render(path + "result.hbs")
-    }
-    else{
-
-        // let qry = `
-        //     SELECT s1.*, s2.*, s3.*
-        //     FROM semester1s s1
-        //     JOIN semester2s s2 ON s1.sid = s2.sid
-        //     JOIN semester3s s3 ON s1.sid = s3.sid
-        //     WHERE s1.sid = ?;
-        // `;
-
-        let qry = "select * from semester1s where sid = ?";
-
-        // let qry = `SELECT s1.*, s2.* FROM semester1s s1 JOIN semester2s s2 ON s1.sid = s2.sid WHERE s1.sid = ?;`;
-        mysql.query(qry, [roll], (err, results) => {
-            if (err) {
-              console.error('Error executing query: ', err);
-              return;
-            }   else{
-                if (results.length > 0) {
-                    console.log(results)
-                    res.render(path + "result.hbs", { mesg1: true, data: results, checker: semfinder})
-                
-                } else {
-                    res.render(path + "result.hbs", { mesg2: true })
-                }
-            }
-          
-            console.log('Results:', results);
-          });
-
-        // console.log(semfinder);
-        // const resultarray = [];
-        // // const typedata = [];
-        // for (i = 1 ; i<4 ; i++){
-        //     result = "semester" + i + "s"
-        //     results = resultarray[i] 
-        //     let qry = "select * from "+ result +" where sid = ?";
-        //     mysql.query(qry, [roll], (err, results) => {
-        //         if(err) throw err
-        //         else{
-        //             typedata = results
-        //             if (results.length > 0) {
-        //                 console.log(results)
-        //                 res.render(path + "result.hbs", { mesg1: true, data: results, checker: semfinder})
-                    
-        //             } else {
-        //                 res.render(path + "result.hbs", { mesg2: true })
-        //             }
-        //         }
-        //     });
-        // }
-        // for (i = 1 ; i<4 ; i++){
-            // if (results.length > 0) {
-            //     console.log(results)
-            //     res.render(path + "result.hbs", { mesg1: true, data: results, checker: semfinder})  
-            // } else {
-            //     res.render(path + "result.hbs", { mesg2: true })
-            // }
-        // }
-    }
-});
-
+const signupValidate = require('../routers/signupvalidate.js');
+const signinValidate = require('../routers/signinvalidate.js');
+const otpValidate = require('../routers/otpValidate.js');
 const noticeUpload = require('../routers/noticeUpload.js');
+const reset_password = require('../routers/reset_password.js');
+const change_password = require('../routers/change_password.js');
+
+
+router.post('/registeruser', urlencodedParser,(req,res) => { 
+    signupValidate(req, res);
+});
+
+router.post('/loginuser', urlencodedParser,(req,res) => { 
+    signinValidate(req, res);
+});
+
+router.post('/verifyotp', urlencodedParser,(req,res) => { 
+    otpValidate(req, res);
+});
+
+router.post('/changed_password', urlencodedParser,(req,res) => { 
+    change_password(req, res)
+});
 
 router.post('/sendnotice', urlencodedParser,(req,res) => { 
     noticeUpload(req, res);
+});
+
+router.post('/reset_password', urlencodedParser,(req,res) => { 
+    reset_password(req, res);
+});
+
+router.post('/update',urlencodedParser,  (req, res) => {
+    const sid = req.body.sid;
+    const { username, email, permission_type } = req.body;
+    let sql = `UPDATE user_infos SET
+                username = '${username}',
+                email = '${email}',
+                permission_type = '${permission_type}'
+                WHERE sid = ${sid}`;
+  
+    let query = mysql.query(sql, (err, results) => {
+      if (err) throw err;
+      res.redirect('/viewsusers');
+    });
 });
 
 router.post('/delete', urlencodedParser,(req,res) => { 
@@ -165,41 +153,6 @@ router.post('/edit',urlencodedParser, (req, res) => {
         if(err) throw err;
         res.render(path + 'user_edit.hbs', {title : 'Edit User ',user : result[0]});
     });
-});
-
-
-router.post('/update',urlencodedParser,  (req, res) => {
-    const sid = req.body.sid;
-    const { username, email, permission_type } = req.body;
-    let sql = `UPDATE user_infos SET
-                username = '${username}',
-                email = '${email}',
-                permission_type = '${permission_type}'
-                WHERE sid = ${sid}`;
-  
-    let query = mysql.query(sql, (err, results) => {
-      if (err) throw err;
-      res.redirect('/viewsusers');
-    });
-  });
-
-
-///////////////////login, signup ani otp wala part /////////////////////////
-
-const signupValidate = require('../routers/signupvalidate.js');
-const signinValidate = require('../routers/signinvalidate.js');
-const otpValidate = require('../routers/otpValidate.js');
-
-router.post('/registeruser', urlencodedParser,(req,res) => { 
-    signupValidate(req, res);
-});
-
-router.post('/loginuser', urlencodedParser,(req,res) => { 
-    signinValidate(req, res);
-});
-
-router.post('/verifyotp', urlencodedParser,(req,res) => { 
-    otpValidate(req, res);
 });
 
 router.post('/api/file/upload/sem1', upload.single("file"), firstsem.uploadFilesem1);

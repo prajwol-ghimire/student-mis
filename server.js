@@ -6,7 +6,7 @@ const db = require('./app/config/db.config.js');
 global.__basedir = __dirname;   
     
 db.sequelize.sync({force: false}).then(() => {
-  console.log('Drop and Resync with { force: true }');
+  console.log('Dropsql and Resync with { force: true }');
 });       
 
 let router = require('./app/routers/excel.router.js');
