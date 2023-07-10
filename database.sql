@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `semester1s` (
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8mb4;
 
 -- Data exporting was unselected.
 
@@ -64,7 +64,7 @@ CREATE TABLE IF NOT EXISTS `semester2s` (
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
 -- Data exporting was unselected.
 
@@ -91,6 +91,7 @@ CREATE TABLE IF NOT EXISTS `user_cookies` (
   `sid` int(11) NOT NULL,
   `username_cookie` varchar(255) DEFAULT NULL,
   `sid_cookie` varchar(255) DEFAULT NULL,
+  `reset_token_temp` varchar(255) DEFAULT NULL,
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL,
   PRIMARY KEY (`sid`)
