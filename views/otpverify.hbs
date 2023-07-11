@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <form action="/verifyotp" method="POST">
+    {{sid}}
+        <input type = "text" name="otpvalue" required>
+        <input type = "text" name="sid_user" value = {{sid}} hidden required> 
+        <button>Verify</button>
+            {{#if wrongvalue}}
+                <h5>Otp invalid !!</h5>
+            {{/if}}
+              {{#if blankvalue}}
+                <h5>Type otp !!</h5>
+            {{/if}}
+            {{#if error500insert}}
+                <h5>HTTP Status Code 500</h5>
+            {{/if}}
+    </form>
+</body>
+</html>
