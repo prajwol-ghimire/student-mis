@@ -1,17 +1,3 @@
-
-// const Handlebars = require('handlebars');
-
-// function ifEquals(arg1, arg2, options) {
-// 	return (arg1 === arg2) ? options.fn(this) : options.inverse(this);
-// }
-
-// Handlebars.registerHelper('ifEquals', ifEquals);
-
-// Handlebars.Utils.registerHelper('ifEquals', function(arg1, arg2, options) {
-//     console.log("asjhgfkjahsgjk")
-//     return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
-// })
-
 $(document).ready(function() {
 	$(".uploadSingleFileForm").submit(function(evt) {
 		evt.preventDefault();
