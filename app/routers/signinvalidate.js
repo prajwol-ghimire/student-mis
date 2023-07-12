@@ -29,22 +29,86 @@ let transporter = nodemailer.createTransport({
   },
 });
 
+/**
+ * Validate email address format
+ * @param {string} email - Email address to validate
+ * @returns {boolean} - True if email is valid, false otherwise
+ */
+function validateEmail(email) {
+  const parts = email.split("@");
+  if (parts.length !== 2) {
+      return false;
+  }
+  const [username, domain] = parts;
+  const usernameParts = username.split(".");
+  if (usernameParts.length !== 2) {
+      return false;
+  }
+  if (!/^[a-z]/.test(usernameParts[0])) {
+      return false;
+  }
+  if (!/^[0-9]/.test(usernameParts[1])) {
+      return false;
+  }
+  const domainParts = domain.split(".");
+  if (domainParts.length < 3 || domainParts[domainParts.length - 1] !== "np") {
+      return false;
+  }
+  if (domainParts[domainParts.length - 2] !== "edu" || domainParts[domainParts.length - 3] !== "ncit") {
+      return false;
+  }
+  return true;
+}
+
+/**
+ * Validate email address format
+ * @param {string} variable - Email address to validate
+ * @returns {boolean} - True if email is valid, false otherwise
+ */
+function isStringInt(variable) {
+  const regex = /^[a-zA-Z]+\.\d+$/;
+  return regex.test(variable);
+}
+
 // Signin validation function
 function signinValidate(req, res) {
-  const user_name = req.body.user_name;
+  const user_email = req.body.user_email;
   const plaintextPassword = req.body.passwd;
-  let qry = "select * from user_infos where username = ?";
-  mysql.query(qry, user_name, (err, recivedresults) => {
-    if (err) throw err;
-    else {
-      if (recivedresults.length > 0) {
-        const hashedpassword = recivedresults[0].password;
-        checksignin(res, plaintextPassword, hashedpassword, recivedresults);
-      } else {
-        res.redirect("/login?error=nosuchuser")
+  const isValid = validateEmail(user_email);
+  if (isValid) {
+    let qry = "select * from user_infos where email = ?";
+    mysql.query(qry, user_name, (err, recivedresults) => {
+      if (err) throw err;
+      else {
+        if (recivedresults.length > 0) {
+          const hashedpassword = recivedresults[0].password;
+          checksignin(res, plaintextPassword, hashedpassword, recivedresults);
+        } else {
+          res.redirect("/login?error=nosuchuser")
+        }
       }
+    });
+  }else{
+    if (isStringInt) {
+      newuser_email = user_email + "@ncit.edu.np"
+      console.log(newuser_email)
+      let qry = "select * from user_infos where email = ?";
+      mysql.query(qry, newuser_email, (err, recivedresults) => {
+        if (err) throw err;
+        else {
+          if (recivedresults.length > 0) {
+            const hashedpassword = recivedresults[0].password;
+            checksignin(res, plaintextPassword, hashedpassword, recivedresults);
+          } else {
+            res.redirect("/login?error=nosuchuser")
+          }
+        }
+      });
     }
-  });
+    else{
+      res.redirect("/login?error=nosuchuser")
+    } 
+  }
 }
 
 // Helper function to send OTP verification email

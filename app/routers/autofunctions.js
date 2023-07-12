@@ -17,7 +17,6 @@ function CheckPasswordRequest() {
                 for (let i = 0; i < results.length; i++) {
                     const resetTokenTime = results[i].reset_token_time;
                     currentServerDate = Date.now();
-                    console.log(currentServerDate);
 
                     // Check if the reset token time has expired
                     if (resetTokenTime < currentServerDate) {
@@ -38,7 +37,7 @@ function CheckPasswordRequest() {
     });
 
     // Call the CheckPasswordRequest function again after 30 seconds
-    // setTimeout(CheckPasswordRequest, 30000);
+    setTimeout(CheckPasswordRequest, 30000);
 }
 
 // Call the CheckPasswordRequest function initially and repeat every 30 seconds
