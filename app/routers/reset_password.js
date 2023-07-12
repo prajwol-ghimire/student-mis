@@ -46,7 +46,8 @@ async function send_Reset_Password(user_email, recivedresults, req, res) {
         `,
     };
     const html = '<p>You requested for reset password, kindly use this <a href="http://localhost:8080/reset-password?token=' + token + '">link</a> to reset your password</p>';
-    await transporter.sendMail(mailOptions);
+    // await transporter.sendMail(mailOptions);
+    console.log(html)
     const sid = recivedresults[0].sid;
     nowdate = Date.now();
     requesteddate = Date.now() + 60 * 1000;
@@ -55,7 +56,7 @@ async function send_Reset_Password(user_email, recivedresults, req, res) {
         if (err) {
             res.render('password_reset.hbs', { error500: true });
         } else {
-            res.render('password_reset.hbs', { hasbeensent: true });
+            res.redirect("/password_reset?sucess=hasbeensent")
         }
     });
 }

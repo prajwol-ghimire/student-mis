@@ -63,7 +63,12 @@ router.get('/logout', (req, res) => {
 
 // Routes for other pages (password reset, file upload, fee structure, login, signup, about us, changed password, and user views)
 router.get('/password_reset', (req, res) => {
-  res.render(path + "password_reset.hbs")
+  const sucess = req.query.sucess; 
+  if (sucess == 'hasbeensent'){ 
+    res.render('password_reset.hbs', { hasbeensent: true });
+  }else{
+    res.render(path + "password_reset.hbs")
+  }
 });
 
 router.get('/uploadfiles', (req, res) => {
@@ -79,7 +84,12 @@ router.get('/fee-structure', (req, res) => {
 });
 
 router.get('/login', (req, res) => {
-  res.render(path + "login.hbs")
+  const error = req.query.error; 
+  if (error == 'nosuchuser'){ 
+    res.render(path + 'login.hbs', {nosuchuser : true})  
+  }else{
+    res.render(path + "login.hbs")
+  }
 });
 
 router.get('/signup', (req, res) => {

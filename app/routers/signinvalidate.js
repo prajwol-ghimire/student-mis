@@ -41,9 +41,7 @@ function signinValidate(req, res) {
         const hashedpassword = recivedresults[0].password;
         checksignin(res, plaintextPassword, hashedpassword, recivedresults);
       } else {
-        // req.flash('success', 'Please login first!');
-        // res.redirect('/login');
-        res.render('login.hbs', {nosuchuser : true})  
+        res.redirect("/login?error=nosuchuser")
       }
     }
   });
