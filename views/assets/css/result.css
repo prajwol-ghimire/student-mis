@@ -21,10 +21,15 @@
     padding: 2px 16px;
   }
 
+
   .Dcolor {
     color: rgb(115, 108, 216);
   }
 
   .Fcolor {
+    color: rgb(238, 105, 105);
+  }
+
+  .Bpluscolor {
     color: rgb(238, 105, 105);
   }

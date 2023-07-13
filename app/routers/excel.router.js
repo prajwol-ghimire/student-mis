@@ -30,6 +30,16 @@ handlebars.registerHelper('isBlank', function (value, options) {
   return value.trim().length === 0 ? options.fn(this) : options.inverse(this);
 });
 
+handlebars.registerHelper('changeString', function (marks) {
+  if (typeof marks === 'string' && marks.endsWith('+')) {  
+    return (marks.slice(0, -1) + 'plus');
+  }else if(typeof marks === 'string' && marks.endsWith('-')){
+      return (marks.slice(0, -1) + 'minus');
+  }
+  return marks;
+});
+
+
 const firstsem = require('../controllers/firstsem.controller.js');
 const secondsem = require('../controllers/secondsem.controller.js');
 const thirdsem = require('../controllers/thirdsem.controller.js');
