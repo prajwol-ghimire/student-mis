@@ -9,7 +9,7 @@ db.sequelize.sync({force: false}).then(() => {
   console.log('Dropsql and Resync with { force: true }');
 });       
 require('./app/routers/autofunctions.js');
-let router = require('./app/routers/excel.router.js');
+let router = require('./app/routers/router.js');
 
 
 app.use(express.static('resources'));

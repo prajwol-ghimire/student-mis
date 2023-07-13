@@ -17,27 +17,7 @@ const mysql = require("./connection").con
 let upload = require('../config/multer.config.js');
 const bodyParser = require('body-parser')
 const urlencodedParser = bodyParser.urlencoded({ extended: false })
-const handlebars = require('hbs');
-
-handlebars.registerHelper('compareString', function (a, b, options) {
-  return a === b ? options.fn(this) : options.inverse(this);
-});
-
-handlebars.registerHelper('isBlank', function (value, options) {
-  if (value === null || value === undefined) {
-    return options.fn(this);
-  }
-  return value.trim().length === 0 ? options.fn(this) : options.inverse(this);
-});
-
-handlebars.registerHelper('changeString', function (marks) {
-  if (typeof marks === 'string' && marks.endsWith('+')) {  
-    return (marks.slice(0, -1) + 'plus');
-  }else if(typeof marks === 'string' && marks.endsWith('-')){
-      return (marks.slice(0, -1) + 'minus');
-  }
-  return marks;
-});
+require("../routers/handlebars.js")
 
 
 const firstsem = require('../controllers/firstsem.controller.js');
@@ -48,9 +28,9 @@ let path = __basedir + '/views/';
 router.use(express.static(path));
 app.set('view engine', 'hbs');
 
-const cookies_manager = require('../routers/cookies_manager.js');
-const showresults = require('../routers/showresults.js');
-const verify_token = require('../routers/verify_token.js');
+const cookies_manager = require('./cookies_manager.js');
+const showresults = require('./showresults.js');
+const verify_token = require('./verify_token.js');
 
 // Routes for homepage, show results, reset password, and logout
 router.get('/', (req, res) => {
@@ -122,12 +102,12 @@ router.get('/viewsusers', (req, res) => {
 });
 
 // Routes for user registration, login, OTP verification, notice upload, password reset, and user management
-const signupValidate = require('../routers/signupvalidate.js');
-const signinValidate = require('../routers/signinvalidate.js');
-const otpValidate = require('../routers/otpValidate.js');
-const noticeUpload = require('../routers/noticeUpload.js');
-const reset_password = require('../routers/reset_password.js');
-const change_password = require('../routers/change_password.js');
+const signupValidate = require('./signupvalidate.js');
+const signinValidate = require('./signinvalidate.js');
+const otpValidate = require('./otpValidate.js');
+const noticeUpload = require('./noticeUpload.js');
+const reset_password = require('./reset_password.js');
+const change_password = require('./change_password.js');
 
 router.post('/registeruser', urlencodedParser, (req, res) => {
   signupValidate(req, res);
