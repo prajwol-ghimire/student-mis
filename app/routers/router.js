@@ -1,17 +1,7 @@
-const { check, validationResult } = require('express-validator');
 const express = require('express');
 const app = express();
 const cookieParser = require("cookie-parser");
 app.use(cookieParser());
-const session = require('express-session');
-const flash = require('connect-flash');
-app.use(session({
-  secret: 'KEYSSPECIAL',
-  resave: false,
-  saveUninitialized: false
-}));
-app.use(flash());
-const bcrypt = require("bcrypt")
 let router = express.Router();
 const mysql = require("./connection").con
 let upload = require('../config/multer.config.js');
