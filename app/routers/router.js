@@ -80,6 +80,19 @@ router.get('/aboutus', (req, res) => {
   res.render(path + "signup.hbs")
 });
 
+
+
+// --------------------------------------------------------------
+
+const exam_form = require('./exam_form.js');
+
+router.get('/exam-form', (req, res) => {
+  exam_form(req, res);
+});
+
+
+// --------------------------------------------------------------
+
 router.get('/viewsusers', (req, res) => {
   let sql = "SELECT * FROM user_infos";
   let query = mysql.query(sql, (err, rows) => {
