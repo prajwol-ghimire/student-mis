@@ -54,6 +54,9 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../assets/js/config.js"></script>
+
+    {{!-- HTMLX embleed --}}
+    <script src="https://unpkg.com/htmx.org@1.9.2"></script>
   </head>
 
   <body>
@@ -203,9 +206,9 @@
                           <i class="fab fa-skype fa-lg"></i>
                         </button>
                       </div>
-                      <button type="button" class="btn btn-primary btn-rounded btn-lg">
+                      <a href="/profile-setting"><button type="button" class="btn btn-primary btn-rounded btn-lg">
                         Edit Account
-                      </button>
+                      </button></a>
                       <div class="d-flex justify-content-between text-center mt-5 mb-2">
                         <div>
                           <p class="mb-2 h5">8471</p>
