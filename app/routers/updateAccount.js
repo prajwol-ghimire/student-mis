@@ -21,6 +21,7 @@ function updateAccount(req, res){
                     else {
                         res.redirect("/profile-setting")
                     }
+                    
                 });
             }
         });
