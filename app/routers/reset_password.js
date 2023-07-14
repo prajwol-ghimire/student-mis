@@ -1,4 +1,3 @@
-const { check, validationResult } = require('express-validator');
 const mysql = require("./connection").con;
 const { await } = require('await');
 const nodemailer = require("nodemailer");

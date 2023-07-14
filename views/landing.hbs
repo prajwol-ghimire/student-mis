@@ -44,16 +44,7 @@
           <li><a href="#about">About</a></li>
           <li><a href="#services">Features</a></li>
           <li>
-             {{#if cookies}}
-              <span>
-                {{rollno}}
-              </span>
-              {{user_name}}
-              {{permission}}
-              <a href="/logout">Logout</a> 
-            {{else}}
               <a href="/login">Login</a> 
-            {{/if}} 
             <!-- Commented out the code as it contains server-side templating language syntax -->
           </li>
         </ul>

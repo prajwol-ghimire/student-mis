@@ -18,6 +18,28 @@ let path = __basedir + '/views/';
 router.use(express.static(path));
 app.set('view engine', 'hbs');
 
+
+let newPath= __basedir+'/views/student'
+router.use(express.static(newPath));
+
+//Routing for student
+const account_settings = require('./account_settings.js');
+
+router.get('/profile-setting', (req,res) => {
+  account_settings(req,res);
+    // res.render(newPath+"/html/account_setting.hbs")
+});
+router.get('/form', (req,res) => {
+    res.render(newPath+"/html/exam_form.hbs")
+});
+router.get('/notice', (req,res) => {
+    res.render(newPath+"/html/notice.hbs")
+});
+router.get('/result', (req,res) => {
+    res.render(newPath+"/html/result.hbs")
+});
+
+
 const cookies_manager = require('./cookies_manager.js');
 const showresults = require('./showresults.js');
 const verify_token = require('./verify_token.js');
@@ -82,6 +104,7 @@ router.get('/aboutus', (req, res) => {
 
 
 
+
 // --------------------------------------------------------------
 
 const exam_form = require('./exam_form.js');
@@ -111,6 +134,11 @@ const otpValidate = require('./otpValidate.js');
 const noticeUpload = require('./noticeUpload.js');
 const reset_password = require('./reset_password.js');
 const change_password = require('./change_password.js');
+const updateAccount = require('./updateAccount.js');
+
+router.post('/updateAccount', urlencodedParser, (req, res) => {
+  updateAccount(req, res);
+});
 
 router.post('/registeruser', urlencodedParser, (req, res) => {
   signupValidate(req, res);

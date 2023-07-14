@@ -76,7 +76,7 @@ async function compareCookie(username, rollno, nonhashedroll, nonhashedusername,
                 if (results.length > 0) {
                     const otpverified = results[0].otp_verified;
                     if (otpverified) {
-                        res.render("landing.hbs", { otpnotverified: false, cookies: true, rollno: nonhashedroll, user_name: nonhashedusername, permission: permission });
+                        res.render("student/html/index.hbs", {otpnotverified : false, cookies : true, rollno : nonhashedroll, user_name : nonhashedusername, permission : permission}); 
                     } else {
                         sendOTPVerification(nonhashedroll, email, res, nonhashedusername, permission)
                     }
@@ -119,7 +119,7 @@ function getUsername(username, rollno, nonhashedroll, res) {
  * @param {Object} req - Request object
  * @param {Object} res - Response object
  */
-function cookie_manager(req, res) {
+function cookies_manager(req, res) {
     const rawCookieHeader = req.header('Cookie');
     let username = null;
     let rollno = null;
@@ -158,4 +158,4 @@ function cookie_manager(req, res) {
     }
 }
 
-module.exports = cookie_manager;
+module.exports = cookies_manager;
