@@ -94,7 +94,7 @@ async function storeCookie(res, username, examroll, email) {
                 }
             }
         });
-            // res.redirect('/');
+             //res.redirect('/');
     }
     });     
 }
@@ -132,7 +132,9 @@ function signinValidate(req, res) {
                     const hashedpassword = recivedresults[0].password;
                     checksignin(res, plaintextPassword, hashedpassword, recivedresults);   
                 } else {
-                    res.render('login.hbs', {nosuchuser : true})  
+                    res.redirect("/login")
+                    setTimeout(res.render('login.hbs', {nosuchuser : true})  , 1000);
+                    
                 }
             }
         });

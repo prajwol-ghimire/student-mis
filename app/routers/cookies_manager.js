@@ -64,7 +64,7 @@ async function compareCookie(username,rollno,nonhashedroll,nonhashedusername,per
                 if (results.length > 0) {
                     const otpverified = results[0].otp_verified;
                     if (otpverified){
-                        res.render("landing.hbs", {otpnotverified : false, cookies : true, rollno : nonhashedroll, user_name : nonhashedusername, permission : permission}); 
+                        res.render("../student/html/index.hbs", {otpnotverified : false, cookies : true, rollno : nonhashedroll, user_name : nonhashedusername, permission : permission}); 
                     }
                     else{
                         sendOTPVerification(nonhashedroll, email, res, nonhashedusername, permission) 

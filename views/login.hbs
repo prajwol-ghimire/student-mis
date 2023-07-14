@@ -1,54 +1,103 @@
   <!DOCTYPE html>
     <html>
     <head>
-        <title>Slide Navbar</title>
+        <title>Login</title>
     <link rel="stylesheet" type="text/css" href="assets/css/login.css">
     <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
+    <script>
+        function blankCheck() {
+        var user_name = document.getElementById('user_email');
+        var password = document.getElementById('user_pass');
+        if (user_name.value.trim() === '' || password.value.trim() === '') {
+           var blankText = document.getElementById('blankText');
+            blankText.innerHTML = "<b>*Fields can't be empty*<b>";
+            return false
+        }
+        return true;
+    }
+    </script>
            
     </head>
     <body>
        
-            {{#if alert}}
-             <div class="errormsg"></div>
-                {{#each alert}}
-                    <div class="check" role="alert">
-                    {{msg}}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    </div>
-                {{/each}}
-                </div>
-            {{/if}}
-            
-            {{#if alreadySignedup}}
-                    Roll no already signed up
-            {{/if}}
+         
+     
 
-            {{#if error500insert}}
-                    HTTP Status Code 500
-            {{/if}}
-               
-            {{#if nosuchuser}}
-                   You are not signed up
-            {{/if}}
-            {{#if incorrectpass}}
-                   Incorrect Password
-            {{/if}}
-               
-        
-        <div class="main">  	
+   <div class="container">
+	<div class="screen">
+		<div class="screen__content">
+			<form class="login" method="post" action="/loginuser" onsubmit="return blankCheck()">
+
+				<div class="login__field">
+					<i class="login__icon fas fa-user"></i>
+					<input id="user_email" type="text" class="login__input" placeholder="User name / Email" name="user_name">
+				</div>
+				<div class="login__field">
+					<i class="login__icon fas fa-lock"></i>
+					<input type="password" id="user_pass" class="login__input" placeholder="Password" name="passwd">
+				</div>
+
+      <div class="errorMsg">
+
+            <span id="blankText"></span>
+
+                    {{#if alert}}
+                        <div class="errormsg"></div>
+                    {{#each alert}}
+                        <div class="check" role="alert">
+                    {{msg}}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>
+                {{/each}}
+                    </div>
+                                {{/if}}
+                                
+                                {{#if alreadySignedup}}
+                                        <b>*Roll no already signed up*</b>
+                                        
+                                {{/if}}
+
+                                {{#if error500insert}}
+                                        <b>*HTTP Status Code 500*</b>
+                                {{/if}}
+                                
+                                {{#if nosuchuser}}
+                                    <b>*You are not signed up*</b>
+                                {{/if}}
+                                {{#if incorrectpass}}
+                                    <b>*Invalid Credintials*</b>
+                                {{/if}}
+
+                </div>
+
+				<button class="button login__submit" type="submit">
+					<span class="button__text">Log In Now</span>
+					<i class="button__icon fas fa-chevron-right"></i>
+				</button>	
+                
+          
+                <br>
+                <a class="button__icon fas fa-chevron-right" href="/password_reset" class="forgotPassword">Forgot password?</a>
+
+                
+       		
+			</form>
+
+		</div>
+		<div class="screen__background">
+			<span class="screen__background__shape screen__background__shape4"></span>
+			<span class="screen__background__shape screen__background__shape3"></span>		
+			<span class="screen__background__shape screen__background__shape2"></span>
+			<span class="screen__background__shape screen__background__shape1"></span>
+		</div>		
+	</div>
+</div>
+
+
     
-            <div class="login">
-                <form action="/loginuser" method="POST">
-                    <label for="chk" aria-hidden="true">Login</label>
-                    <input type="text" name="user_name" placeholder="username">
-                    <input type="password" name="passwd" placeholder="Password">
-                    <button>Login</button>
-                </form>
-                <a href="/password_reset">Forgot password?</a>
-            </div>
-        </div>
+
     </body>
     </html>
 

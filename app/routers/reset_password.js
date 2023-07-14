@@ -33,7 +33,7 @@ async function send_Reset_Password(user_email,recivedresults,req, res) {
         `,
     };
     const html = '<p>You requested for reset password, kindly use this <a href="http://localhost:8080/reset-password?token=' + token + '">link</a> to reset your password</p>';
-    // await transporter.sendMail(mailOptions)
+    await transporter.sendMail(mailOptions);
     const sid = recivedresults[0].sid;
     console.log(sid)
     console.log(html)

@@ -69,9 +69,6 @@ router.get('/uploadnotice', (req,res) => {
     res.render(path + "noticeupload.hbs")
 });
 
-router.get('/fee-structure', (req,res) => {
-    res.render(path + "fee-structure.hbs")
-});
 
 router.get('/login', (req,res) => {
     res.render(path + "login.hbs")
@@ -95,6 +92,27 @@ router.get('/viewsusers',(req, res) => {
         });
     });
 });
+
+let newPath=__basedir+'/student'
+router.use(express.static(newPath));
+
+//Routing for student
+
+router.get('/profile-setting', (req,res) => {
+    res.render(newPath+"/html/account_setting.hbs")
+});
+router.get('/form', (req,res) => {
+    res.render(newPath+"/html/exam_form.hbs")
+});
+router.get('/notice', (req,res) => {
+    res.render(newPath+"/html/notice.hbs")
+});
+router.get('/result', (req,res) => {
+    res.render(newPath+"/html/result.hbs")
+});
+
+
+
 
 // post request starts 
 
@@ -122,6 +140,7 @@ router.post('/verifyotp', urlencodedParser,(req,res) => {
 router.post('/changed_password', urlencodedParser,(req,res) => { 
     change_password(req, res)
 });
+
 
 router.post('/sendnotice', urlencodedParser,(req,res) => { 
     noticeUpload(req, res);
