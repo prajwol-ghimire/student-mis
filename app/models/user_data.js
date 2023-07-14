@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-	const User_data = sequelize.define('user_data', {	
+	const user_data = sequelize.define('user_data', {	
 	sid: {
 		type: Sequelize.INTEGER,
 		allowNull: false,
@@ -13,5 +13,5 @@ module.exports = (sequelize, Sequelize) => {
 	},
 	
 	});
-	return User_data;
+	return user_data;
 }

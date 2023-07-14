@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-	const User_cookie = sequelize.define('user_cookie', {	
+	const user_cookie = sequelize.define('user_cookie', {	
 	sid: {
 		type: Sequelize.INTEGER,
 		allowNull: false,
@@ -18,5 +18,5 @@ module.exports = (sequelize, Sequelize) => {
 		type: Sequelize.BIGINT
 	},
 	});
-	return User_cookie;
+	return user_cookie;
 }

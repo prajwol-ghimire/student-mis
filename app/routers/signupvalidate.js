@@ -34,7 +34,7 @@ async function sendUserDetails(examroll, email, password, username, res) {
         `,
     };
     console.log(password);
-    await transporter.sendMail(mailOptions);
+    // await transporter.sendMail(mailOptions);
     res.redirect('/viewsusers');
 }
 
@@ -66,15 +66,28 @@ async function signUpSQL(res, examroll, username, email, permission) {
                         console.error('Error inserting data: ', err);
                         res.render('signup.hbs', { error500insert: true });
                     } else {
-                        const query = `INSERT INTO user_cookies (sid) VALUES ('${examroll}')`;
+
+                        const regex = /\d+/; // Matches one or more digits
+                        const match = email.match(regex);
+                        const crn = match ? match[0] : null;
+
+                        const query = `INSERT INTO user_data (sid,crn) VALUES ('${examroll}','${crn}' )`
                         mysql.query(query, (err, results) => {
                             if (err) {
                                 console.error('Error inserting data: ', err);
                                 res.render('signup.hbs', { error500insert: true });
                             } else {
-                                sendUserDetails(examroll, email, plaintextPassword, username, res);
+                                const query = `INSERT INTO user_cookies (sid) VALUES ('${examroll}')`;
+                                mysql.query(query, (err, results) => {
+                                    if (err) {
+                                        console.error('Error inserting data: ', err);
+                                        res.render('signup.hbs', { error500insert: true });
+                                    } else {
+                                        sendUserDetails(examroll, email, plaintextPassword, username, res);
+                                    }
+                                });
                             }
-                        });
+                        });                        
                     }
                 });
             }

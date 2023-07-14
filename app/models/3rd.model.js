@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-	const Cookie = sequelize.define('semester3', {	
+	const semester3 = sequelize.define('semester3', {	
 	sid: {
 		type: Sequelize.INTEGER,
 		allowNull: false
@@ -35,5 +35,5 @@ module.exports = (sequelize, Sequelize) => {
 
 	});
 	
-	return Cookie;
+	return semester3;
 }

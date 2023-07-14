@@ -1,7 +1,6 @@
 const express = require('express');
 const app = express();
 const mysql = require("./connection").con;
-app.set('views', __basedir+'/student')
 
 function account_settings(req, res){
     const rawCookieHeader = req.header('Cookie');
@@ -37,7 +36,24 @@ function account_settings(req, res){
                         else {
                             username = recivedresults[0].username
                             email = recivedresults[0].email
-                            res.render("student/html/account_setting.hbs",{username : username, email : email, rollno : rollno})
+                            let qry = "select * from user_data where sid = ?";   
+                            mysql.query(qry, rollno, (err, recivedresults) => {
+                                if (err) throw err;
+                                else {
+                                    photo = recivedresults[0].user_image
+                                    crn = recivedresults[0].crn
+
+                                    const words = username.split(' ');
+                                    let firstName, middleName, lastName;
+                                    if (words.length === 3) {
+                                        [firstName, middleName, lastName] = words;
+                                    } else if (words.length === 2) {
+                                        [firstName, lastName] = words;
+                                    }
+                                    res.render("student/html/account_setting.hbs",{firstName : firstName,middleName : middleName,lastName : lastName, email : email, rollno : rollno, crn : crn, photo : photo})
+                                }
+                            });
+                           
                         }
                     });
                     

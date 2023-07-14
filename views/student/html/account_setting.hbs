@@ -45,6 +45,7 @@
 
     <!-- Helpers -->
     <script src="../assets/vendor/js/helpers.js"></script>
+    <script type="text/javascript" src="/static/js/ProfileUpload.js"></script>
 
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
@@ -135,8 +136,14 @@
                 <!-- User -->
                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
                   <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-                    <div class="avatar avatar-online">
-                      <img src="../assets/img/user.png" alt class="w-px-40 h-auto rounded-circle" />
+                    <div class="avatar avatar-online">      
+                      <img 
+                        {{#if photo}}
+                                  src="../assets/img/profiles/{{photo}}"
+                        {{else}}
+                                  src="../assets/img/user.png"   
+                        {{/if}}
+                      class="w-px-40 h-auto rounded-circle" />
                     </div>
                   </a>
                   <ul class="dropdown-menu dropdown-menu-end">
@@ -145,7 +152,13 @@
                         <div class="d-flex">
                           <div class="flex-shrink-0 me-3">
                             <div class="avatar avatar-online">
-                              <img src="../assets/img/user.png" alt class="w-px-40 h-auto rounded-circle" />
+                              <img       
+                             {{#if photo}}
+                                  src="../assets/img/profiles/{{photo}}"
+                            {{else}}
+                                  src="../assets/img/user.png"   
+                            {{/if}} 
+                              class="w-px-40 h-auto rounded-circle" />
                             </div>
                           </div>
                           <div class="flex-grow-1">
@@ -186,64 +199,73 @@
                   <div class="card mb-4">
                     <h5 class="card-header">Profile Details</h5>
                     <!-- Account -->
-                    <div class="card-body">
-                      <div class="d-flex align-items-start align-items-sm-center gap-4">
-                        <img
-                          src="../assets/img/user.png"
-                          alt="user-avatar"
-                          class="d-block rounded"
-                          height="100"
-                          width="100"
-                          id="uploadedAvatar"
-                        />
-                        <div class="button-wrapper">
-                          <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
-                            <span class="d-none d-sm-block">Upload new photo</span>
-                            <i class="bx bx-upload d-block d-sm-none"></i>
-                            <input
-                              type="file"
-                              id="upload"
-                              class="account-file-input"
-                              hidden
-                              accept="image/png, image/jpeg"
-                            />
-                          </label>
-                          <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
-                            <i class="bx bx-reset d-block d-sm-none"></i>
-                            <span class="d-none d-sm-block">Reset</span>
-                          </button>
+                      <form id="formAccountSettings" action="/updateAccount" method="POST" enctype="multipart/form-data">
+                          <div class="card-body">
+                            <div class="d-flex align-items-start align-items-sm-center gap-4">
+                              <img
+                             
+                                {{!-- add sources here --}}
+                                {{#if photo}}
+                                  src="../assets/img/profiles/{{photo}}"
+                                {{else}}
+                                  src="../assets/img/user.png"   
+                                {{/if}}
+                               
+                                alt="user-avatar"
+                                class="d-block rounded"
+                                height="100"
+                                width="100"
+                                id="uploadedAvatar"
+                              />
+                              <div class="button-wrapper">
+                                <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
+                                  <span class="d-none d-sm-block">Upload new photo</span>
+                                  <i class="bx bx-upload d-block d-sm-none"></i>
+                                  <input
+                                    type="file"
+                                    id="upload"
+                                    class="account-file-input"
+                                    name="photo"
+                                    hidden
+                                    accept="image/png, image/jpeg"
+                                  />
+                                </label>
+                                <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
+                                  <i class="bx bx-reset d-block d-sm-none"></i>
+                                  <span class="d-none d-sm-block">Reset</span>
+                                </button>
 
-                          <p class="text-muted mb-0">Allowed JPG, GIF or PNG. Max size of 800K</p>
-                        </div>
-                      </div>
-                    </div>
-                    <hr class="my-0" />
-                    <div class="card-body">
-                      <form id="formAccountSettings" action="/updateAccount" method="POST">
-                        <div class="row">
-                          <div class="mb-3 col-md-6">
-                            <label for="firstName" class="form-label">First Name</label>
-                            <input
-                              class="form-control"
-                              type="text"
-                              id="firstName"
-                              name="firstName"
-                              placeholder="Ram"
-                              autofocus
-                            />
+                                <p class="text-muted mb-0">Allowed JPG, GIF or PNG. Max size of 800K</p>
+                              </div>
+                            </div>
                           </div>
-                          <div class="mb-3 col-md-6">
-                            <label for="middleName" class="form-label">Middle Name (OPTIONAL)</label>
-                            <input class="form-control" type="text" name="middleName" id="middleName" placeholder="Bahadur" />
-                          </div>
-                          <div class="mb-3 col-md-6">
-                            <label for="lastName" class="form-label" >Last Name</label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="lastName"
-                              name="lastName"
-                              placeholder="Nepali"
+                          <hr class="my-0" />
+                          <div class="card-body">
+                     
+                          <div class="row">
+                            <div class="mb-3 col-md-6">
+                              <label for="firstName" class="form-label">First Name</label>
+                              <input
+                                class="form-control"
+                                type="text"
+                                id="firstName"
+                                name="firstName"
+                                value="{{firstName}}"
+                                autofocus
+                              />
+                            </div>
+                            <div class="mb-3 col-md-6">
+                              <label for="middleName" class="form-label">Middle Name (OPTIONAL)</label>
+                              <input class="form-control" type="text" name="middleName" id="middleName" value="{{middleName}}" />
+                            </div>
+                            <div class="mb-3 col-md-6">
+                              <label for="lastName" class="form-label" >Last Name</label>
+                              <input
+                                type="text"
+                                class="form-control"
+                                id="lastName"
+                                name="lastName"
+                                value="{{lastName}}"
                 
                             />
                           </div>
@@ -254,8 +276,8 @@
                               type="text"
                               id="email"
                               name="email"
+                              readonly
                               value="{{email}}"
-                              placeholder="ram.201234@ncit.edu.np"
                             />
                           </div>
                          
@@ -264,24 +286,24 @@
                             <input
                               type="text"
                               class="form-control"
-                              id="rollNo"
-                              name="rollNo"
-                              placeholder="201234"
+                              id="crn"
+                              name="crn"
                               maxlength="6"
-                               value="{{rollno}}"
+                              readonly
+                              value="{{crn}}"
                             />
                           </div>
                          
-                          
                           <div class="mb-3 col-md-6">
-                            <label for="zipCode" class="form-label">PU Exam Roll</label>
+                            <label for="rollno" class="form-label">PU Exam Roll</label>
                             <input
                               type="text"
                               class="form-control"
-                              id="zipCode"
-                              name="zipCode"
-                              placeholder="Enter if not avilable"
+                              id="sid"
+                              name="sid"
                               maxlength="6"
+                              readonly
+                              value="{{rollno}}"
                             />
                           </div>
                         </div>

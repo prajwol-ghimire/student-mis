@@ -19,10 +19,10 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 db.User_info = require('../models/user_info.js')(sequelize, Sequelize);
-db.Result = require('../models/3rd.model.js')(sequelize, Sequelize);
-db.Result = require('../models/2nd.model.js')(sequelize, Sequelize);
-db.Result = require('../models/1st.model.js')(sequelize, Sequelize);
-db.User_cookie = require('../models/user_cookie.js')(sequelize, Sequelize);
+db.semester3 = require('../models/3rd.model.js')(sequelize, Sequelize);
+db.semester2 = require('../models/2nd.model.js')(sequelize, Sequelize);
+db.semester1 = require('../models/1st.model.js')(sequelize, Sequelize);
+db.user_cookie = require('../models/user_cookie.js')(sequelize, Sequelize);
 db.user_data = require('../models/user_data.js')(sequelize, Sequelize);
 db.subject_data = require('../models/subject_data.js')(sequelize, Sequelize);
 

@@ -4,7 +4,6 @@ const cookieParser = require("cookie-parser");
 app.use(cookieParser());
 let router = express.Router();
 const mysql = require("./connection").con
-let upload = require('../config/multer.config.js');
 const bodyParser = require('body-parser')
 const urlencodedParser = bodyParser.urlencoded({ extended: false })
 require("../routers/handlebars.js")
@@ -39,6 +38,7 @@ router.get('/result', (req,res) => {
     res.render(newPath+"/html/result.hbs")
 });
 
+// user data ma ni janu paryo
 
 const cookies_manager = require('./cookies_manager.js');
 const showresults = require('./showresults.js');
@@ -134,11 +134,7 @@ const otpValidate = require('./otpValidate.js');
 const noticeUpload = require('./noticeUpload.js');
 const reset_password = require('./reset_password.js');
 const change_password = require('./change_password.js');
-const updateAccount = require('./updateAccount.js');
 
-router.post('/updateAccount', urlencodedParser, (req, res) => {
-  updateAccount(req, res);
-});
 
 router.post('/registeruser', urlencodedParser, (req, res) => {
   signupValidate(req, res);
@@ -184,7 +180,15 @@ router.post('/delete', urlencodedParser, (req, res) => {
   let sql = `DELETE from user_infos where sid = ${sid}`;
   let query = mysql.query(sql, (err, result) => {
     if (err) throw err;
-    res.redirect('/viewsusers');
+    let sql = `DELETE from user_data where sid = ${sid}`;
+    let query = mysql.query(sql, (err, result) => {
+      if (err) throw err;
+      let sql = `DELETE from user_cookies where sid = ${sid}`;
+      let query = mysql.query(sql, (err, result) => {
+        if (err) throw err;
+        res.redirect('/viewsusers');
+      });
+    });
   });
 });
 
@@ -198,8 +202,18 @@ router.post('/edit', urlencodedParser, (req, res) => {
 });
 
 // Routes for file upload in different semesters
-router.post('/api/file/upload/sem1', upload.single("file"), firstsem.uploadFilesem1);
-router.post('/api/file/upload/sem2', upload.single("file"), secondsem.uploadFilesem2);
-router.post('/api/file/upload/sem3', upload.single("file"), thirdsem.uploadFilesem3);
+let Resultupload = require('../config/multer.result.config.js');
+
+router.post('/api/file/upload/sem1', Resultupload.single("file"), firstsem.uploadFilesem1);
+router.post('/api/file/upload/sem2', Resultupload.single("file"), secondsem.uploadFilesem2);
+router.post('/api/file/upload/sem3', Resultupload.single("file"), thirdsem.uploadFilesem3);
+
+// Router for profile photo upload
+const updateAccount = require('./updateAccount.js');
+let Profileupload = require('../config/multer.profile.config.js');
+
+router.post('/updateAccount', urlencodedParser, Profileupload.single('photo'), (req,res) => {
+  updateAccount(req, res);
+});
 
 module.exports = router;

@@ -77,7 +77,7 @@ function signinValidate(req, res) {
   const isValid = validateEmail(user_email);
   if (isValid) {
     let qry = "select * from user_infos where email = ?";
-    mysql.query(qry, user_name, (err, recivedresults) => {
+    mysql.query(qry, user_email, (err, recivedresults) => {
       if (err) throw err;
       else {
         if (recivedresults.length > 0) {
