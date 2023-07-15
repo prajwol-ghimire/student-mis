@@ -76,7 +76,28 @@ async function compareCookie(username, rollno, nonhashedroll, nonhashedusername,
                 if (results.length > 0) {
                     const otpverified = results[0].otp_verified;
                     if (otpverified) {
-                        res.render("student/html/index.hbs", {otpnotverified : false, cookies : true, rollno : nonhashedroll, user_name : nonhashedusername, permission : permission}); 
+                        // res.render("student/html/index.hbs", {otpnotverified : false, cookies : true, rollno : nonhashedroll, user_name : nonhashedusername, permission : permission}); 
+                        let qry = "select * from user_infos join user_data on user_infos.sid=user_data.sid";   
+                        mysql.query(qry, nonhashedroll, (err, recivedresults) => {
+                            if (err) throw err;
+                            else { 
+                                username = recivedresults[0].username
+                                crn=recivedresults[0].crn                                
+                                user_image=recivedresults[0].user_image
+                                email = recivedresults[0].email
+                                permission=recivedresults[0].permission_type
+
+                            //     let qry = "select * from user_data where sid = ?";   
+                            //     mysql.query(qry, rollno, (err, recivedresults) => {
+                            //         if (err) throw err;
+                            //         else {
+                            //             user_image = recivedresults[0].user_image
+                            //             crn = recivedresults[0].crn
+                                        res.render("student/html/index.hbs",{username : username, email : email, rollno : nonhashedroll,permission:permission, photo:user_image,crn:crn})
+                            //         }
+                            //     });
+                            }
+                        });
                     } else {
                         sendOTPVerification(nonhashedroll, email, res, nonhashedusername, permission)
                     }

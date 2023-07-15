@@ -50,6 +50,82 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../assets/js/config.js"></script>
+    <style>
+  /* Popup Form */
+  .popup-form {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease-in-out;
+    z-index: 9999; /* Make sure it's above other elements */
+  }
+
+  .popup-form.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .popup-form-content {
+    background-color: #b81a1a;
+    border-radius: 8px;
+    padding: 30px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+    width: 100px;
+    text-align: center;
+    color: black; /* New Password and Confirm New Password text color */
+    background-color: rgb(198, 17, 17); /* Background color for the form */
+  }
+
+  .popup-form h2 {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+
+  .popup-form label {
+    display: block;
+    text-align: left;
+    margin-bottom: 5px;
+  }
+
+  .popup-form input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 15px;
+  }
+
+  .popup-form button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .popup-form button[type="submit"] {
+    background-color: blue; /* Blue submit button color */
+  }
+
+  .popup-form button[type="button"] {
+    background-color: #dc3545;
+    margin-left: 10px;
+  }
+  
+  .popup-form button:focus {
+    outline: none;
+  }
+</style>
   </head>
 
   <body>
@@ -137,13 +213,7 @@
                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
                   <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                     <div class="avatar avatar-online">      
-                      <img 
-                        {{#if photo}}
-                                  src="../assets/img/profiles/{{photo}}"
-                        {{else}}
-                                  src="../assets/img/user.png"   
-                        {{/if}}
-                      class="w-px-40 h-auto rounded-circle" />
+                      <img src="../assets/img/profiles/{{photo}}" onerror="this.src='../assets/img/user.png'" alt class="w-px-40 h-auto rounded-circle"alt="User-Image" />
                     </div>
                   </a>
                   <ul class="dropdown-menu dropdown-menu-end">
@@ -152,13 +222,10 @@
                         <div class="d-flex">
                           <div class="flex-shrink-0 me-3">
                             <div class="avatar avatar-online">
-                              <img       
-                             {{#if photo}}
-                                  src="../assets/img/profiles/{{photo}}"
-                            {{else}}
-                                  src="../assets/img/user.png"   
-                            {{/if}} 
-                              class="w-px-40 h-auto rounded-circle" />
+         
+                           
+                            <img src="../assets/img/profiles/{{photo}}" onerror="this.src='../assets/img/user.png'" alt class="w-px-40 h-auto rounded-circle"alt="User-Image" />
+
                             </div>
                           </div>
                           <div class="flex-grow-1">
@@ -202,21 +269,15 @@
                       <form id="formAccountSettings" action="/updateAccount" method="POST" enctype="multipart/form-data">
                           <div class="card-body">
                             <div class="d-flex align-items-start align-items-sm-center gap-4">
-                              <img
-                             
-                                {{!-- add sources here --}}
-                                {{#if photo}}
-                                  src="../assets/img/profiles/{{photo}}"
-                                {{else}}
-                                  src="../assets/img/user.png"   
-                                {{/if}}
-                               
-                                alt="user-avatar"
-                                class="d-block rounded"
-                                height="100"
-                                width="100"
-                                id="uploadedAvatar"
-                              />
+
+                               <img 
+                                  src="../assets/img/profiles/{{photo}}" 
+                                  onerror="this.src='../assets/img/user.png'" 
+                                  alt="user-avatar"
+                                  class="d-block rounded"
+                                  height="100"
+                                  width="100"
+                                  id="uploadedAvatar"/>
                               <div class="button-wrapper">
                                 <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
                                   <span class="d-none d-sm-block">Upload new photo</span>
@@ -244,31 +305,17 @@
                      
                           <div class="row">
                             <div class="mb-3 col-md-6">
-                              <label for="firstName" class="form-label">First Name</label>
+                              <label for="username" class="form-label"> Name</label>
                               <input
                                 class="form-control"
                                 type="text"
-                                id="firstName"
-                                name="firstName"
-                                value="{{firstName}}"
-                                autofocus
+                                id="username"
+                                name="username"
+                                value="{{username}}"
+                                
                               />
                             </div>
-                            <div class="mb-3 col-md-6">
-                              <label for="middleName" class="form-label">Middle Name (OPTIONAL)</label>
-                              <input class="form-control" type="text" name="middleName" id="middleName" value="{{middleName}}" />
-                            </div>
-                            <div class="mb-3 col-md-6">
-                              <label for="lastName" class="form-label" >Last Name</label>
-                              <input
-                                type="text"
-                                class="form-control"
-                                id="lastName"
-                                name="lastName"
-                                value="{{lastName}}"
-                
-                            />
-                          </div>
+                          {{!-- </div> --}}
                           <div class="mb-3 col-md-6">
                             <label for="email" class="form-label">E-mail</label>
                             <input
@@ -306,10 +353,14 @@
                               value="{{rollno}}"
                             />
                           </div>
+                        {{!-- </div> --}}
+                       <div class="mb-3 col-md-6">
+                                <button type="button" class="btn btn-secondary me-2 float-start" id="showChangePasswordForm">Change Password</button>                            
+                          </div>
+
                         </div>
                         <div class="mt-2">
                           <button type="submit" class="btn btn-primary me-2">Save changes</button>
-                          <button type="button" class="btn btn-secondary me-2 float-end">Change Password</button>
                           <button type="reset" class="btn btn-outline-secondary">Cancel</button>
                         </div>
                         
@@ -322,6 +373,20 @@
               </div>
             </div>
             <!-- / Content -->
+
+                <div class="popup-form" id="changePasswordPopup">
+                  <form id="changePasswordForm">
+                    <label for="newPassword" style="color: black;">New Password:</label>
+                    <input type="password" id="newPassword" required>
+                    
+                    <label for="confirmPassword"style="color:black" >Confirm New Password:</label>
+                    <input type="password" id="confirmPassword" required>
+                    
+                    <button type="submit">Submit</button>
+                    <button type="button" id="closePopup">Close</button>
+                  </form>
+                </div>
+
 
             <!-- Footer -->
             <footer class="content-footer footer bg-footer-theme">
@@ -371,5 +436,28 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+     <script>
+          document.getElementById('showChangePasswordForm').addEventListener('click', function() {
+            document.getElementById('changePasswordPopup').classList.add('active');
+          });
+
+          document.getElementById('closePopup').addEventListener('click', function() {
+            document.getElementById('changePasswordPopup').classList.remove('active');
+          });
+
+          document.getElementById('changePasswordForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            // Add your password change logic here
+            // You can access the new password and confirm password using document.getElementById().value
+            // For example:
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            console.log('New Password:', newPassword);
+            console.log('Confirm Password:', confirmPassword);
+            // Close the popup after handling the form submission
+            document.getElementById('changePasswordPopup').classList.remove('active');
+          });
+        </script>
   </body>
 </html>

@@ -43,14 +43,8 @@ function account_settings(req, res){
                                     photo = recivedresults[0].user_image
                                     crn = recivedresults[0].crn
 
-                                    const words = username.split(' ');
-                                    let firstName, middleName, lastName;
-                                    if (words.length === 3) {
-                                        [firstName, middleName, lastName] = words;
-                                    } else if (words.length === 2) {
-                                        [firstName, lastName] = words;
-                                    }
-                                    res.render("student/html/account_setting.hbs",{firstName : firstName,middleName : middleName,lastName : lastName, email : email, rollno : rollno, crn : crn, photo : photo})
+                                  
+                                    res.render("student/html/account_setting.hbs",{username : username, email : email, rollno : rollno, crn : crn, photo : photo})
                                 }
                             });   
                            

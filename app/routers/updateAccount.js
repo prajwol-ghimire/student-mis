@@ -2,15 +2,11 @@ const mysql = require("./connection").con;
 const path = require('path');
 
 function updateAccount(req, res){
-    var firstName = req.body.firstName
-    var middleName = req.body.middleName
-    var lastName = req.body.lastName
+    var username = req.body.username
     var sid = req.body.sid
-    var email = req.body.email
-    var usernames = firstName + " " + middleName + " "  + lastName
     if (req.file){
         files = req.file.path
-        let qry = `UPDATE user_infos SET username = '`+ usernames +`' WHERE sid = ?`
+        let qry = `UPDATE user_infos SET username = '`+ username +`' WHERE sid = ?`
         mysql.query(qry, sid, (err, recivedresults) => {
             if (err) throw err;
             else {
@@ -26,7 +22,7 @@ function updateAccount(req, res){
             }
         });
     }else{
-        let qry = `UPDATE user_infos SET username = '`+ usernames +`' WHERE sid = ?`
+        let qry = `UPDATE user_infos SET username = '`+ username +`' WHERE sid = ?`
         mysql.query(qry, sid, (err, recivedresults) => {
             if (err) throw err;
             else {

@@ -54,9 +54,6 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../assets/js/config.js"></script>
-
-    {{!-- HTMLX embleed --}}
-    <script src="https://unpkg.com/htmx.org@1.9.2"></script>
   </head>
 
   <body>
@@ -145,21 +142,21 @@
                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
                   <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                     <div class="avatar avatar-online">
-                      <img src="../assets/img/user.png" alt class="w-px-40 h-auto rounded-circle" />
+                        <img src="../assets/img/profiles/{{photo}}" onerror="this.src='../assets/img/user.png'" class="w-px-40 h-auto rounded-circle"alt="User-Image" />
                     </div>
                   </a>
                   <ul class="dropdown-menu dropdown-menu-end">
                     <li>
-                      <a class="dropdown-item" href="#">
+                      <a class="dropdown-item" href="/">
                         <div class="d-flex">
                           <div class="flex-shrink-0 me-3">
                             <div class="avatar avatar-online">
-                              <img src="../assets/img/user.png" alt class="w-px-40 h-auto rounded-circle" />
+                                  <img src="../assets/img/profiles/{{photo}}" onerror="this.src='../assets/img/user.png'" class="w-px-40 h-auto rounded-circle"alt="User-Image" />
                             </div>
                           </div>
                           <div class="flex-grow-1">
-                            <span class="fw-semibold d-block">John Doe</span>
-                            <small class="text-muted">Admin</small>
+                            <span class="fw-semibold d-block">{{username}}</span>
+                            <small class="text-muted">{{permission}}</small>
                           </div>
                         </div>
                       </a>
@@ -191,24 +188,19 @@
                   <div class="card">
                     <div class="card-body text-center">
                       <div class="mt-3 mb-4">
-                        <img src="../assets/img/user.png" class="rounded-circle img-fluid" style="width: 150px;" />
+                        <img src="../assets/img/profiles/{{photo}}" onerror="this.src='../assets/img/user.png'" class="rounded-circle img-fluid" style="width: 150px;"alt="User-Image" />
                       </div>
-                      <h4 class="mb-2">Ram Bahadur Nepali</h4>
-                      <p class="text-muted mb-4">@Student <span class="mx-2">|</span> <a href="#!">personal-portfolio</a></p>
-                      <div class="mb-4 pb-2">
-                        <button type="button" class="btn btn-outline-primary btn-floating">
-                          <i class="fab fa-facebook-f fa-lg"></i>
-                        </button>
-                        <button type="button" class="btn btn-outline-primary btn-floating">
-                          <i class="fab fa-twitter fa-lg"></i>
-                        </button>
-                        <button type="button" class="btn btn-outline-primary btn-floating">
-                          <i class="fab fa-skype fa-lg"></i>
-                        </button>
-                      </div>
-                      <a href="/profile-setting"><button type="button" class="btn btn-primary btn-rounded btn-lg">
+                      <h4 class="mb-2" value="">{{username}}</h4>
+                      <p class="text-primary mb-4">@{{permission}} <span class="mx-2"></span></p>
+                      <p class="text-dark mb-4">E-mail: {{email}} <span class="mx-2"></span></p>
+                      <p class="text-dark mb-4">Exam Roll Number: {{rollno}} <span class="mx-2"></span></p>
+                      <p class="text-dark mb-4">Class Roll Number: {{crn}} <span class="mx-2"></span></p>
+                      
+                      <a  href="/profile-setting">
+                        <span class="btn btn-primary btn-rounded btn-lg">
                         Edit Account
-                      </button></a>
+                        </span>
+                      </a>
                       <div class="d-flex justify-content-between text-center mt-5 mb-2">
                         <div>
                           <p class="mb-2 h5">8471</p>
@@ -631,7 +623,6 @@
             </footer>
             <!-- / Footer -->
 
-            <div class="content-backdrop fade"></div>
           </div>
           <!-- Content wrapper -->
         </div>
@@ -639,7 +630,6 @@
       </div>
 
       <!-- Overlay -->
-      <div class="layout-overlay layout-menu-toggle"></div>
     </div>
     <!-- / Layout wrapper -->
 
