@@ -87,15 +87,16 @@ async function compareCookie(username, rollno, nonhashedroll, nonhashedusername,
                                 email = recivedresults[0].email
                                 permission=recivedresults[0].permission_type
 
-                            //     let qry = "select * from user_data where sid = ?";   
-                            //     mysql.query(qry, rollno, (err, recivedresults) => {
-                            //         if (err) throw err;
-                            //         else {
-                            //             user_image = recivedresults[0].user_image
-                            //             crn = recivedresults[0].crn
+                                if (permission == "student"){
                                         res.render("student/html/index.hbs",{username : username, email : email, rollno : nonhashedroll,permission:permission, photo:user_image,crn:crn})
-                            //         }
-                            //     });
+                                }
+                                else if(permission == "Administrator"){
+                                    res.render("admin/html/admin_index.hbs",{username : username, email : email, rollno : nonhashedroll,permission:permission, photo:user_image,crn:crn})
+                                }else{
+                                    res.redirect("/");
+                                }
+                    
+
                             }
                         });
                     } else {
