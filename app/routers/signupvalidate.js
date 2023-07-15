@@ -8,8 +8,8 @@ const { await } = require('await');
 let transporter = nodemailer.createTransport({
     host: "smtp-mail.outlook.com",
     auth: {
-        user: "aualcar157@outlook.com",
-        pass: "aspire5610",
+        user: "Mis@123sTudent!@outlook.com",
+        pass: "Mis@123sTudent!",
     },
 });
 
@@ -23,7 +23,7 @@ let transporter = nodemailer.createTransport({
  */
 async function sendUserDetails(examroll, email, password, username, res) {
     const mailOptions = {
-        from: "aualcar157@outlook.com",
+        from: "Mis@123sTudent!@outlook.com",
         to: email,
         subject: "STUDENT MIS REGISTRATION",
         html: `<p>Use the following credentials to login:<p>
@@ -66,7 +66,8 @@ async function signUpSQL(res, examroll, username, email, permission) {
                         console.error('Error inserting data: ', err);
                         res.render('signup.hbs', { error500insert: true });
                     } else {
-                        if(permission == "student"){                        const regex = /\d+/; // Matches one or more digits
+                        if(permission == "student"){                        
+                            const regex = /\d+/; // Matches one or more digits
                             const match = email.match(regex);
                             const crn = match ? match[0] : null;
 
@@ -89,15 +90,22 @@ async function signUpSQL(res, examroll, username, email, permission) {
                             });       
                         }
                         else{
-                            const query = `INSERT INTO user_cookies (sid) VALUES ('${examroll}')`;
+                            const query = `INSERT INTO user_data (sid) VALUES ('${examroll}')`
                             mysql.query(query, (err, results) => {
                                 if (err) {
-                                    console.error('Error inserting data: ', err);
-                                    res.render('signup.hbs', { error500insert: true });
-                                } else {
-                                    sendUserDetails(examroll, email, plaintextPassword, username, res);
+                                   console.log(err) 
+                                }else{
+                                    const query = `INSERT INTO user_cookies (sid) VALUES ('${examroll}')`;
+                                    mysql.query(query, (err, results) => {
+                                        if (err) {
+                                            console.error('Error inserting data: ', err);
+                                            res.render('signup.hbs', { error500insert: true });
+                                        } else {
+                                            sendUserDetails(examroll, email, plaintextPassword, username, res);
+                                        }
+                                    }); 
                                 }
-                            }); 
+                            });
                         }                 
                     }
                 });

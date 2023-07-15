@@ -24,8 +24,8 @@ app.use(express.static('public'));
 let transporter = nodemailer.createTransport({
   host: "smtp-mail.outlook.com",
   auth: {
-    user: "aualcar157@outlook.com",
-    pass: "aspire5610",
+    user: "Mis@123sTudent!@outlook.com",
+    pass: "Mis@123sTudent!",
   },
 });
 
@@ -91,7 +91,6 @@ function signinValidate(req, res) {
   }else{
     if (isStringInt) {
       newuser_email = user_email + "@ncit.edu.np"
-      console.log(newuser_email)
       let qry = "select * from user_infos where email = ?";
       mysql.query(qry, newuser_email, (err, recivedresults) => {
         if (err) throw err;
@@ -116,7 +115,7 @@ const sendOTPVerification = async (examroll, email, res) => {
   try {
     const otp = `${Math.floor(10000 + Math.random() * 90000)}`;
     const mailOptions = {
-      from: "aualcar157@outlook.com",
+      from: "Mis@123sTudent!@outlook.com",
       to: email,
       subject: "Verify Your Email",
       html: `<p> Enter ${otp} in the app to verify your email address and complete the signup.</p>`,

@@ -40,7 +40,7 @@ exports.uploadFilesem2 = (req, res) => {
 
         readXlsxFile(filePath).then(rows => {
     
-            // console.log(rows);
+           
     
             rows.shift();
             

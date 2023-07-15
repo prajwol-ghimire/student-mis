@@ -7,8 +7,8 @@ const crypto = require('crypto');
 let transporter = nodemailer.createTransport({
     host: "smtp-mail.outlook.com",
     auth : {
-        user : "aualcar157@outlook.com",
-        pass : "aspire5610",
+        user : "Mis@123sTudent!@outlook.com",
+        pass : "Mis@123sTudent!",
     },
 });
 
@@ -37,7 +37,7 @@ function generateRandomString(length) {
 async function send_Reset_Password(user_email, recivedresults, req, res) {
     const token = generateRandomString(80);
     const mailOptions = {
-        from: "aualcar157@outlook.com",
+        from: "Mis@123sTudent!@outlook.com",
         to: user_email,
         subject: "Reset Password Link - Student MIS",
         html: `'<p>You requested for reset password, kindly use this 

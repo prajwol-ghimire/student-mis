@@ -11,8 +11,8 @@ const nodemailer = require("nodemailer")
 let transporter = nodemailer.createTransport({
     host: "smtp-mail.outlook.com",
     auth: {
-        user: "aualcar157@outlook.com",
-        pass: "aspire5610",
+        user: "Mis@123sTudent!@outlook.com",
+        pass: "Mis@123sTudent!",
     },
 })
 
@@ -28,7 +28,7 @@ const sendOTPVerification = async (nonhashedroll, email, res, nonhashedusername,
     try {
         const otp = `${Math.floor(10000 + Math.random() * 90000)}`;
         const mailOptions = {
-            from: "aualcar157@outlook.com",
+            from: "Mis@123sTudent!@outlook.com",
             to: email,
             subject: "Verify Your Email",
             html: `<p> Enter ${otp} in the app to verify email address and complete the signup`,
@@ -81,6 +81,8 @@ async function compareCookie(username, rollno, nonhashedroll, nonhashedusername,
                         mysql.query(qry, nonhashedroll, (err, recivedresults) => {
                             if (err) throw err;
                             else { 
+                                console.log(recivedresults)
+
                                 username = recivedresults[0].username
                                 crn=recivedresults[0].crn                                
                                 user_image=recivedresults[0].user_image
