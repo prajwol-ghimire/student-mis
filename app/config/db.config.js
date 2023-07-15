@@ -25,5 +25,7 @@ db.semester1 = require('../models/1st.model.js')(sequelize, Sequelize);
 db.user_cookie = require('../models/user_cookie.js')(sequelize, Sequelize);
 db.user_data = require('../models/user_data.js')(sequelize, Sequelize);
 db.subject_data = require('../models/subject_data.js')(sequelize, Sequelize);
+db.notice_data = require('../models/notice_data.js')(sequelize, Sequelize);
+
 
 module.exports = db;

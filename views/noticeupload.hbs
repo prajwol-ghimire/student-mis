@@ -5,15 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<form action="/sendnotice" method="POST">
-  <div class="form-group">
-    <label for="exampleFormControlInput1">Email address</label>
-    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com" name="email">
-  </div>
-  <div class="form-group">
-    <label for="exampleFormControlTextarea1" placeholder="write here"></label>
-    <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" name="notice_subject"></textarea>
-  </div>
-    <button>Upload</button>
-</form>
+<body>
+      <form action="/sendnotice" method="POST" enctype="multipart/form-data">
+        <center>
+          <br><br><br>
+          <label for="exampleFormControlInput1">Title</label>
+          <input  name="title" value="asgew"> <br><br>
+          <label placeholder="write here" >Description</label><br>
+          <textarea rows="5" name="description" >asgasgasg</textarea><br><br>
+          <span class="d-none d-sm-block">Upload new photo</span>
+          <input type="file" class="form-control" placeholder="Choose a upload file" name="notice" required></input>		
+
+          <br> <br> <br> <br> <br> <br>
+            <button type="submit" class="btn btn-danger">Submit</button>
+        </center>
+      </form>
+
+      {{#if error}}
+          <p>Error 500, re-try or check backend </p>
+      {{/if}}
+</body>
 </html>

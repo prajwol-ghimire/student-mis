@@ -214,24 +214,27 @@
               <!-- Examples -->
               <div class="row mb-5">
 
-
-                          <div class="col-sm-4">
-                            <div class="card h-100" style="position: relative; margin-top: 5%; ">
-                              <div class="card-body">
-                                <h5 class="card-title">Notice title</h5>
-                                <div class="clickable-image">
-                                  <img
-                                    class="img-fluid d-flex mx-auto my-4 ripple"
-                                    src="../assets/img/notice.jpg"
-                                    alt="Card image cap"
-                                    onclick="expandImage(this)"
-                                  />
-                                </div>
-                                <p class="card-text">sfsf</p>
-                              </div>
-                            </div>
-                          
+                  {{#each notice}}
+                    <div class="col-sm-4">
+                      <div class="card h-100" style="position: relative; margin-top: 5%; ">
+                        <div class="card-body">
+                         
+                          <h3 class="card-title">{{title}}</h3>
+                          <h5 class="card-date">{{uploded_year}}/{{uploded_month}}/{{uploded_day}}</h5>
+                          <div class="clickable-image">
+                            <img
+                              class="img-fluid d-flex mx-auto my-4 ripple"
+                              src="../assets/img/notices/{{notice_image}}"
+                              alt="Card image cap"
+                              onclick="expandImage(this)"
+                            />
                           </div>
+                          <p class="card-text">{{description}}</p>
+                        </div>
+                      </div>
+                    
+                    </div>
+                  {{/each}}
                 
               </div>
               <!-- Examples -->

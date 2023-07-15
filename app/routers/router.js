@@ -9,6 +9,7 @@ const urlencodedParser = bodyParser.urlencoded({ extended: false })
 require("../routers/handlebars.js")
 
 
+
 const firstsem = require('../controllers/firstsem.controller.js');
 const secondsem = require('../controllers/secondsem.controller.js');
 const thirdsem = require('../controllers/thirdsem.controller.js');
@@ -31,9 +32,7 @@ router.get('/profile-setting', (req,res) => {
 router.get('/form', (req,res) => {
     res.render(newPath+"/html/exam_form.hbs")
 });
-router.get('/notice', (req,res) => {
-    res.render(newPath+"/html/notice.hbs")
-});
+
 router.get('/result', (req,res) => {
     res.render(newPath+"/html/result.hbs")
 });
@@ -43,8 +42,14 @@ router.get('/result', (req,res) => {
 const cookies_manager = require('./cookies_manager.js');
 const showresults = require('./showresults.js');
 const verify_token = require('./verify_token.js');
+const showNotice = require('./showNotice.js');
 
 // Routes for homepage, show results, reset password, and logout
+
+router.get('/notice', (req,res) => {
+  showNotice(req,res)
+});
+
 router.get('/', (req, res) => {
   cookies_manager(req, res);
 });
@@ -131,7 +136,7 @@ router.get('/viewsusers', (req, res) => {
 const signupValidate = require('./signupvalidate.js');
 const signinValidate = require('./signinvalidate.js');
 const otpValidate = require('./otpValidate.js');
-const noticeUpload = require('./noticeUpload.js');
+
 const reset_password = require('./reset_password.js');
 const change_password = require('./change_password.js');
 
@@ -148,9 +153,6 @@ router.post('/verifyotp', urlencodedParser, (req, res) => {
   otpValidate(req, res);
 });
 
-router.post('/sendnotice', urlencodedParser, (req, res) => {
-  noticeUpload(req, res);
-});
 
 router.post('/reset_password', urlencodedParser, (req, res) => {
   reset_password(req, res);
@@ -215,5 +217,15 @@ let Profileupload = require('../config/multer.profile.config.js');
 router.post('/updateAccount', urlencodedParser, Profileupload.single('photo'), (req,res) => {
   updateAccount(req, res);
 });
+
+// Router for notice photo upload
+const notice_Upload = require('./notice_Upload.js');
+let Noticeupload = require('../config/multer.notice.config.js');
+
+
+router.post('/sendnotice', urlencodedParser, Noticeupload.single("notice"), (req,res) => {
+  notice_Upload(req, res);
+});
+
 
 module.exports = router;
