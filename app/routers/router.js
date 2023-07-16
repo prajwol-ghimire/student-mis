@@ -37,6 +37,35 @@ router.get('/result', (req,res) => {
     res.render(newPath+"/html/result.hbs")
 });
 
+router.get('/search', (req, res) => {
+  const searchTerm = req.query.q;
+  // if(searchTerm.length > 3){
+    console.log(searchTerm)
+    const query = `SELECT * FROM user_infos WHERE sid LIKE '%${searchTerm}%'`;
+    mysql.query(query, (err, results) => {
+      if (err) {
+        console.error('Error fetching data from MySQL:', err);
+        res.json([]);
+      } else {
+        const sid = results.map((result) => result.sid);
+        const names = results.map((result) => result.username);
+        const Email = results.map((result) => result.email);
+        const permission_type = results.map((result) => result.permission_type);
+
+
+        const result = {
+          sid: sid,
+          names: names,
+          permission_type: permission_type,
+          email : Email,
+        };
+        res.json(result);
+      }
+    });
+  // }
+});
+
+
 // user data ma ni janu paryo
 
 const cookies_manager = require('./cookies_manager.js');
@@ -90,31 +119,6 @@ router.get('/fee-structure', (req, res) => {
   res.render(path + "fee-structure.hbs")
 });
 
-
-//Routing for admin
-// const account_settings = require('./account_settings.js');
-
-// router.get('/profile-setting', (req,res) => {
-//   account_settings(req,res);
-//     // res.render(newPath+"/html/account_setting.hbs")
-// });
-// router.get('/form', (req,res) => {
-//     res.render(newPath+"/html/exam_form.hbs")
-// });
-
-// router.get('/result', (req,res) => {
-//     res.render(newPath+"/html/result.hbs")
-// });
-
-
-router.get('/adminindex', (req, res) => {
-  res.render(path + "/admin/html/admin_index.hbs")
-});
-
-
-
-
-
 router.get('/login', (req, res) => {
   const error = req.query.error; 
   if (error == 'nosuchuser'){ 
@@ -125,15 +129,20 @@ router.get('/login', (req, res) => {
 });
 
 router.get('/signup', (req, res) => {
-  res.render(path + "signup.hbs")
+  const error = req.query.error; 
+  if (error == 'emailInvalid'){ 
+    res.render(path  + '/admin/html/signup.hbs', { notvalid: true });
+  }
+  else if(error == 'alreadyuser'){
+    res.render(path + '/admin/html/signup.hbs', { alreadyuser: true });
+  }
+  else if(error == '500error'){
+    res.render(path + '/admin/html/signup.hbs', { servererror: true });
+  }
+  else{
+    res.render(path+ "/admin/html/signup.hbs")
+  }
 });
-
-router.get('/aboutus', (req, res) => {
-  res.render(path + "signup.hbs")
-});
-
-
-
 
 // --------------------------------------------------------------
 
@@ -150,7 +159,7 @@ router.get('/viewsusers', (req, res) => {
   let sql = "SELECT * FROM user_infos";
   let query = mysql.query(sql, (err, rows) => {
     if (err) throw err;
-    res.render(path + 'viewsusers.hbs', {
+    res.render(path + '/admin/html/viewsusers.hbs', {
       title: 'Manage User',
       user_infos: rows
     });
@@ -224,7 +233,7 @@ router.post('/edit', urlencodedParser, (req, res) => {
   let sql = `Select * from user_infos where sid = ${sid}`;
   let query = mysql.query(sql, (err, result) => {
     if (err) throw err;
-    res.render(path + 'user_edit.hbs', { title: 'Edit User ', user: result[0] });
+    res.render(path + '/admin/html/user_edit.hbs', { title: 'Edit User ', user: result[0] });
   });
 });
 
@@ -251,6 +260,18 @@ let Noticeupload = require('../config/multer.notice.config.js');
 router.post('/sendnotice', urlencodedParser, Noticeupload.single("notice"), (req,res) => {
   notice_Upload(req, res);
 });
+
+
+// 404 error display
+
+router.post('*', (req,res) => {
+  res.render(path + '/student/html/pages-misc-error.hbs');
+});
+
+router.get('*', (req,res) => {
+  res.render(path + '/student/html/pages-misc-error.hbs');
+});
+
 
 
 module.exports = router;

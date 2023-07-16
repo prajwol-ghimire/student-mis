@@ -3,7 +3,7 @@ const multer = require('multer');
 const storage = multer.diskStorage({
   
     destination: (req, file, cb) => {
-       cb(null, __basedir + '/views/student/assets/img/notices')
+       cb(null, __basedir + '/uploads/notice')
     },
     filename: (req, file, cb) => {
        cb(null, file.fieldname + "-" + Date.now() + "-" + file.originalname)

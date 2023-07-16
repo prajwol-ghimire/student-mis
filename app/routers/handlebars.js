@@ -20,3 +20,7 @@ handlebars.registerHelper('changeString', function (marks) {
     return marks;
   }
 });
+
+handlebars.registerHelper('jsonStringify', function (obj) {
+  return new handlebars.SafeString(JSON.stringify(obj));
+});

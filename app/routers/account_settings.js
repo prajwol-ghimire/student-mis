@@ -36,15 +36,15 @@ function account_settings(req, res){
                         else {
                             username = recivedresults[0].username
                             email = recivedresults[0].email
+                            permission = recivedresults[0].permission_type
                             let qry = "select * from user_data where sid = ?";   
                             mysql.query(qry, rollno, (err, recivedresults) => {
                                 if (err) throw err;
                                 else {
                                     photo = recivedresults[0].user_image
                                     crn = recivedresults[0].crn
-
-                                  
-                                    res.render("student/html/account_setting.hbs",{username : username, email : email, rollno : rollno, crn : crn, photo : photo})
+                                   
+                                    res.render("student/html/account_setting.hbs",{username : username, email : email, rollno : rollno, crn : crn, photo : photo, permission: permission})
                                 }
                             });   
                            

@@ -128,7 +128,6 @@ const sendOTPVerification = async (examroll, email, res) => {
     mysql.query(query, (err, results) => {
       if (err) {
         console.error('Error inserting data: ', err);
-        res.render('signup.hbs', { error500insert: true });
       } else {
         res.redirect('/');
       }

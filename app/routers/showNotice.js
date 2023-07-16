@@ -40,7 +40,7 @@ function showNotice(req, res){
                                 mysql.query(qry, rollno, (err, recivedresults) => {
                                     if (err) throw err;
                                     else {
-                                        res.render("student/html/notice.hbs",{notice: recivedresults})
+                                        res.render("student/html/notice.hbs",{notice: recivedresults, permission:permission})                                     
                                     }
                                 });
                             }else{

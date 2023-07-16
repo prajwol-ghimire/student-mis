@@ -3,7 +3,6 @@ $(document).ready(function() {
 		evt.preventDefault();
 		var parameter = $(this).data("param"); 
 		createdurl = '/api/file/upload/' + parameter;
-		console.log(createdurl);
 		let formData = new FormData($(this)[0]);
 		$.ajax({
 			url : createdurl,

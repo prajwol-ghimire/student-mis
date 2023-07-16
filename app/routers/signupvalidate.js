@@ -58,13 +58,13 @@ async function signUpSQL(res, examroll, username, email, permission) {
         if (err) throw err;
         else {
             if (results.length > 0) {
-                res.render('signup.hbs', { alreadySignedup: true });
+                res.redirect("/signup?error=alreadyuser")
             } else {
                 const query = `INSERT INTO user_infos (sid, username, email, password, otp_verified, permission_type) VALUES ('${examroll}','${username}','${email}','${hashedpassword}','0','${permission}')`;
                 mysql.query(query, (err, results) => {
                     if (err) {
                         console.error('Error inserting data: ', err);
-                        res.render('signup.hbs', { error500insert: true });
+                         res.redirect("/signup?error=500error")
                     } else {
                         if(permission == "Student"){                        
                             const regex = /\d+/; // Matches one or more digits
@@ -75,13 +75,13 @@ async function signUpSQL(res, examroll, username, email, permission) {
                             mysql.query(query, (err, results) => {
                                 if (err) {
                                     console.error('Error inserting data: ', err);
-                                    res.render('signup.hbs', { error500insert: true });
+                                     res.redirect("/signup?error=500error")
                                 } else {
                                     const query = `INSERT INTO user_cookies (sid) VALUES ('${examroll}')`;
                                     mysql.query(query, (err, results) => {
                                         if (err) {
                                             console.error('Error inserting data: ', err);
-                                            res.render('signup.hbs', { error500insert: true });
+                                             res.redirect("/signup?error=500error")
                                         } else {
                                             sendUserDetails(examroll, email, plaintextPassword, username, res);
                                         }
@@ -99,7 +99,7 @@ async function signUpSQL(res, examroll, username, email, permission) {
                                     mysql.query(query, (err, results) => {
                                         if (err) {
                                             console.error('Error inserting data: ', err);
-                                            res.render('signup.hbs', { error500insert: true });
+                                             res.redirect("/signup?error=500error")
                                         } else {
                                             sendUserDetails(examroll, email, plaintextPassword, username, res);
                                         }
@@ -143,13 +143,13 @@ function validateEmail(email) {
 function signupValidate(req, res) {
     const email = req.body.email;
     const isValid = validateEmail(email);
-    if (isValid) {
+    if (isValid) { 
         const sid = req.body.examroll;
         const username = req.body.username;
         const permission = req.body.permission_type;
         signUpSQL(res, sid, username, email, permission);
     } else {
-        res.render('signup.hbs', { notvalid: true });
+        res.redirect("/signup?error=emailInvalid")
     }
 }
 

@@ -36,7 +36,7 @@ exports.uploadFilesem1 = (req, res) => {
     dbs.results = require('../models/1st.model.js')(sequelize, Sequelize);
     const results = dbs.results;
     try{
-        let filePath = __basedir + "/uploads/" + req.file.filename;
+        let filePath = __basedir + "/uploads/results/" + req.file.filename;
 
         readXlsxFile(filePath).then(rows => {
     
