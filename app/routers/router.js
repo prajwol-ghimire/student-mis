@@ -79,16 +79,41 @@ router.get('/password_reset', (req, res) => {
 });
 
 router.get('/uploadfiles', (req, res) => {
-  res.render(path + "upload.hbs")
+  res.render(path + "/admin/html/uploadresult.hbs")
 });
 
 router.get('/uploadnotice', (req, res) => {
-  res.render(path + "noticeupload.hbs")
+  res.render(path + "admin/html/uploadnotice.hbs")
 });
 
 router.get('/fee-structure', (req, res) => {
   res.render(path + "fee-structure.hbs")
 });
+
+
+//Routing for admin
+// const account_settings = require('./account_settings.js');
+
+// router.get('/profile-setting', (req,res) => {
+//   account_settings(req,res);
+//     // res.render(newPath+"/html/account_setting.hbs")
+// });
+// router.get('/form', (req,res) => {
+//     res.render(newPath+"/html/exam_form.hbs")
+// });
+
+// router.get('/result', (req,res) => {
+//     res.render(newPath+"/html/result.hbs")
+// });
+
+
+router.get('/adminindex', (req, res) => {
+  res.render(path + "/admin/html/admin_index.hbs")
+});
+
+
+
+
 
 router.get('/login', (req, res) => {
   const error = req.query.error; 

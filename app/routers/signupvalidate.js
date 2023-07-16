@@ -66,7 +66,7 @@ async function signUpSQL(res, examroll, username, email, permission) {
                         console.error('Error inserting data: ', err);
                         res.render('signup.hbs', { error500insert: true });
                     } else {
-                        if(permission == "student"){                        
+                        if(permission == "Student"){                        
                             const regex = /\d+/; // Matches one or more digits
                             const match = email.match(regex);
                             const crn = match ? match[0] : null;
