@@ -42,6 +42,10 @@
     <!-- Helpers -->
     <script src="../assets/vendor/js/helpers.js"></script>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script type="text/javascript" src="/static/js/uploaddownloadfiles.js"></script>
+
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../assets/js/config.js"></script>
@@ -67,7 +71,7 @@
           <div class="dropdown-divider"></div>
           <ul class="menu-inner py-1">
             <!-- Dashboard -->
-            <li class="menu-item">
+            <li class="menu-item ">
               <a href="/" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Dashboard</div>
@@ -80,6 +84,13 @@
               </a>
              
             </li>
+
+            <li class="menu-item">
+              <a href="/viewsusers" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-detail"></i>
+                <div data-i18n="Form Layouts">Manage Users</div>
+              </a>
+            </li>
             
             <!-- Cards -->
             <li class="menu-item">
@@ -89,19 +100,15 @@
               </a>
             </li>
               <!-- Tables -->
-                          <li class="menu-item">
-                            <a href="/result" class="menu-link">
-                              <i class="menu-icon tf-icons bx bx-table"></i>
-                              <div data-i18n="Tables">Result</div>
-                            </a>
-                          </li>
-                        
-            <li class="menu-item active">
-              <a href="/form" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-detail"></i>
-                <div data-i18n="Form Layouts">Upload Result</div>
-              </a>
-            </li>
+              <li class="menu-item active">
+                <a href="/uploadfiles" class="menu-link">
+                  <i class="menu-icon tf-icons bx bx-table"></i>
+                  <div data-i18n="Tables">Upload Result</div>
+                </a>
+              </li>
+            
+            <!-- Forms & Tables -->
+            
           </ul>
         </aside>
         <!-- / Menu -->
@@ -128,39 +135,39 @@
                       
       
                       <!-- User -->
-                      <li class="nav-item navbar-dropdown dropdown-user dropdown">
-                        <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-                          <div class="avatar avatar-online">
-                            <img src="../assets/img/user.png" alt class="w-px-40 h-auto rounded-circle" />
+                       <li class="nav-item navbar-dropdown dropdown-user dropdown">
+                  <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
+                    <div class="avatar avatar-online">
+                        <img src="../assets/img/profiles/{{photo}}" onerror="this.src='../assets/img/user.png'" class="w-px-40 h-auto rounded-circle"alt="User-Image" />
+                    </div>
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-end">
+                    <li>
+                      <a class="dropdown-item" href="/">
+                        <div class="d-flex">
+                          <div class="flex-shrink-0 me-3">
+                            <div class="avatar avatar-online">
+                                  <img src="../assets/img/profiles/{{photo}}" onerror="this.src='../assets/img/user.png'" class="w-px-40 h-auto rounded-circle"alt="User-Image" />
+                            </div>
                           </div>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                          <li>
-                            <a class="dropdown-item" href="#">
-                              <div class="d-flex">
-                                <div class="flex-shrink-0 me-3">
-                                  <div class="avatar avatar-online">
-                                    <img src="../assets/img/user.png" alt class="w-px-40 h-auto rounded-circle" />
-                                  </div>
-                                </div>
-                                <div class="flex-grow-1">
-                                  <span class="fw-semibold d-block">John Doe</span>
-                                  <small class="text-muted">Admin</small>
-                                </div>
-                              </div>
-                            </a>
-                          </li>
-                          <li>
-                            <div class="dropdown-divider"></div>
-                          </li>
-                          <li>
-                            <a class="dropdown-item" href="/logout">
-                              <i class="bx bx-power-off me-2"></i>
-                              <span class="align-middle">Log Out</span>
-                            </a>
-                          </li>
-                        </ul>
-                      </li>
+                          <div class="flex-grow-1">
+                            <span class="fw-semibold d-block">{{username}}</span>
+                            <small class="text-muted">{{permission}}</small>
+                          </div>
+                        </div>
+                      </a>
+                    </li>    
+                    <li>
+                      <div class="dropdown-divider"></div>
+                    </li>              
+                    <li>
+                      <a class="dropdown-item" href="/logout">
+                        <i class="bx bx-power-off me-2"></i>
+                        <span class="align-middle">Log Out</span>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
                       <!--/ User -->
                     </ul>
                   </div>
@@ -183,7 +190,7 @@
                     </div>
                     <div class="card-body">
 
-
+                  
                       <form class="uploadSingleFileForm" data-param="sem1" class="inline-form">
                         <div class="row mb-3">
                           <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Semester 1</label>
@@ -203,7 +210,7 @@
                       </form>
 
 
-                      <form class="uploadSingleFileForm" data-param="sem2" class="inline-form">
+                      <form class="uploadSingleFileForm" data-param="sem2" class="inline-form" >
                         <div class="row mb-3">
                           <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Semester 2</label>
                           <div class="col-sm-10">
@@ -222,7 +229,7 @@
                       </form>
 
 
-                      <form class="uploadSingleFileForm" data-param="sem3" class="inline-form">
+                      <form class="uploadSingleFileForm" data-param="sem3" class="inline-form" >
                         <div class="row mb-3">
                           <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Semester 3</label>
                           <div class="col-sm-10">
@@ -241,7 +248,7 @@
                       </form>
 
 
-                      <form class="uploadSingleFileForm" data-param="sem4" class="inline-form">
+                      <form class="uploadSingleFileForm" data-param="sem4" class="inline-form" >
                         <div class="row mb-3">
                           <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Semester 4</label>
                           <div class="col-sm-10">
@@ -260,7 +267,7 @@
                       </form>
 
 
-                      <form class="uploadSingleFileForm" data-param="sem5" class="inline-form">
+                      <form class="uploadSingleFileForm" data-param="sem5" class="inline-form" >
                         <div class="row mb-3">
                           <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Semester 5</label>
                           <div class="col-sm-10">
@@ -279,7 +286,7 @@
                       </form>
 
 
-                      <form class="uploadSingleFileForm" data-param="sem6" class="inline-form">
+                      <form class="uploadSingleFileForm" data-param="sem6" class="inline-form" >
                         <div class="row mb-3">
                           <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Semester 6</label>
                           <div class="col-sm-10">
@@ -298,7 +305,7 @@
                       </form>
 
 
-                      <form class="uploadSingleFileForm" data-param="sem7" class="inline-form">
+                      <form class="uploadSingleFileForm" data-param="sem7" class="inline-form" >
                         <div class="row mb-3">
                           <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Semester 7</label>
                           <div class="col-sm-10">
@@ -317,7 +324,7 @@
                       </form>
 
 
-                      <form class="uploadSingleFileForm" data-param="sem8" class="inline-form">
+                      <form class="uploadSingleFileForm" data-param="sem8" class="inline-form" >
                         <div class="row mb-3">
                           <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Semester 8</label>
                           <div class="col-sm-10">
@@ -335,7 +342,8 @@
                         </div>
                       </form>
 
-
+                      <div id="response" style="display:none">
+                      </div>
 
 
 

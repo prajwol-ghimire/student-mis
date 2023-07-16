@@ -1,11 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Upload Notice</title>
+    <title>Add User</title>
         <meta charset="utf-8" />
     <meta
       name="viewport"
@@ -81,7 +80,7 @@
                   
                   </li>
 
-                  <li class="menu-item">
+                  <li class="menu-item active">
                     <a href="/viewsusers" class="menu-link">
                       <i class="menu-icon tf-icons bx bx-detail"></i>
                       <div data-i18n="Form Layouts">Manage Users</div>
@@ -89,7 +88,7 @@
                   </li>
                   
                   <!-- Cards -->
-                  <li class="menu-item active">
+                  <li class="menu-item">
                     <a href="/notice" class="menu-link">
                       <i class="menu-icon tf-icons bx bx-collection"></i>
                       <div data-i18n="Basic">Notice</div>
@@ -97,7 +96,7 @@
                   </li>
                     <!-- Tables -->
                     <li class="menu-item">
-                      <a href="/result" class="menu-link">
+                      <a href="/uploadfiles" class="menu-link">
                         <i class="menu-icon tf-icons bx bx-table"></i>
                         <div data-i18n="Tables">Upload Result</div>
                       </a>
@@ -131,39 +130,39 @@
                       
       
                       <!-- User -->
-                       <li class="nav-item navbar-dropdown dropdown-user dropdown">
-                  <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-                    <div class="avatar avatar-online">
-                        <img src="../assets/img/profiles/{{photo}}" onerror="this.src='../assets/img/user.png'" class="w-px-40 h-auto rounded-circle"alt="User-Image" />
-                    </div>
-                  </a>
-                  <ul class="dropdown-menu dropdown-menu-end">
-                    <li>
-                      <a class="dropdown-item" href="/">
-                        <div class="d-flex">
-                          <div class="flex-shrink-0 me-3">
-                            <div class="avatar avatar-online">
-                                  <img src="../assets/img/profiles/{{photo}}" onerror="this.src='../assets/img/user.png'" class="w-px-40 h-auto rounded-circle"alt="User-Image" />
-                            </div>
+                      <li class="nav-item navbar-dropdown dropdown-user dropdown">
+                        <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
+                          <div class="avatar avatar-online">
+                            <img src="../assets/img/user.png" alt class="w-px-40 h-auto rounded-circle" />
                           </div>
-                          <div class="flex-grow-1">
-                            <span class="fw-semibold d-block">{{username}}</span>
-                            <small class="text-muted">{{permission}}</small>
-                          </div>
-                        </div>
-                      </a>
-                    </li>    
-                    <li>
-                      <div class="dropdown-divider"></div>
-                    </li>              
-                    <li>
-                      <a class="dropdown-item" href="/logout">
-                        <i class="bx bx-power-off me-2"></i>
-                        <span class="align-middle">Log Out</span>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                          <li>
+                            <a class="dropdown-item" href="#">
+                              <div class="d-flex">
+                                <div class="flex-shrink-0 me-3">
+                                  <div class="avatar avatar-online">
+                                    <img src="../assets/img/user.png" alt class="w-px-40 h-auto rounded-circle" />
+                                  </div>
+                                </div>
+                                <div class="flex-grow-1">
+                                  <span class="fw-semibold d-block">John Doe</span>
+                                  <small class="text-muted">Admin</small>
+                                </div>
+                              </div>
+                            </a>
+                          </li>
+                          <li>
+                            <div class="dropdown-divider"></div>
+                          </li>
+                          <li>
+                            <a class="dropdown-item" href="/logout">
+                              <i class="bx bx-power-off me-2"></i>
+                              <span class="align-middle">Log Out</span>
+                            </a>
+                          </li>
+                        </ul>
+                      </li>
                       <!--/ User -->
                     </ul>
                   </div>
@@ -177,7 +176,7 @@
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"></span>Upload Notice</h4>
+              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"></span>Add New User</h4>
                 <!-- Basic with Icons -->
                 <div class="col-xxl">
                   <div class="card mb-4">
@@ -185,62 +184,96 @@
                       
                     </div>
                     <div class="card-body">
-                      <form action="/sendnotice" method="POST" enctype="multipart/form-data">
+                      
+                       {{#if notvalid}} 
+                             <h5 style="color:red"> * Invalid Email Syntax * </h5>
+                      {{/if}}
+                      {{#if servererror}} 
+                             <h5 style="color:red"> * Error 500 * </h5>
+                      {{/if}}
+                      {{#if alreadyuser}} 
+                             <h5 style="color:red"> * User Already Exist * </h5>
+                      {{/if}}
+
+                      <form action="/registeruser" method="POST">
                         <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label" for="exampleFormControlInput1">Title</label>
+                          <label class="col-sm-2 col-form-label">ID</label>
                           <div class="col-sm-10">
                             <div class="input-group input-group-merge">
                               <span id="basic-icon-default-fullname2" class="input-group-text"></span>
                               <input
-                                type="text"
+                                type="number"
                                 class="form-control"
-                                name="title"
+                                name="examroll"
+                                id="sid"
+                                required
                               />
                             </div>
                           </div>
                         </div>
 
                         <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Description</label>
+                          <label class="col-sm-2 col-form-label">Name</label>
                           <div class="col-sm-10">
                             <div class="input-group input-group-merge">
                               <span id="basic-icon-default-fullname2" class="input-group-text"></span>
                               <input
                                 type="text"
                                 class="form-control"
-                                name="description"
+                                name="username"
+                                required
                               />
                             </div>
                           </div>
                         </div>
 
                         <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Image</label>
-                          <div class="col-sm-10">
-                            <div class="input-group input-group-merge">
-                              <span id="basic-icon-default-fullname2" class="input-group-text"></span>
-                              <input
-                                type="file"
-                                class="form-control"
-                                name="notice"
-                              />
+                            <label class="col-sm-2 col-form-label">E-mail</label>
+                            <div class="col-sm-10">
+                              <div class="input-group input-group-merge">
+                                <span id="basic-icon-default-fullname2" class="input-group-text"></span>
+                                <input
+                                  type="email"
+                                  class="form-control"
+                                  name="email"
+                                  placeholder="example@ncit.edu.np"
+                                  required
+                                />
+                              </div>
                             </div>
                           </div>
-                        </div>
+                        
+
+                          <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label">Role</label>
+                            <div class="col-sm-10">
+                              <div class="input-group input-group-merge">
+                                <select for="permission_type" name="permission_type" id="permission_type">
+                                    <option value="Student">Student</option>
+                                    <option value="Department Member">Department Member</option>
+                                    <option value="Moderator">Moderator</option>
+                                    <option value="Administrator">Administrator</option>
+                                </select>
+                            </span>
+                              </div>
+                            </div>
+                          </div>
+
+
                         <div class="row justify-content-end">
                           <div class="col-sm-10">
-                            <button type="submit" class="btn btn-primary">Upload</button>
+                            <button type="submit" class="btn btn-primary">Add User</button>
                           </div>
                         </div>
                       </form>
+
+                  
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            {{#if error}}
-                <p>Error 500, re-try or check backend </p>
-            {{/if}}
+           
             <!-- / Content -->
              <!-- Footer -->
              <footer class="content-footer footer bg-footer-theme">

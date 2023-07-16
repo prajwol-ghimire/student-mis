@@ -37,7 +37,13 @@
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
 
-    <!-- Page CSS -->
+    <!-- Edit and delete button CSS -->
+    <style>
+        .inline-form {
+             display: inline-block;
+        }
+   </style>
+    
 
     <!-- Helpers -->
     <script src="../assets/vendor/js/helpers.js"></script>
@@ -52,7 +58,7 @@
       <div class="layout-container">
         <!-- Menu -->
 
-        <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+   <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
                 <div class="app-brand demo">
                   <a href="/" class="app-brand-link">
                     <span class="app-brand-text demo menu-text fw-bolder ms-2">Student-MIS</span>
@@ -81,7 +87,7 @@
                   
                   </li>
 
-                  <li class="menu-item">
+                  <li class="menu-item active">
                     <a href="/viewsusers" class="menu-link">
                       <i class="menu-icon tf-icons bx bx-detail"></i>
                       <div data-i18n="Form Layouts">Manage Users</div>
@@ -89,7 +95,7 @@
                   </li>
                   
                   <!-- Cards -->
-                  <li class="menu-item active">
+                  <li class="menu-item">
                     <a href="/notice" class="menu-link">
                       <i class="menu-icon tf-icons bx bx-collection"></i>
                       <div data-i18n="Basic">Notice</div>
@@ -97,7 +103,7 @@
                   </li>
                     <!-- Tables -->
                     <li class="menu-item">
-                      <a href="/result" class="menu-link">
+                      <a href="/uploadfiles" class="menu-link">
                         <i class="menu-icon tf-icons bx bx-table"></i>
                         <div data-i18n="Tables">Upload Result</div>
                       </a>
@@ -131,39 +137,39 @@
                       
       
                       <!-- User -->
-                       <li class="nav-item navbar-dropdown dropdown-user dropdown">
-                  <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-                    <div class="avatar avatar-online">
-                        <img src="../assets/img/profiles/{{photo}}" onerror="this.src='../assets/img/user.png'" class="w-px-40 h-auto rounded-circle"alt="User-Image" />
-                    </div>
-                  </a>
-                  <ul class="dropdown-menu dropdown-menu-end">
-                    <li>
-                      <a class="dropdown-item" href="/">
-                        <div class="d-flex">
-                          <div class="flex-shrink-0 me-3">
-                            <div class="avatar avatar-online">
-                                  <img src="../assets/img/profiles/{{photo}}" onerror="this.src='../assets/img/user.png'" class="w-px-40 h-auto rounded-circle"alt="User-Image" />
-                            </div>
+                      <li class="nav-item navbar-dropdown dropdown-user dropdown">
+                        <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
+                          <div class="avatar avatar-online">
+                            <img src="../assets/img/user.png" alt class="w-px-40 h-auto rounded-circle" />
                           </div>
-                          <div class="flex-grow-1">
-                            <span class="fw-semibold d-block">{{username}}</span>
-                            <small class="text-muted">{{permission}}</small>
-                          </div>
-                        </div>
-                      </a>
-                    </li>    
-                    <li>
-                      <div class="dropdown-divider"></div>
-                    </li>              
-                    <li>
-                      <a class="dropdown-item" href="/logout">
-                        <i class="bx bx-power-off me-2"></i>
-                        <span class="align-middle">Log Out</span>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                          <li>
+                            <a class="dropdown-item" href="#">
+                              <div class="d-flex">
+                                <div class="flex-shrink-0 me-3">
+                                  <div class="avatar avatar-online">
+                                    <img src="../assets/img/user.png" alt class="w-px-40 h-auto rounded-circle" />
+                                  </div>
+                                </div>
+                                <div class="flex-grow-1">
+                                  <span class="fw-semibold d-block">John Doe</span>
+                                  <small class="text-muted">Admin</small>
+                                </div>
+                              </div>
+                            </a>
+                          </li>
+                          <li>
+                            <div class="dropdown-divider"></div>
+                          </li>
+                          <li>
+                            <a class="dropdown-item" href="/logout">
+                              <i class="bx bx-power-off me-2"></i>
+                              <span class="align-middle">Log Out</span>
+                            </a>
+                          </li>
+                        </ul>
+                      </li>
                       <!--/ User -->
                     </ul>
                   </div>
@@ -177,71 +183,57 @@
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"></span>Upload Notice</h4>
+              <span>
+                <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"></span>Users Table</h4>
+              </span>
+              <a href="/signup" class="btn btn-success">Add User</a>
+            </br>
+        </br>
                 <!-- Basic with Icons -->
-                <div class="col-xxl">
-                  <div class="card mb-4">
-                    <div class="card-header d-flex align-items-center justify-content-between">
-                      
+                <section class="ftco-section">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="table-wrap">
+                                    <table class="table table-striped">
+                                      <thead>
+                                        <tr>
+                                          <th>ID</th>
+                                          <th>UserName</th>
+                                          <th>Email</th>
+                                          <th>Role</th>
+                                          <th>Manage</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        {{#each user_infos}}
+                                        <tr>
+                                            <td>{{this.sid}}</td>
+                                            <td>{{this.username}}</td>
+                                            <td>{{this.email}}</td>
+                                            <td>{{this.permission_type}}</td>
+                                            <td>
+                                                <form action="/edit" method="POST" class="inline-form">
+                                                  <input type="text" name="sid" value="{{this.sid}}" hidden>
+                                                  <button class="btn btn-sm btn-primary">Edit</button>
+                                                </form>
+                                                <form action="/delete" method="POST" class="inline-form">
+                                                  <input type="text" name="sid" value="{{this.sid}}" hidden>
+                                                  <button class="btn btn-sm btn-danger">Delete</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                        {{/each}}
+                                      </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="card-body">
-                      <form action="/sendnotice" method="POST" enctype="multipart/form-data">
-                        <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label" for="exampleFormControlInput1">Title</label>
-                          <div class="col-sm-10">
-                            <div class="input-group input-group-merge">
-                              <span id="basic-icon-default-fullname2" class="input-group-text"></span>
-                              <input
-                                type="text"
-                                class="form-control"
-                                name="title"
-                              />
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Description</label>
-                          <div class="col-sm-10">
-                            <div class="input-group input-group-merge">
-                              <span id="basic-icon-default-fullname2" class="input-group-text"></span>
-                              <input
-                                type="text"
-                                class="form-control"
-                                name="description"
-                              />
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Image</label>
-                          <div class="col-sm-10">
-                            <div class="input-group input-group-merge">
-                              <span id="basic-icon-default-fullname2" class="input-group-text"></span>
-                              <input
-                                type="file"
-                                class="form-control"
-                                name="notice"
-                              />
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row justify-content-end">
-                          <div class="col-sm-10">
-                            <button type="submit" class="btn btn-primary">Upload</button>
-                          </div>
-                        </div>
-                      </form>
-                    </div>
-                  </div>
-                </div>
+                </section>
               </div>
             </div>
-            {{#if error}}
-                <p>Error 500, re-try or check backend </p>
-            {{/if}}
-            <!-- / Content -->
+            
              <!-- Footer -->
              <footer class="content-footer footer bg-footer-theme">
                 <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
