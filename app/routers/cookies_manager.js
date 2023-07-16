@@ -81,7 +81,7 @@ async function compareCookie(username, rollno, nonhashedroll, nonhashedusername,
                         mysql.query(qry, nonhashedroll, (err, recivedresults) => {
                             if (err) throw err;
                             else { 
-                                console.log(recivedresults)
+                
 
                                 username = recivedresults[0].username
                                 crn=recivedresults[0].crn                                
@@ -95,7 +95,6 @@ async function compareCookie(username, rollno, nonhashedroll, nonhashedusername,
                                 else if(permission == "Administrator"){
                                     res.render("admin/html/admin_index.hbs",{username : username, email : email, rollno : nonhashedroll,permission:permission, photo:user_image,crn:crn})
                                 }
-                    
 
                             }
                         });

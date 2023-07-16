@@ -35,7 +35,7 @@ function showNotice(req, res){
                         if (err) throw err;
                         else {
                             permission = recivedresults[0].permission_type
-                            if (permission == "student" || permission == "Administrator"){
+                            if (permission == "Student" || permission == "Administrator"){
                                 let qry = "select * from notice_data ORDER BY id DESC";   
                                 mysql.query(qry, rollno, (err, recivedresults) => {
                                     if (err) throw err;
