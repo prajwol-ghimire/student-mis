@@ -9,7 +9,6 @@ const urlencodedParser = bodyParser.urlencoded({ extended: false })
 require("../routers/handlebars.js")
 
 
-
 const firstsem = require('../controllers/firstsem.controller.js');
 const secondsem = require('../controllers/secondsem.controller.js');
 const thirdsem = require('../controllers/thirdsem.controller.js');
@@ -22,24 +21,142 @@ app.set('view engine', 'hbs');
 let newPath= __basedir+'/views/student'
 router.use(express.static(newPath));
 
-//Routing for student
+//--------------------------------------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------------------------------------
+//--------------------------------------- Routing on both Student and Admin ------------------------------------------------------
+//--------------------------------------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------------------------------------
+
+//--------------------------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------ GET REQUEST(BOTH) -------------------------------------------------------
+//--------------------------------------------------------------------------------------------------------------------------------
+
+
+const cookies_manager = require('./cookies_manager.js');
+const showNotice = require('./showNotice.js');
+const verify_token = require('./verify_token.js');
 const account_settings = require('./account_settings.js');
+// const cookie_checker = require('./cookie_checker.js');
+
+router.get('/', (req, res) => {
+  cookies_manager(req, res);
+});
+
+router.get('/notice', (req,res) => {
+  showNotice(req,res)
+});
+
+router.get('/reset-password', urlencodedParser, (req, res) => {
+  verify_token(req, res);
+});
+
+router.get('/password_reset', (req, res) => {
+  const sucess = req.query.sucess; 
+  if (sucess == 'hasbeensent'){ 
+    res.render('password_reset.hbs', { hasbeensent: true });
+  }else{
+    res.render(path + "password_reset.hbs")
+  }
+});
+
+router.get('/logout', (req, res) => {
+  res.clearCookie('_user_auth');
+  res.clearCookie('_user_sid');
+  res.redirect('/');
+});
+
+router.get('/login', (req, res) => {
+  const error = req.query.error; 
+  if (error == 'nosuchuser'){ 
+    res.render(path + 'login.hbs', {nosuchuser : true})  
+  }else{
+    res.render(path + "login.hbs")
+  }
+});
 
 router.get('/profile-setting', (req,res) => {
   account_settings(req,res);
-    // res.render(newPath+"/html/account_setting.hbs")
 });
+
+
+//--------------------------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------ POST REQUEST(BOTH) ------------------------------------------------------
+//--------------------------------------------------------------------------------------------------------------------------------
+
+const signupValidate = require('./signupvalidate.js');
+const signinValidate = require('./signinvalidate.js');
+const otpValidate = require('./otpValidate.js');
+const reset_password = require('./reset_password.js');
+const change_password = require('./change_password.js');
+
+
+router.post('/registeruser', urlencodedParser, (req, res) => {
+  signupValidate(req, res);
+});
+
+router.post('/loginuser', urlencodedParser, (req, res) => {
+  signinValidate(req, res);
+});
+
+router.post('/verifyotp', urlencodedParser, (req, res) => {
+  otpValidate(req, res);
+});
+
+router.post('/reset_password', urlencodedParser, (req, res) => {
+  reset_password(req, res);
+});
+
+router.post('/changed_password', urlencodedParser,(req,res) => { 
+    change_password(req, res)
+});
+
+
+
+//--------------------------------------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------------------------------------
+//------------------------------------------------ Routing for student -----------------------------------------------------------
+//--------------------------------------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------------------------------------
+
+
+const showresults = require('./showresults.js');
+
 router.get('/form', (req,res) => {
-    res.render(newPath+"/html/exam_form.hbs")
+  res.render(newPath+"/html/exam_form.hbs")
 });
 
 router.get('/result', (req,res) => {
-    res.render(newPath+"/html/result.hbs")
+  res.render(newPath+"/html/result.hbs")
 });
+
+router.get('/showresult', urlencodedParser, (req, res) => {
+  showresults(req, res)
+});
+
+router.get('/fee-structure', (req, res) => {
+  res.render(path + "fee-structure.hbs")
+});
+
+const exam_form = require('./exam_form.js');
+
+router.get('/exam-form', (req, res) => {
+  exam_form(req, res);
+});
+
+
+//--------------------------------------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------------------------------------
+//------------------------------------------------ Routing for Admin -------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------------------------------------
+
+//--------------------------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------ GET REQUEST(ADMIN) ------------------------------------------------------
+//--------------------------------------------------------------------------------------------------------------------------------
+
 
 router.get('/search', (req, res) => {
   const searchTerm = req.query.q;
-  // if(searchTerm.length > 3){
     console.log(searchTerm)
     const query = `SELECT * FROM user_infos WHERE sid LIKE '%${searchTerm}%'`;
     mysql.query(query, (err, results) => {
@@ -62,49 +179,6 @@ router.get('/search', (req, res) => {
         res.json(result);
       }
     });
-  // }
-});
-
-
-// user data ma ni janu paryo
-
-const cookies_manager = require('./cookies_manager.js');
-const showresults = require('./showresults.js');
-const verify_token = require('./verify_token.js');
-const showNotice = require('./showNotice.js');
-
-// Routes for homepage, show results, reset password, and logout
-
-router.get('/notice', (req,res) => {
-  showNotice(req,res)
-});
-
-router.get('/', (req, res) => {
-  cookies_manager(req, res);
-});
-
-router.get('/showresult', urlencodedParser, (req, res) => {
-  showresults(req, res)
-});
-
-router.get('/reset-password', urlencodedParser, (req, res) => {
-  verify_token(req, res);
-});
-
-router.get('/logout', (req, res) => {
-  res.clearCookie('_user_auth');
-  res.clearCookie('_user_sid');
-  res.redirect('/');
-});
-
-// Routes for other pages (password reset, file upload, fee structure, login, signup, about us, changed password, and user views)
-router.get('/password_reset', (req, res) => {
-  const sucess = req.query.sucess; 
-  if (sucess == 'hasbeensent'){ 
-    res.render('password_reset.hbs', { hasbeensent: true });
-  }else{
-    res.render(path + "password_reset.hbs")
-  }
 });
 
 router.get('/uploadfiles', (req, res) => {
@@ -113,19 +187,6 @@ router.get('/uploadfiles', (req, res) => {
 
 router.get('/uploadnotice', (req, res) => {
   res.render(path + "admin/html/uploadnotice.hbs")
-});
-
-router.get('/fee-structure', (req, res) => {
-  res.render(path + "fee-structure.hbs")
-});
-
-router.get('/login', (req, res) => {
-  const error = req.query.error; 
-  if (error == 'nosuchuser'){ 
-    res.render(path + 'login.hbs', {nosuchuser : true})  
-  }else{
-    res.render(path + "login.hbs")
-  }
 });
 
 router.get('/signup', (req, res) => {
@@ -144,17 +205,6 @@ router.get('/signup', (req, res) => {
   }
 });
 
-// --------------------------------------------------------------
-
-const exam_form = require('./exam_form.js');
-
-router.get('/exam-form', (req, res) => {
-  exam_form(req, res);
-});
-
-
-// --------------------------------------------------------------
-
 router.get('/viewsusers', (req, res) => {
   let sql = "SELECT * FROM user_infos";
   let query = mysql.query(sql, (err, rows) => {
@@ -166,35 +216,13 @@ router.get('/viewsusers', (req, res) => {
   });
 });
 
-// Routes for user registration, login, OTP verification, notice upload, password reset, and user management
-const signupValidate = require('./signupvalidate.js');
-const signinValidate = require('./signinvalidate.js');
-const otpValidate = require('./otpValidate.js');
-
-const reset_password = require('./reset_password.js');
-const change_password = require('./change_password.js');
 
 
-router.post('/registeruser', urlencodedParser, (req, res) => {
-  signupValidate(req, res);
-});
-
-router.post('/loginuser', urlencodedParser, (req, res) => {
-  signinValidate(req, res);
-});
-
-router.post('/verifyotp', urlencodedParser, (req, res) => {
-  otpValidate(req, res);
-});
+//--------------------------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------ POST REQUEST(ADMIN) -----------------------------------------------------
+//--------------------------------------------------------------------------------------------------------------------------------
 
 
-router.post('/reset_password', urlencodedParser, (req, res) => {
-  reset_password(req, res);
-});
-
-router.post('/changed_password', urlencodedParser,(req,res) => { 
-    change_password(req, res)
-});
 
 router.post('/update', urlencodedParser, (req, res) => {
   const sid = req.body.sid;
@@ -237,7 +265,13 @@ router.post('/edit', urlencodedParser, (req, res) => {
   });
 });
 
-// Routes for file upload in different semesters
+
+//--------------------------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------ UPLOAD SECTION(POST) ----------------------------------------------------
+//--------------------------------------------------------------------------------------------------------------------------------
+
+
+
 let Resultupload = require('../config/multer.result.config.js');
 
 router.post('/api/file/upload/sem1', Resultupload.single("file"), firstsem.uploadFilesem1);

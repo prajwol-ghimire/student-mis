@@ -10,12 +10,6 @@ const nodemailer = require("nodemailer");
 
 // Middleware setup
 app.use(cookieParser());
-app.use(session({
-  secret: 'KEYSSPECIAL',
-  resave: false,
-  saveUninitialized: false
-}));
-app.use(flash());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(express.static('public'));
@@ -72,6 +66,7 @@ function isStringInt(variable) {
 
 // Signin validation function
 function signinValidate(req, res) {
+
   const user_email = req.body.user_email;
   const plaintextPassword = req.body.passwd;
   const isValid = validateEmail(user_email);
