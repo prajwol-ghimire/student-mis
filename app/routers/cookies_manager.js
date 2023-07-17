@@ -66,10 +66,10 @@ const sendOTPVerification = async (nonhashedroll, email, res, nonhashedusername,
  */
 async function compareCookie(username, rollno, nonhashedroll, nonhashedusername, permission, res, email) {
     const intexamroll = nonhashedroll.toString();
-    const user_name = await bcrypt.compare(nonhashedusername, username);
+    // const user_name = await bcrypt.compare(nonhashedusername, username);
     const roll_no = await bcrypt.compare(intexamroll, rollno);
    
-    if (user_name && roll_no) {
+    if (roll_no) {
         const query = `SELECT otp_verified from user_infos where sid = ?`;
         mysql.query(query, nonhashedroll, (err, results) => {
             if (err) throw err;
@@ -165,7 +165,7 @@ function cookies_manager(req, res) {
     }
    
     if (username && rollno) {
-       
+
         let nusername = decodeURIComponent(username)
         let npassword = decodeURIComponent(rollno)
         let qry = "select sid from user_cookies where username_cookie = ?";

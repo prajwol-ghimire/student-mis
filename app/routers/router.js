@@ -13,6 +13,8 @@ const firstsem = require('../controllers/firstsem.controller.js');
 const secondsem = require('../controllers/secondsem.controller.js');
 const thirdsem = require('../controllers/thirdsem.controller.js');
 
+let addedpath = __basedir + '/uploads/';
+router.use(express.static(addedpath));
 let path = __basedir + '/views/';
 router.use(express.static(path));
 app.set('view engine', 'hbs');
@@ -262,6 +264,15 @@ router.post('/edit', urlencodedParser, (req, res) => {
   let query = mysql.query(sql, (err, result) => {
     if (err) throw err;
     res.render(path + '/admin/html/user_edit.hbs', { title: 'Edit User ', user: result[0] });
+  });
+});
+
+router.post('/deletenotice', urlencodedParser, (req, res) => {
+  const noticeid = req.body.noticeid
+  let sql = `delete from notice_data where id = ${noticeid}`;
+  let query = mysql.query(sql, (err, result) => {
+    if (err) throw err;
+    res.redirect('/notice')
   });
 });
 
