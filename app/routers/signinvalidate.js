@@ -143,13 +143,11 @@ async function storeCookie(res, username, examroll, email) {
   const oneDayMilliseconds = 24 * 60 * 60 * 1000;
   res.cookie("_user_auth", hashedusername, {
     expires: new Date(Date.now() + oneDayMilliseconds),
-    secure: true,
     sameSite: 'strict',
     path: '/',
   });
   res.cookie("_user_sid", hashedsid, {
     expires: new Date(Date.now() + oneDayMilliseconds),
-    secure: true,
     sameSite: 'strict',
     path: '/',
   });
