@@ -38,7 +38,7 @@ const cookies_manager = require('./cookies_manager.js');
 const showNotice = require('./showNotice.js');
 const verify_token = require('./verify_token.js');
 const account_settings = require('./account_settings.js');
-// const cookie_checker = require('./cookie_checker.js');
+
 
 router.get('/', (req, res) => {
   cookies_manager(req, res);
@@ -122,26 +122,23 @@ router.post('/changed_password', urlencodedParser,(req,res) => {
 
 
 const showresults = require('./showresults.js');
+const cookie_checker = require('./cookie_checker.js');
 
 router.get('/form', (req,res) => {
-  res.render(newPath+"/html/exam_form.hbs")
-});
+  cookie_checker(req,res, "form") 
+}); 
 
 router.get('/result', (req,res) => {
-  res.render(newPath+"/html/result.hbs")
+  cookie_checker(req,res, "result") 
 });
 
 router.get('/showresult', urlencodedParser, (req, res) => {
   showresults(req, res)
 });
 
-router.get('/fee-structure', (req, res) => {
-  res.render(path + "fee-structure.hbs")
-});
-
 const exam_form = require('./exam_form.js');
 
-router.get('/exam-form', (req, res) => {
+router.get('/exam-form', (req, res) => { //yo post ma halnu xa
   exam_form(req, res);
 });
 
@@ -158,56 +155,23 @@ router.get('/exam-form', (req, res) => {
 
 
 router.get('/search', (req, res) => {
-  const searchTerm = req.query.q;
-    console.log(searchTerm)
-    const query = `SELECT * FROM user_infos WHERE sid LIKE '%${searchTerm}%'`;
-    mysql.query(query, (err, results) => {
-      if (err) {
-        console.error('Error fetching data from MySQL:', err);
-        res.json([]);
-      } else {
-        const sid = results.map((result) => result.sid);
-        const names = results.map((result) => result.username);
-        const Email = results.map((result) => result.email);
-        const permission_type = results.map((result) => result.permission_type);
-
-
-        const result = {
-          sid: sid,
-          names: names,
-          permission_type: permission_type,
-          email : Email,
-        };
-        res.json(result);
-      }
-    });
+  cookie_checker(req,res, "search") 
 });
 
 router.get('/uploadfiles', (req, res) => {
-  res.render(path + "/admin/html/uploadresult.hbs")
+  cookie_checker(req,res, "uploadfiles") 
 });
 
 router.get('/uploadnotice', (req, res) => {
-  res.render(path + "admin/html/uploadnotice.hbs")
+  cookie_checker(req,res, "uploadnotice") 
 });
 
 router.get('/signup', (req, res) => {
-  const error = req.query.error; 
-  if (error == 'emailInvalid'){ 
-    res.render(path  + '/admin/html/signup.hbs', { notvalid: true });
-  }
-  else if(error == 'alreadyuser'){
-    res.render(path + '/admin/html/signup.hbs', { alreadyuser: true });
-  }
-  else if(error == '500error'){
-    res.render(path + '/admin/html/signup.hbs', { servererror: true });
-  }
-  else{
-    res.render(path+ "/admin/html/signup.hbs")
-  }
+  cookie_checker(req,res, "signup") 
 });
 
 router.get('/viewsusers', (req, res) => {
+  cookie_checker(req,res, "viewsusers") 
   let sql = "SELECT * FROM user_infos";
   let query = mysql.query(sql, (err, rows) => {
     if (err) throw err;
