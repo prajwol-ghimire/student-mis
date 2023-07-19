@@ -1,0 +1,1 @@
+{"version":"1.0.0","name":"nodejs-upload-excel-files","dependencies":{"await":{"version":"0.2.6"},"exceljs":{"version":"4.3.0"},"express":{"version":"4.18.2"},"hbs":{"version":"4.2.0"},"multer":{"version":"1.4.4"},"mysql2":{"version":"2.3.3"},"nodemon":{"version":"2.0.22"},"read-excel-file":{"version":"4.1.0"},"sequelize":{"version":"5.22.5"}}}

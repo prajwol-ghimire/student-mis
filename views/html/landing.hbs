@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Student MIS</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Raleway:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link rel="stylesheet" type="text/css" href="assets/css/landing.css">
+  <link href="assets/css/main.css" rel="stylesheet">
+
+  {{!-- <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+
+  <link href="assets/css/style.css" rel="stylesheet"> --}}
+
+</head>
+
+<body>
+  <header id="header" class="header d-flex align-items-center">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+      <a href="#" class="logo d-flex align-items-center">
+        <!-- Uncomment the line below if you also wish to use an image logo -->
+         <img src="assets/img/logo.png" alt=""> 
+        <h1>Student MIS<span>.</span></h1>
+      </a>
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a href="#hero">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#services">Features</a></li>
+          <li>
+              <a href="/login">Login</a> 
+            <!-- Commented out the code as it contains server-side templating language syntax -->
+          </li>
+        </ul>
+      </nav><!-- .navbar -->
+
+      <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
+      <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
+    </div>
+  </header><!-- End Header -->
+
+ {{#if otpnotverified}}
+    <div class="modal-overlay"></div>
+    <div class="modal">
+      <div class="modal-content">
+        <h2>Please Verify OTP</h2>
+        <p>If otp not available on inbox Check your spam folder.</p>
+        <form action="/verifyotp" method="post">
+          <input type="hidden" name="rollno" value="{{rollno}}">
+          <input type="hidden" name="username" value="{{user_name}}">
+          <input type="hidden" name="permission" value="{{permission}}">
+          <input type="text" name="otpvalue" required>
+          <button value="sendotp">send</button>  
+        </form>
+        <a href="/logout"><button>logout</button></a> 
+        {{#if otpwrong}}
+          <h7>wrong otp</h7>
+        {{/if}}
+      </div>
+    </div>
+
+    <script>
+      window.onload = function() {
+        const modalOverlay = document.querySelector('.modal-overlay');
+        const modal = document.querySelector('.modal');
+        modalOverlay.style.display = 'block';
+        modal.classList.add('show');
+        document.body.style.overflow = 'hidden';
+      };
+    </script>
+  {{/if}} 
+  <!-- Commented out the code as it contains server-side templating language syntax -->
+
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="hero">
+    <div class="container position-relative">
+      <div class="row gy-5" data-aos="fade-in">
+        <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center text-center text-lg-start">
+          <h2>Welcome to <span>Student MIS</span></h2>
+          <p>The ultimate management information system designed to streamline and enhance your university experience. We are excited to introduce you to a powerful platform that empowers students, faculty, and staff to connect, collaborate, and succeed in a dynamic academic environment.</p>
+        </div>
+        <div class="col-lg-6 order-1 order-lg-2">
+          <img src="assets/img/hero-img.svg" class="img-fluid" alt="" data-aos="zoom-out" data-aos-delay="100">
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End Hero Section -->
+
+  <main id="main">
+    <!-- ======= About Us Section ======= -->
+    <section id="about" class="about">
+      <div class="container" data-aos="fade-up">
+        <div class="section-header">
+          <h2>About</h2>
+          <p>We are a student MIS providing seamless access to profiles, results, syllabus, notices, and online exam forms, simplifying student management.</p>
+        </div>
+        <div class="row gy-12">
+          <div class="col-lg-12">
+            <h3>Voluptatem dignissimos provident quasi corporis</h3>
+            <img src="assets/img/about.jpg" class="img-fluid rounded-4 mb-4" alt="">
+            <p>The Student Management Information System (MIS) is a cutting-edge solution that streamlines administrative tasks, enhances communication, and empowers students in their education. With features like profile management and accurate record-keeping, the MIS simplifies processes and encourages active participation. By integrating innovative technologies, it revolutionizes traditional practices and drives improvements. This commitment to excellence sets the stage for a more advanced and progressive era in educational administration.</p>
+          </div>
+        </div>
+      </div>
+    </section><!-- End About Us Section -->
+
+    <!-- ======= Our Services Section ======= -->
+    <section id="services" class="services sections-bg">
+      <div class="container" data-aos="fade-up">
+        <div class="section-header">
+          <h2>Features</h2>
+          <p>Student MIS offers profile viewing, viewing fee structure, result checking, syllabus access, college notices, and online exam form filling. Simplifying student processes in just one system.</p>
+        </div>
+        <div class="row gy-4" data-aos="fade-up" data-aos-delay="100">
+          <div class="col-lg-4 col-md-6">
+            <div class="service-item  position-relative">
+              <div class="icon">
+                <i class="bi bi-person-circle"></i>
+              </div>
+              <h3>Profile Management</h3>
+              <p>Provident nihil minus qui consequatur non omnis maiores. Eos accusantium minus dolores iure perferendis tempore et consequatur.</p>
+            </div>
+          </div><!-- End Service Item -->
+          <div class="col-lg-4 col-md-6">
+            <div class="service-item position-relative">
+              <div class="icon">
+                <i class="bi bi-card-heading"></i>
+              </div>
+              <h3>Exam Form Fill-up</h3>
+              <p>Ut autem aut autem non a. Sint sint sit facilis nam iusto sint. Libero corrupti neque eum hic non ut nesciunt dolorem.</p>
+            </div>
+          </div><!-- End Service Item -->
+          <div class="col-lg-4 col-md-6">
+            <div class="service-item position-relative">
+              <div class="icon">
+                <i class="bi bi-award"></i>
+              </div>
+              <h3>Result Access</h3>
+              <p>Ut excepturi voluptatem nisi sed. Quidem fuga consequatur. Minus ea aut. Vel qui id voluptas adipisci eos earum corrupti.</p>
+            </div>
+          </div><!-- End Service Item -->
+        </div>
+      </div>
+    </section><!-- End Our Services Section -->
+  </main>
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer" class="footer">
+    <div class="container">
+      <div class="row gy-4">
+        <div class="col-lg-5 col-md-12 footer-info">
+          <a href="/" class="logo d-flex align-items-center">
+            <span>Student MIS</span>
+          </a>
+        </div>
+        <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
+           <p>
+            Nepal College of Information & Technology<br>
+            Balkumari, Lalitpur<br>
+            <br>
+            <span><strong>Phone:</strong> 00000000000<br></span>
+            <strong>Email:</strong> studentmis@gmail.com<br>
+          </p> 
+        </div>
+      </div>
+    </div>
+    <div class="container mt-4">
+      <div class="copyright">
+        &copy; Copyright <strong><span>Student MIS</span></strong>. All Rights Reserved
+      </div>
+      <div class="credits">
+        Designed by <a href="#">Team Garuda</a>
+      </div>
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="assets/js/landing.js"></script>
+</body>
+</html>

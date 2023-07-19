@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Upload Notice</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+
+  <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
+  <link rel="stylesheet" href="../assets/vendor/css/core.css" class="template-customizer-core-css" />
+  <link rel="stylesheet" href="../assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
+  <link rel="stylesheet" href="../assets/css/demo.css" />
+  <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+
+  <style>
+    .inline-form {
+      display: inline-block;
+    }
+  </style>
+
+  <script src="../assets/vendor/js/helpers.js"></script>
+  <script src="../assets/js/config.js"></script>
+</head>
+
+<body>
+  <div class="layout-wrapper layout-content-navbar">
+    <div class="layout-container">
+      <!-- Menu -->
+      <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+        <div class="app-brand demo">
+          <a href="/" class="app-brand-link">
+            <span class="app-brand-text demo menu-text fw-bolder ms-2">Student-MIS</span>
+          </a>
+          <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
+            <i class="bx bx-chevron-left bx-sm align-middle"></i>
+          </a>
+        </div>
+
+        <div class="menu-inner-shadow"></div>
+        <div class="dropdown-divider"></div>
+        <ul class="menu-inner py-1">
+          <!-- Dashboard -->
+          <li class="menu-item">
+            <a href="/" class="menu-link">
+              <i class="menu-icon tf-icons bx bx-home-circle"></i>
+              <div data-i18n="Analytics">Dashboard</div>
+            </a>
+          </li>
+          <li class="menu-item ">
+            <a href="/profile-setting" class="menu-link">
+              <i class="menu-icon tf-icons bx bx-dock-top"></i>
+              <div data-i18n="Account Settings">Account Settings</div>
+            </a>
+          </li>
+
+          <li class="menu-item active">
+            <a href="/viewsusers" class="menu-link">
+              <i class="menu-icon tf-icons bx bx-detail"></i>
+              <div data-i18n="Form Layouts">Manage Users</div>
+            </a>
+          </li>
+
+          <!-- Cards -->
+          <li class="menu-item">
+            <a href="/notice" class="menu-link">
+              <i class="menu-icon tf-icons bx bx-collection"></i>
+              <div data-i18n="Basic">Notice</div>
+            </a>
+          </li>
+
+          <!-- Tables -->
+          <li class="menu-item">
+            <a href="/uploadfiles" class="menu-link">
+              <i class="menu-icon tf-icons bx bx-table"></i>
+              <div data-i18n="Tables">Upload Result</div>
+            </a>
+          </li>
+        </ul>
+      </aside>
+      <!-- / Menu -->
+
+      <!-- Layout container -->
+      <div class="layout-page">
+        <!-- Navbar -->
+        <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme" id="layout-navbar">
+          <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
+            <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
+              <i class="bx bx-menu bx-sm"></i>
+            </a>
+          </div>
+
+          <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
+            <ul class="navbar-nav flex-row align-items-center ms-auto">
+              <!-- User -->
+              <li class="nav-item navbar-dropdown dropdown-user dropdown">
+                <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
+                  <div class="avatar avatar-online">
+                    <img src="../../uploads/profile/{{photo}}" alt class="w-px-40 h-auto rounded-circle" />
+                  </div>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end">
+                  <li>
+                    <a class="dropdown-item" href="#">
+                      <div class="d-flex">
+                        <div class="flex-shrink-0 me-3">
+                          <div class="avatar avatar-online">
+                            <img src="../../uploads/profile/{{photo}}" alt class="w-px-40 h-auto rounded-circle" />
+                          </div>
+                        </div>
+                        <div class="flex-grow-1">
+                          <span class="fw-semibold d-block">John Doe</span>
+                          <small class="text-muted">Admin</small>
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+                  <li>
+                    <div class="dropdown-divider"></div>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="/logout">
+                      <i class="bx bx-power-off me-2"></i>
+                      <span class="align-middle">Log Out</span>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <!--/ User -->
+            </ul>
+          </div>
+        </nav>
+        <!-- / Navbar -->
+
+        <!-- Content wrapper -->
+        <div class="content-wrapper">
+          <!-- Content -->
+          <div class="container-xxl flex-grow-1 container-p-y">
+            <span>
+              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"></span>Users Table</h4>
+            </span>
+            <a href="/signup" class="btn btn-success">Add User</a>
+            <br /><br />
+
+            <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="inputGroup-sizing-default">ID: </span>
+            </div>
+            <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="searchInput" onkeyup="search()" placeholder="Type to search..." />
+          </div>
+
+
+            {{!-- <input type="text"  /> --}}
+
+            <section class="ftco-section">
+              <div class="container">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="table-wrap">
+                      <table class="table table-striped">
+                        <div class="mb-3 col-md-6"></div>
+                        <thead>
+                          <tr>
+                            <th>ID</th>
+                            <th>UserName</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                          </tr>
+                        </thead>
+                        <tbody id="tableBody">
+                          <!-- Data will be added dynamically here -->
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <script>
+              function search() {
+                const searchInput = document.getElementById('searchInput').value;
+                const tableBody = document.getElementById('tableBody');
+                tableBody.innerHTML = '';
+                fetch(`/search?q=${searchInput}`)
+                  .then((response) => response.json())
+                  .then((data) => {
+                    console.log(data);
+                    // Assuming data is an object containing sid, names, and permission_type
+                    for (let i = 0; i < data.sid.length; i++) {
+                      const newRow = document.createElement('tr');
+
+                      const sidCell = document.createElement('td');
+                      sidCell.innerText = data.sid[i];
+
+                      const nameCell = document.createElement('td');
+                      nameCell.innerText = data.names[i];
+
+                      const EmailCell = document.createElement('td');
+                      EmailCell.innerText = data.email[i];
+
+                      const permissionTypeCell = document.createElement('td');
+                      permissionTypeCell.innerText = data.permission_type[i];
+
+                      const editFormCell = document.createElement('td');
+                      // Create the Edit form
+                      const editFormElement = document.createElement('form');
+                      editFormElement.setAttribute('action', '/edit');
+                      editFormElement.setAttribute('method', 'POST');
+                      editFormElement.classList.add('inline-form');
+
+                      // Create the hidden input element for the 'sid'
+                      const editSidInput = document.createElement('input');
+                      editSidInput.setAttribute('type', 'text');
+                      editSidInput.setAttribute('name', 'sid');
+                      editSidInput.setAttribute('value', data.sid[i]);
+                      editSidInput.setAttribute('hidden', 'true');
+
+                      // Create the 'Edit' button
+                      const editButton = document.createElement('button');
+                      editButton.classList.add('btn', 'btn-sm', 'btn-primary');
+                      editButton.textContent = 'Edit';
+
+                      // Append the input and button elements to the Edit form
+                      editFormElement.appendChild(editSidInput);
+                      editFormElement.appendChild(editButton);
+
+                      // Append the Edit form to the Edit cell
+                      editFormCell.appendChild(editFormElement);
+
+                      const deleteFormCell = document.createElement('td');
+
+                      // Create the Delete form
+                      const deleteFormElement = document.createElement('form');
+                      deleteFormElement.setAttribute('action', '/delete');
+                      deleteFormElement.setAttribute('method', 'POST');
+                      deleteFormElement.classList.add('inline-form');
+
+                      // Create the hidden input element for the 'sid'
+                      const deleteSidInput = document.createElement('input');
+                      deleteSidInput.setAttribute('type', 'text');
+                      deleteSidInput.setAttribute('name', 'sid');
+                      deleteSidInput.setAttribute('value', data.sid[i]);
+                      deleteSidInput.setAttribute('hidden', 'true');
+
+                      // Create the 'Delete' button
+                      const deleteButton = document.createElement('button');
+                      deleteButton.classList.add('btn', 'btn-sm', 'btn-danger');
+                      deleteButton.textContent = 'Delete';
+
+                      // Append the input and button elements to the Delete form
+                      deleteFormElement.appendChild(deleteSidInput);
+                      deleteFormElement.appendChild(deleteButton);
+
+                      // Append the Delete form to the Delete cell
+                      deleteFormCell.appendChild(deleteFormElement);
+
+                      newRow.appendChild(sidCell);
+                      newRow.appendChild(nameCell);
+                      newRow.appendChild(EmailCell);
+                      newRow.appendChild(permissionTypeCell);
+                      newRow.appendChild(editFormCell);
+                      newRow.appendChild(deleteFormCell);
+
+                      tableBody.appendChild(newRow);
+                    }
+                  });
+              }
+
+              search();
+            </script>
+          </div>
+        </div>
+        <!-- / Content wrapper -->
+
+        <!-- Footer -->
+        <footer class="content-footer footer bg-footer-theme">
+          <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
+            <div class="mb-2 mb-md-0">
+              © <script>document.write(new Date().getFullYear());</script> , Student-MIS
+            </div>
+          </div>
+        </footer>
+        <!-- / Footer -->
+
+        <div class="content-backdrop fade"></div>
+      </div>
+      <!-- / Layout page -->
+    </div>
+
+    <!-- Overlay -->
+    <div class="layout-overlay layout-menu-toggle"></div>
+  </div>
+
+  <!-- Core JS -->
+  <script src="../assets/vendor/libs/jquery/jquery.js"></script>
+  <script src="../assets/vendor/libs/popper/popper.js"></script>
+  <script src="../assets/vendor/js/bootstrap.js"></script>
+  <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+  <script src="../assets/vendor/js/menu.js"></script>
+  <!-- / Core JS -->
+
+  <!-- Vendors JS -->
+  <!-- Add any additional vendor scripts here -->
+
+  <!-- Main JS -->
+  <script src="../assets/js/main.js"></script>
+  <!-- / Main JS -->
+
+  <!-- Page JS -->
+  <!-- Add any additional page-specific scripts here -->
+
+  <!-- GitHub buttons script -->
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+</body>
+</html>
