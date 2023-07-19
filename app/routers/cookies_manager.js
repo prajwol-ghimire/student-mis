@@ -11,7 +11,7 @@ const nodemailer = require("nodemailer")
 let transporter = nodemailer.createTransport({
     host: "smtp-mail.outlook.com",
     auth: {
-        user: "Mis@123sTudent!@outlook.com",
+        user: "student_mis.ncit@outlook.com",
         pass: "Mis@123sTudent!",
     },
 })
@@ -28,15 +28,26 @@ const sendOTPVerification = async (nonhashedroll, email, res, nonhashedusername,
     try {
         const otp = `${Math.floor(10000 + Math.random() * 90000)}`;
         const mailOptions = {
-            from: "Mis@123sTudent!@outlook.com",
+            from: "student_mis.ncit@outlook.com",
             to: email,
             subject: "Verify Your Email",
-            html: `<p> Enter ${otp} in the app to verify email address and complete the signup`,
+            html: `<div style="font-family: Helvetica,Arial,sans-serif;min-width:1000px;overflow:auto;line-height:2">
+                    <div style="margin:50px auto;width:70%;padding:20px 0">
+                    <div style="border-bottom:1px solid #eee">
+                        <a href="" style="font-size:1.4em;color: #00466a;text-decoration:none;font-weight:600">Student-MIS</a>
+                    </div>
+                    <p style="font-size:1.1em">Hi,</p>
+                    <p>Please use the following OTP to complete your Sign Up procedures.</p>
+                    <h2 style="background: #00466a;margin: 0 auto;width: max-content;padding: 0 10px;color: #fff;border-radius: 4px;">asda${otp}</h2>
+                    <p style="font-size:0.9em;">Regards,<br />Student-MIS<br />Nepal College of Information Technology<br />Balkumari, Lalitpur</p>
+                    <hr style="border:none;border-top:1px solid #eee" />
+                    </div>
+                </div>`,
         };
 
         const saltRounds = 7;
         const hashedOTP = await bcrypt.hash(otp, saltRounds);
-        // await transporter.sendMail(mailOptions)
+        await transporter.sendMail(mailOptions)
         console.log(otp)
         const query = `UPDATE user_infos SET otp_temp = '` + hashedOTP + `' WHERE sid = '` + nonhashedroll + `'`;
         mysql.query(query, (err, results) => {

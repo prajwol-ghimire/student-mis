@@ -273,23 +273,39 @@
             <div class="container-xxl flex-grow-1 container-p-y">
               <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"></span>Notice</h4>
 
-              <!-- Examples -->
+            {{#compareString permission "Administrator"}} 
               <div>
                  <a href="/uploadnotice" class="btn btn-success">Upload Notice</a>
-                </div>
+              </div>
+            {{/compareString}}  
+              
+              
               <div class="row mb-5">
-
                   {{#each notice}}
                     <div class="col-sm-4">
-                      <div class="card h-100" style="position: relative; margin-top: 5%; ">
+                      <div class="card h-100" style="position: relative; margin-top: 5%;">
                         <div class="card-body">
-                         
+                          <div class="d-flex justify-content-end"> <!-- Move dropdown to the right -->
+                            <button
+                              class="btn p-0"
+                              type="button"
+                              id="orderStatistics"
+                              data-bs-toggle="dropdown"
+                              aria-haspopup="true"
+                              aria-expanded="false"
+                            >
+                              <i class="bx bx-dots-vertical-rounded"></i>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="orderStatistics">
+                              <a class="dropdown-item" href="javascript:void(0);">Delete</a>
+                            </div>
+                          </div>
                           <h3 class="card-title">{{title}}</h3>
                           <h5 class="card-date">{{uploded_year}}/{{uploded_month}}/{{uploded_day}}</h5>
                           <div class="clickable-image">
                             <img
                               class="img-fluid d-flex mx-auto my-4 ripple"
-                              src="../assets/img/notices/{{notice_image}}"
+                              src="../../../uploads/notice/{{notice_image}}"
                               alt="Card image cap"
                               onclick="expandImage(this)"
                             />
@@ -299,8 +315,7 @@
                       </div>
                     </div>
                   {{/each}}
-                
-              </div>
+                </div>
               <!-- Examples -->
 
 
@@ -312,7 +327,7 @@
                   <script>
                     document.write(new Date().getFullYear());
                   </script>
-                  made with ❤️ by Team Garuda
+                  , Student-MIS
                 </div>
               </div>
             </footer>

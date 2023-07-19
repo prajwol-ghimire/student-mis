@@ -8,7 +8,7 @@ const { await } = require('await');
 let transporter = nodemailer.createTransport({
     host: "smtp-mail.outlook.com",
     auth: {
-        user: "Mis@123sTudent!@outlook.com",
+        user: "student_mis.ncit@outlook.com",
         pass: "Mis@123sTudent!",
     },
 });
@@ -23,7 +23,7 @@ let transporter = nodemailer.createTransport({
  */
 async function sendUserDetails(examroll, email, password, username, res) {
     const mailOptions = {
-        from: "Mis@123sTudent!@outlook.com",
+        from: "student_mis.ncit@outlook.com",
         to: email,
         subject: "STUDENT MIS REGISTRATION",
         html: `<p>Use the following credentials to login:<p>
@@ -34,7 +34,7 @@ async function sendUserDetails(examroll, email, password, username, res) {
         `,
     };
     console.log(password);
-    // await transporter.sendMail(mailOptions);
+    await transporter.sendMail(mailOptions);
     res.redirect('/viewsusers');
 }
 
