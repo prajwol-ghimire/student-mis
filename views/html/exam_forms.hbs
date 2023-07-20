@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="assets/css/exam_form.css" rel="stylesheet">
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container">   
+      <div class="form">
+        <div class="heading">
+          <div class="logo"><img src="assets/img/logo_pu.png" width="120" /></div>
+          <div class="title">
+            <h1>POKHARA UNIVERSITY</h1>
+            <h1>Office of the Controller of Examinations</h1>
+            <h3>Application Form</h2>
+            <h2 class="line4">Semester/Trimester/yearly Examination</h2>
+          </div>
+          <div class="image"><img src="../../uploads/form/{{photo}}" width="120" /></div>
+        </div>
+        <form action="" class="input_section">
+          <div class="first_line">
+            <p> Exam Roll No. : &nbsp; <span class="dotted-line"> {{sid}} </span></p>
+            <p> Exam Center: &nbsp; <span class="dotted-line"> {{center}} </span></p>
+          </div>
+          <div class="second_line">
+            <p>Level: &nbsp;<span class="dotted-line">{{level}}</span></p>
+            <p>Program:  &nbsp;<span class="dotted-line">{{program}}</span></p>
+          </div>
+          <div class="third_line">
+            <p>Semester/Trimester/Year : &nbsp;<span class="dotted-line">{{year}}</span></p>
+          </div>
+          <div class="fml_name">
+            <span><p>First Name</p></span> 
+            <span><p>Middle Name</p></span> 
+            <span><p>Last Name</p></span>
+          </div>
+          <table  class="fst_table">
+            <tr>  
+              <td>&nbsp;&nbsp;Name&nbsp;&nbsp;</td>
+              {{#each name}}
+              <td>{{0}}</td>
+              {{/each}}
+            </tr>
+          </table>
+          <br>
+          <table class="snd_table">
+            <tr>
+              <td id="pu_rno">&nbsp;P.U. Registration No.&nbsp;</td>
+              {{#each rollno}}
+              <td>{{0}}</td>
+              {{/each}}
+            </tr>
+          </table>
+
+          <div>
+            <p> Name of the College : 
+              <span class="dotted-line"> 
+                  Nepal College of Information Technology , Balkumari lalitpur &nbsp;   
+             </span></p>  
+            <p>For the appearance in the examination of following courses as per course registered.</p>
+          </div>
+
+          <div>
+            <h3>Regular Courses</h3>
+            <table class="regular_courses">
+              <tr>
+                <td class="sno">S.No.</td>
+                <td class="equal_padding">Course Code</td>
+                <td class="course_title">Course Title</td>
+                <td class="equal_padding">Credit</td>
+                <td class="equal_padding">Remarks</td>
+              </tr>
+              {{#each subjects}}
+              <tr><td>{{incIndex @index}}.</td><td>{{course_code}}</td><td>{{course_name}}</td><td>{{credit}}</td><td></td></tr>
+              {{/each}}
+            </table>
+          </div>
+          <br>
+          <div>
+            <h3>Re-registered Courses</h3>
+            <table class="regular_courses">
+              <tr>
+                <td class="sno">S.No.</td>
+                <td class="equal_padding">Course Code</td>
+                <td class="course_title">Course Title</td>
+                <td class="equal_padding">Credit</td>
+                <td class="equal_padding">Remarks</td>
+              </tr>
+              {{#each resubjects}}
+              <tr><td>{{incIndex @index}}.</td><td>{{courseCode}}</td><td>{{courseName}}</td><td>{{courseCredits}}</td><td></td></tr>
+              {{/each}}
+            </table>
+          </div>
+          <br>
+          <div class="last">
+            <p>Signature of the Student: .......................................</p>
+            <p>Form checked and accepted by: .......................</p>
+            <p>Date: ......................................</p>
+          </div>
+
+        </form>
+          <button class="noprint" onclick="printPage()">Print</button>
+      </div>
+    </div>
+      <script>
+        function printPage() {
+          window.print();
+        }
+      </script>
+    
+  </body>
+</html>
