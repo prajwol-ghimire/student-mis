@@ -6,22 +6,22 @@ let router = express.Router();
 const mysql = require("./connection").con
 const bodyParser = require('body-parser')
 const urlencodedParser = bodyParser.urlencoded({ extended: false })
+require("../routers/adminAccount")
 require("../routers/handlebars.js")
+
 
 
 const firstsem = require('../controllers/firstsem.controller.js');
 const secondsem = require('../controllers/secondsem.controller.js');
 const thirdsem = require('../controllers/thirdsem.controller.js');
 
-let addedpath = __basedir + '/uploads/';
-router.use(express.static(addedpath));
+
 let path = __basedir + '/views/';
 router.use(express.static(path));
+let paths = __basedir ;
+router.use(express.static(paths));
 app.set('view engine', 'hbs');
 
-
-let newPath= __basedir+'/views/student'
-router.use(express.static(newPath));
 
 //--------------------------------------------------------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------------------------------------------------------
@@ -55,9 +55,9 @@ router.get('/reset-password', urlencodedParser, (req, res) => {
 router.get('/password_reset', (req, res) => {
   const sucess = req.query.sucess; 
   if (sucess == 'hasbeensent'){ 
-    res.render('password_reset.hbs', { hasbeensent: true });
+    res.render('html/password_reset.hbs', { hasbeensent: true });
   }else{
-    res.render(path + "password_reset.hbs")
+    res.render(path + "html/password_reset.hbs")
   }
 });
 
@@ -70,9 +70,9 @@ router.get('/logout', (req, res) => {
 router.get('/login', (req, res) => {
   const error = req.query.error; 
   if (error == 'nosuchuser'){ 
-    res.render(path + 'login.hbs', {nosuchuser : true})  
+    res.render(path + 'html/login.hbs', {nosuchuser : true})  
   }else{
-    res.render(path + "login.hbs")
+    res.render(path + "html/login.hbs")
   }
 });
 
@@ -136,11 +136,19 @@ router.get('/showresult', urlencodedParser, (req, res) => {
   showresults(req, res)
 });
 
+//--------------------------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------ POST REQUEST(student) ------------------------------------------------------
+//--------------------------------------------------------------------------------------------------------------------------------
+
+
 const exam_form = require('./exam_form.js');
 
-router.get('/exam-form', (req, res) => { //yo post ma halnu xa
+let FormUpload = require('../config/multer.form.config.js');
+router.post('/exam-form', urlencodedParser,FormUpload.single("PP_photo"),(req, res) => { 
   exam_form(req, res);
 });
+
+
 
 
 //--------------------------------------------------------------------------------------------------------------------------------
@@ -172,14 +180,6 @@ router.get('/signup', (req, res) => {
 
 router.get('/viewsusers', (req, res) => {
   cookie_checker(req,res, "viewsusers") 
-  let sql = "SELECT * FROM user_infos";
-  let query = mysql.query(sql, (err, rows) => {
-    if (err) throw err;
-    res.render(path + '/admin/html/viewsusers.hbs', {
-      title: 'Manage User',
-      user_infos: rows
-    });
-  });
 });
 
 
@@ -223,12 +223,7 @@ router.post('/delete', urlencodedParser, (req, res) => {
 });
 
 router.post('/edit', urlencodedParser, (req, res) => {
-  const sid = req.body.sid;
-  let sql = `Select * from user_infos where sid = ${sid}`;
-  let query = mysql.query(sql, (err, result) => {
-    if (err) throw err;
-    res.render(path + '/admin/html/user_edit.hbs', { title: 'Edit User ', user: result[0] });
-  });
+  cookie_checker(req,res, "edit") 
 });
 
 router.post('/deletenotice', urlencodedParser, (req, res) => {
@@ -273,12 +268,12 @@ router.post('/sendnotice', urlencodedParser, Noticeupload.single("notice"), (req
 
 // 404 error display
 
-router.post('*', (req,res) => {
-  res.render(path + '/student/html/pages-misc-error.hbs');
-});
+// router.post('*', (req,res) => {
+//   res.render(path + 'html/pages-misc-error.hbs');
+// });
 
 router.get('*', (req,res) => {
-  res.render(path + '/student/html/pages-misc-error.hbs');
+  res.render('html/pages-misc-error.hbs');
 });
 
 

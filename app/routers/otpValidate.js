@@ -1,4 +1,3 @@
-const { check, validationResult } = require('express-validator');
 const mysql = require("./connection").con;
 const bcrypt = require("bcrypt");
 
@@ -24,7 +23,7 @@ async function compareOTP(hashedotp, otpvalue, res, sid_user, username, permissi
             }
         });
     } else {
-        res.render("landing.hbs", { otpwrong: true, otpnotverified: true, cookies: true, rollno: sid_user, user_name: username, permission: permission });
+        res.render("html/landing.hbs", { otpwrong: true, otpnotverified: true, cookies: true, rollno: sid_user, user_name: username, permission: permission });
     }
 }
 

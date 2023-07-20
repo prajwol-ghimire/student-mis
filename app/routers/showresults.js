@@ -10,21 +10,21 @@ function getResults(sid, res) {
     mysql.query(qry1, (err, results1) => {
         if (err) {
             console.log(err);
-            res.render("login.hbs");
+            res.render("html/login.hbs");
         } else {
             if (results1.length > 0) {
                 let qry2 = `SELECT * FROM semester2s WHERE sid = '` + sid + `'`;
                 mysql.query(qry2, (err, results2) => {
                     if (err) {
                         console.log(err);
-                        res.render("login.hbs");
+                        res.render("html/login.hbs");
                     } else {
                         if (results2.length > 0) {
                             let qry3 = `SELECT * FROM semester3s WHERE sid = '` + sid + `'`;
                             mysql.query(qry3, (err, results3) => {
                                 if (err) {
                                     console.log(err);
-                                    res.render("login.hbs");
+                                    res.render("html/login.hbs");
                                 } else {
                                     if (results3.length > 0) {
                                         res.render('result.hbs', {
@@ -78,23 +78,12 @@ function showresults(req, res) {
             }
         }
     }
-
+   
     if (rollno) {
-        let n_sid = decodeURIComponent(rollno);
-        let qry = "SELECT sid FROM user_cookies WHERE sid_cookie = ?";
-        mysql.query(qry, n_sid, (err, recivedresults) => {
-            if (err) throw err;
-            else {
-                if (recivedresults.length > 0) {
-                    const nonhashedroll = recivedresults[0].sid;
-                    getResults(nonhashedroll, res);
-                } else {
-                    res.render("login.hbs");
-                }
-            }
-        });
+        const nonhashedroll = cookies.decrypt(hrollno,res,req);
+        getResults(nonhashedroll, res);
     } else {
-        res.render("login.hbs");
+        res.render("html/login.hbs");
     }
 }
 

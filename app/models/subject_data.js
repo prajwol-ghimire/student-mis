@@ -9,6 +9,9 @@ module.exports = (sequelize, Sequelize) => {
 	course_name: {
 		type: Sequelize.STRING
 	},
+	abbreviation: {
+		type: Sequelize.STRING
+	},
     course_code: {
 		type: Sequelize.STRING
 	},

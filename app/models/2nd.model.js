@@ -30,7 +30,9 @@ module.exports = (sequelize, Sequelize) => {
 		// allowNull: false
 		autoIncrement: true,
 		primaryKey: true
-	},
+	}
+
+
 	});
 	
 	return semester2;

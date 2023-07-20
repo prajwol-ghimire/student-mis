@@ -49,11 +49,11 @@ async function send_Reset_Password(user_email, recivedresults, req, res) {
     console.log(html)
     const sid = recivedresults[0].sid;
     nowdate = Date.now();
-    requesteddate = Date.now() + 60 * 1000;
+    requesteddate = Date.now() + 3600 * 1000;
     const query = `UPDATE user_cookies SET reset_token_temp = '` + token + `', reset_token_time = '` + requesteddate + `' WHERE sid = '` + sid + `'`;
     mysql.query(query, (err, results) => {
         if (err) {
-            res.render('password_reset.hbs', { error500: true });
+            res.render('html/password_reset.hbs', { error500: true });
         } else {
             res.redirect("/password_reset?sucess=hasbeensent")
         }
@@ -74,7 +74,7 @@ function reset_password(req, res) {
             if (recivedresults.length > 0) {
                 send_Reset_Password(user_email, recivedresults, req, res);
             } else {
-                res.render('password_reset.hbs', { nosuchuser: true });
+                res.render('html/password_reset.hbs', { nosuchuser: true });
             }
         }
     });

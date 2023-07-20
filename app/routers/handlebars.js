@@ -1,4 +1,5 @@
 const handlebars = require('hbs');
+const mysql = require("./connection").con;
 
 handlebars.registerHelper('compareString', function (a, b, options) {
   return a === b ? options.fn(this) : options.inverse(this);
@@ -23,4 +24,8 @@ handlebars.registerHelper('changeString', function (marks) {
 
 handlebars.registerHelper('jsonStringify', function (obj) {
   return new handlebars.SafeString(JSON.stringify(obj));
+});
+
+handlebars.registerHelper('incIndex', function (index) {
+  return index + 1;
 });

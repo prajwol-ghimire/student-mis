@@ -13,17 +13,17 @@ async function hashNewPass(req, res, sid, newpass) {
                 const query = `UPDATE user_cookies SET reset_token_temp = 'none' WHERE sid = '` + sid +`'`;
                 mysql.query(query, (err, results) => {
                     if (err) {
-                        res.render("login.hbs");
+                        res.render("html/login.hbs");
                     } else {
-                        res.render("login.hbs");
+                        res.render("html/login.hbs");
                     }
                 });
             } else {
-                res.render("login.hbs");
+                res.render("html/login.hbs");
             }
         });
     } catch (error) {
-        res.render("login.hbs");
+        res.render("html/login.hbs");
     }
 }
 
@@ -39,7 +39,7 @@ function change_password(req, res) {
                 const sid = results[0].sid;
                 hashNewPass(req, res, sid, newpass);
             } else {
-                res.render('password_reset.hbs', { error500: true });
+                res.render('html/password_reset.hbs', { error500: true });
             }
         }
     });

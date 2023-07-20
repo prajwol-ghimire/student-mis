@@ -5,12 +5,6 @@ module.exports = (sequelize, Sequelize) => {
 		allowNull: false,
 		primaryKey: true
 	},
-	username_cookie: {
-		type: Sequelize.STRING
-	},
-	sid_cookie: {
-		type: Sequelize.STRING
-	},
 	reset_token_temp: {
 		type: Sequelize.STRING
 	},
