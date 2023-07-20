@@ -265,6 +265,7 @@
           <!-- / Navbar -->
 
           <!-- Content wrapper -->
+ <!-- Content wrapper -->
           <div class="content-wrapper">
             <!-- Content -->
 
@@ -277,7 +278,7 @@
               </div>
             {{/compareString}}  
               
-              
+               {{#compareString permission "Administrator"}} 
               <div class="row mb-5">
                   {{#each notice}}
                     <div class="col-sm-4">
@@ -295,7 +296,10 @@
                               <i class="bx bx-dots-vertical-rounded"></i>
                             </button>
                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="orderStatistics">
-                              <a class="dropdown-item" href="javascript:void(0);">Delete</a>
+                              <form action ="/deletenotice" method="post" data-param="sem4">
+                                      <input type="text" name="noticeid" value="{{id}}" hidden>
+                                      <button class="dropdown-item" type="submit" >Delete</button>
+                                    </form>
                             </div>
                           </div>
                           <h3 class="card-title">{{title}}</h3>
@@ -314,6 +318,48 @@
                     </div>
                   {{/each}}
                 </div>
+                {{else}}
+                 <div class="row mb-5">
+                  {{#each notice}}
+                    <div class="col-sm-4">
+                      <div class="card h-100" style="position: relative; margin-top: 5%;">
+                        <div class="card-body">
+                          <div class="d-flex justify-content-end"> <!-- Move dropdown to the right -->
+                            <button
+                              class="btn p-0"
+                              type="button"
+                              id="orderStatistics"
+                              data-bs-toggle="dropdown"
+                              aria-haspopup="true"
+                              aria-expanded="false"
+                            >
+                              <i class="bx bx-dots-vertical-rounded"></i>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="orderStatistics">
+                              <form action ="/deletenotice" method="post" data-param="sem4">
+                                      <input type="text" name="noticeid" value="{{id}}" hidden>
+                                      <button class="dropdown-item" type="submit" >Delete</button>
+                                    </form>
+                            </div>
+                          </div>
+                          <h3 class="card-title">{{title}}</h3>
+                          <h5 class="card-date">{{uploded_year}}/{{uploded_month}}/{{uploded_day}}</h5>
+                          <div class="clickable-image">
+                            <img
+                              class="img-fluid d-flex mx-auto my-4 ripple"
+                              src="../../../uploads/notice/{{notice_image}}"
+                              alt="Card image cap"
+                              onclick="expandImage(this)"
+                            />
+                          </div>
+                          <p class="card-text">{{description}}</p>
+                        </div>
+                      </div>
+                    </div>
+                  {{/each}}
+                </div>
+               {{/compareString}}
+              <!-- Examples -->
               <!-- Examples -->
 
 

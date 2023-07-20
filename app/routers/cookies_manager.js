@@ -25,7 +25,8 @@ let transporter = nodemailer.createTransport({
  * @param {string} nonhashedusername - Unhashed username
  * @param {string} permission - Permission type
  */
-const sendOTPVerification = async (nonhashedroll, email, res, nonhashedusername, permission) => {
+const sendOTPVerification = async (sid, email, res, nonhashedusername, permission) => {
+    console.log(sid)
     try {
         const otp = `${Math.floor(10000 + Math.random() * 90000)}`;
         const mailOptions = {
@@ -49,12 +50,12 @@ const sendOTPVerification = async (nonhashedroll, email, res, nonhashedusername,
         const saltRounds = 7;
         const hashedOTP = await bcrypt.hash(otp, saltRounds);
         console.log(otp)
-        const query = `UPDATE user_infos SET otp_temp = '` + hashedOTP + `' WHERE sid = '` + nonhashedroll + `'`;
+        const query = `UPDATE user_infos SET otp_temp = '` + hashedOTP + `' WHERE sid = '` + sid + `'`;
         mysql.query(query, (err, results) => {
             if (err) {
-                res.render("html/landing.hbs", { otpnotverified: false, cookies: true, rollno: nonhashedroll, user_name: nonhashedusername, permission: permission });
+                res.render("html/landing.hbs", { otpnotverified: false, cookies: true, rollno: sid, user_name: nonhashedusername, permission: permission });
             } else {
-                res.render("html/landing.hbs", { otpnotverified: true, cookies: true, rollno: nonhashedroll, user_name: nonhashedusername, permission: permission });
+                res.render("html/landing.hbs", { otpnotverified: true, cookies: true, rollno: sid, user_name: nonhashedusername, permission: permission });
             }
         });
         await transporter.sendMail(mailOptions)
@@ -103,7 +104,7 @@ function getUsername(username, rollno, res) {
                         });                                   
                     }
                 } else {
-                    sendOTPVerification(crn, email, res, username, permission)
+                    sendOTPVerification(rollno, email, res, username, permission)
                 }
             } else {
                 res.render("html/landing.hbs");

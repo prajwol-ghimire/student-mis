@@ -72,7 +72,7 @@ async function signUpSQL(res, examroll, username, email, permission) {
                             const match = email.match(regex);
                             const crn = match ? match[0] : null;
 
-                            const query = `INSERT INTO user_data (sid,crn) VALUES ('${examroll}','${crn}' )`
+                            const query = `INSERT INTO user_data (sid,crn, user_image) VALUES ('${examroll}','${crn}','user.png')`
                             mysql.query(query, (err, results) => {
                                 if (err) {
                                     console.error('Error inserting data: ', err);
