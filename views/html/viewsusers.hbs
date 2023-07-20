@@ -157,7 +157,9 @@
 
 
             {{!-- <input type="text"  /> --}}
-
+            {{#if master}}
+                <span style="color: red;"><b><h7> * Master Account Can't be deleted </h7></b></span>
+            {{/if}}
             <section class="ftco-section">
               <div class="container">
                 <div class="row">

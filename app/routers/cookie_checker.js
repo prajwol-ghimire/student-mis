@@ -77,25 +77,51 @@ function cookie_checker(req, res, page){
                             user_image=recivedresults[0].user_image
                             let sql = "SELECT * FROM user_infos";
                             let query = mysql.query(sql, (err, rows) => {
-                            if (err) throw err;
-                            res.render('html/viewsusers.hbs', {
-                                title: 'Manage User',
-                                user_infos: rows,
-                                permission:permission, 
-                                username: fullname, 
-                                photo:user_image
+                                if (err) throw err;
+                                errorParam = req.query.error
+                                const referrer = req.headers.referer || req.headers.referrer;
+                                if (referrer && referrer.includes('http://localhost:8080/viewsusers')) {
+                                    if( errorParam == "master" ){
+                                        res.render('html/viewsusers.hbs', {
+                                            title: 'Manage User',
+                                            user_infos: rows,
+                                            permission:permission, 
+                                            username: fullname, 
+                                            photo:user_image,
+                                            master: true
+                                        });
+                                    }else{
+                                        res.render('html/viewsusers.hbs', {
+                                            title: 'Manage User',
+                                            user_infos: rows,
+                                            permission:permission, 
+                                            username: fullname, 
+                                            photo:user_image,
+                                            master: false
+                                        });
+                                    }
+                                  } else {
+                                    res.render('html/viewsusers.hbs', {
+                                        title: 'Manage User',
+                                        user_infos: rows,
+                                        permission:permission, 
+                                        username: fullname, 
+                                        photo:user_image,
+                                        master: false
+                                    });
+                                  }
                             });
-                            });
-
                         }
                         else if (page == "uploadnotice"){
-                            res.render("html/uploadnotice.hbs")
+                            fullname = recivedresults[0].username                            
+                            user_image=recivedresults[0].user_image
+                            res.render("html/uploadnotice.hbs", { permission:permission, username: fullname, photo:user_image})
                         }
                         else if (page == "signup"){
                             fullname = recivedresults[0].username                            
                             user_image=recivedresults[0].user_image
                             const error = req.query.error; 
-                            if (error == 'emailInvalid'){ 
+                            if (error == 'emailInvalid'){  
                                 res.render('html/signup.hbs', { notvalid: true , permission:permission, username: fullname, photo:user_image});
                             }
                             else if(error == 'alreadyuser'){

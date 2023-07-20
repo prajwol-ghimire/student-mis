@@ -2,14 +2,14 @@
 const mysql = require("./connection").con;
 
 
-// email : test.123@ncit.edu.np
+// email : master.account@ncit.edu.np
 // password : apple
 
 //user_infos
 query1 = `INSERT INTO user_infos (sid, username, email, password, permission_type, otp_temp, otp_verified, createdAt, updatedAt)
 SELECT 1 AS SID,
-'Test Man' AS username, 
-'test.123@ncit.edu.np' AS email, 
+'Master Account' AS username, 
+'master.account@ncit.edu.np' AS email, 
 '$2b$10$Ruge19J.GD8wPf4nA4y2eeG2eai1a6LArhklId5Ku6uW/6uj8fYoC' AS password, 
 'Administrator' AS permission_type, 
 NULL AS otp_temp, 

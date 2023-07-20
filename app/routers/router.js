@@ -207,19 +207,23 @@ router.post('/update', urlencodedParser, (req, res) => {
 
 router.post('/delete', urlencodedParser, (req, res) => {
   const sid = req.body.sid;
-  let sql = `DELETE from user_infos where sid = ${sid}`;
-  let query = mysql.query(sql, (err, result) => {
-    if (err) throw err;
-    let sql = `DELETE from user_data where sid = ${sid}`;
+  if(sid == 1){
+    res.redirect('/viewsusers?error=master');
+  }else{
+    let sql = `DELETE from user_infos where sid = ${sid}`;
     let query = mysql.query(sql, (err, result) => {
       if (err) throw err;
-      let sql = `DELETE from user_cookies where sid = ${sid}`;
+      let sql = `DELETE from user_data where sid = ${sid}`;
       let query = mysql.query(sql, (err, result) => {
         if (err) throw err;
-        res.redirect('/viewsusers');
+        let sql = `DELETE from user_cookies where sid = ${sid}`;
+        let query = mysql.query(sql, (err, result) => {
+          if (err) throw err;
+          res.redirect('/viewsusers');
+        });
       });
     });
-  });
+  }
 });
 
 router.post('/edit', urlencodedParser, (req, res) => {
