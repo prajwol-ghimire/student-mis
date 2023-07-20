@@ -129,39 +129,39 @@
                       
       
                       <!-- User -->
-                      <li class="nav-item navbar-dropdown dropdown-user dropdown">
-                        <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-                          <div class="avatar avatar-online">
-                            <img src="../../uploads/profile/{{photo}}" alt class="w-px-40 h-auto rounded-circle" />
+                               <li class="nav-item navbar-dropdown dropdown-user dropdown">
+                  <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
+                    <div class="avatar avatar-online">
+                        <img src="../../uploads/profile/{{photo}}" onerror = "../assets/img/user.png"  class="w-px-40 h-auto rounded-circle"alt="User-Image" />
+                    </div>
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-end">
+                    <li>
+                      <a class="dropdown-item" href="/">
+                        <div class="d-flex">
+                          <div class="flex-shrink-0 me-3">
+                            <div class="avatar avatar-online">
+                                  <img src="../../uploads/profile/{{photo}}" onerror = "../assets/img/user.png"  class="w-px-40 h-auto rounded-circle"alt="User-Image" />
+                            </div>
                           </div>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                          <li>
-                            <a class="dropdown-item" href="#">
-                              <div class="d-flex">
-                                <div class="flex-shrink-0 me-3">
-                                  <div class="avatar avatar-online">
-                                    <img src="../../uploads/profile/{{photo}}" alt class="w-px-40 h-auto rounded-circle" />
-                                  </div>
-                                </div>
-                                <div class="flex-grow-1">
-                                  <span class="fw-semibold d-block">John Doe</span>
-                                  <small class="text-muted">Admin</small>
-                                </div>
-                              </div>
-                            </a>
-                          </li>
-                          <li>
-                            <div class="dropdown-divider"></div>
-                          </li>
-                          <li>
-                            <a class="dropdown-item" href="/logout">
-                              <i class="bx bx-power-off me-2"></i>
-                              <span class="align-middle">Log Out</span>
-                            </a>
-                          </li>
-                        </ul>
-                      </li>
+                          <div class="flex-grow-1">
+                            <span class="fw-semibold d-block">{{username}}</span>
+                            <small class="text-muted">{{permission}}</small>
+                          </div>
+                        </div>
+                      </a>
+                    </li>    
+                    <li>
+                      <div class="dropdown-divider"></div>
+                    </li>              
+                    <li>
+                      <a class="dropdown-item" href="/logout">
+                        <i class="bx bx-power-off me-2"></i>
+                        <span class="align-middle">Log Out</span>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
                       <!--/ User -->
                     </ul>
                   </div>
@@ -183,7 +183,7 @@
                       
                     </div>
                     <div class="card-body">
-                      <form>
+                      <form action="/exam-form" method="post">
                         <div class="row mb-3">
                           <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Exam Center</label>
                           <div class="col-sm-10">
@@ -195,6 +195,7 @@
                                 id="basic-icon-default-fullname"
                                 aria-label="John Doe"
                                 aria-describedby="basic-icon-default-fullname2"
+                                name = "center"
                               />
                             </div>
                           </div>
@@ -211,6 +212,7 @@
                                 id="basic-icon-default-fullname"
                                 aria-label="John Doe"
                                 aria-describedby="basic-icon-default-fullname2"
+                                name="registration"
                               />
                             </div>
                           </div>
@@ -227,11 +229,13 @@
                                 id="basic-icon-default-fullname"
                                 aria-label="John Doe"
                                 aria-describedby="basic-icon-default-fullname2"
+                                name="level"
                               />
                             </div>
                           </div>
                         </div>
-
+                        <input type="text" value="{{fullname}}" name="fullname" hidden>
+                        <input type="text" value="{{sid}}" name="sid" hidden>
                         <div class="row mb-3">
                           <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Program</label>
                           <div class="col-sm-10">
@@ -243,6 +247,7 @@
                                 id="basic-icon-default-fullname"
                                 aria-label="John Doe"
                                 aria-describedby="basic-icon-default-fullname2"
+                                name="program"
                               />
                             </div>
                           </div>
@@ -252,7 +257,7 @@
                           <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Semester</label>
                           <div class="col-sm-2 ">
                             <div class="">
-                              <select name="" id="basic-icon-default-fullname2" class="input-group-text">
+                              <select name="semester" id="basic-icon-default-fullname2" class="input-group-text">
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -278,6 +283,7 @@
                                 id="basic-icon-default-fullname"
                                 aria-label="John Doe"
                                 aria-describedby="basic-icon-default-fullname2"
+                                name="year"
                               />
                             </div>
                           </div>
@@ -294,6 +300,7 @@
                                 id="basic-icon-default-fullname"
                                 aria-label="John Doe"
                                 value="Nepal College of Information Technology, Balkumari Lalitpur"
+                                name="college"
                                 aria-describedby="basic-icon-default-fullname2"
                               />
                             </div>
@@ -308,25 +315,23 @@
                               <input
                                 type="date"
                                 class="form-control"
-                                
+                                name="date"
                               />
                             </div>
                           </div>
                         </div>
-                    {{#if failed}}
-                        <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">RE-TAKE EXAM (If Any)</label>
-                          <div class="col-sm-10">
-                            {{#each failed}}
-                                  {{subjectname subject}}
-                                  <input type="checkbox" class="subject" name="{{subject}}" value="{{subject}}">
-                                  <label for="subject"> {{subject}} </label><br>
-                            {{/each}}
-                          </div>
-                        </div>
-                      {{/if}}
-                        
-                          
+                            {{#if SubjectAndCode}}
+                              <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">RE-TAKE EXAM (If Any)</label>
+                                <div class="col-sm-10">
+                                  {{#each SubjectAndCode}}
+                                    <input type="checkbox" class="subject" name ="code" value="{{codes}}">
+                                    <label for="subject">{{subjects}}</label><label for="subjectcode">{{codes}}</label>
+                                    
+                                  {{/each}}
+                                </div>
+                              </div>
+                            {{/if}}
                         <div class="row justify-content-end">
                           <div class="col-sm-10">
                             <button type="submit" class="btn btn-primary">Send</button>

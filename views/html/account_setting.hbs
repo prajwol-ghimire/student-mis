@@ -271,34 +271,31 @@
                 <!-- Place this tag where you want the button to render. -->
 
                 <!-- User -->
-                <li class="nav-item navbar-dropdown dropdown-user dropdown">
+                         <li class="nav-item navbar-dropdown dropdown-user dropdown">
                   <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-                    <div class="avatar avatar-online">      
-                      <img src="../../uploads/profile/{{photo}}" onerror = "../assets/img/user.png" alt class="w-px-40 h-auto rounded-circle"alt="User-Image" />
+                    <div class="avatar avatar-online">
+                        <img src="../../uploads/profile/{{photo}}" onerror = "../assets/img/user.png"  class="w-px-40 h-auto rounded-circle"alt="User-Image" />
                     </div>
                   </a>
                   <ul class="dropdown-menu dropdown-menu-end">
                     <li>
-                      <a class="dropdown-item" href="#">
+                      <a class="dropdown-item" href="/">
                         <div class="d-flex">
                           <div class="flex-shrink-0 me-3">
                             <div class="avatar avatar-online">
-         
-                           
-                            <img src="../../uploads/profile/{{photo}}" onerror = "../assets/img/user.png" alt class="w-px-40 h-auto rounded-circle"alt="User-Image" />
-
+                                  <img src="../../uploads/profile/{{photo}}" onerror = "../assets/img/user.png"  class="w-px-40 h-auto rounded-circle"alt="User-Image" />
                             </div>
                           </div>
                           <div class="flex-grow-1">
-                            <span class="fw-semibold d-block">John Doe</span>
-                            <small class="text-muted">Admin</small>
+                            <span class="fw-semibold d-block">{{username}}</span>
+                            <small class="text-muted">{{permission}}</small>
                           </div>
                         </div>
                       </a>
-                    </li>
+                    </li>    
                     <li>
                       <div class="dropdown-divider"></div>
-                    </li>
+                    </li>              
                     <li>
                       <a class="dropdown-item" href="/logout">
                         <i class="bx bx-power-off me-2"></i>
@@ -332,7 +329,7 @@
                             <div class="d-flex align-items-start align-items-sm-center gap-4">
                                <img 
                                   src="../../uploads/profile/{{photo}}" 
-                                  onerror = "../assets/img/user.png"  
+                                  onerror = "user.png" 
                                   alt="user-avatar"
                                   class="d-block rounded"
                                   height="100"
