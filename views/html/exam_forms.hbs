@@ -17,13 +17,12 @@
             <h3>Application Form</h2>
             <h2 class="line4">Semester/Trimester/yearly Examination</h2>
           </div>
-          <div class="image"><img src="assets/img/pp-photo.png" width="120" /></div>
+          <div class="image"><img src="../../uploads/form/{{photo}}" width="120" /></div>
         </div>
-
         <form action="" class="input_section">
           <div class="first_line">
-            <p>Exam Roll No. : &nbsp;<span class="dotted-line">{{sid}}</span></p>
-            <p>Exam Center: &nbsp;<span class="dotted-line">{{center}}</span></p>
+            <p> Exam Roll No. : &nbsp; <span class="dotted-line"> {{sid}} </span></p>
+            <p> Exam Center: &nbsp; <span class="dotted-line"> {{center}} </span></p>
           </div>
           <div class="second_line">
             <p>Level: &nbsp;<span class="dotted-line">{{level}}</span></p>
@@ -32,16 +31,13 @@
           <div class="third_line">
             <p>Semester/Trimester/Year : &nbsp;<span class="dotted-line">{{year}}</span></p>
           </div>
-          <!--First_Name   Middle_Name   Last_Name -->
           <div class="fml_name">
             <span><p>First Name</p></span> 
             <span><p>Middle Name</p></span> 
             <span><p>Last Name</p></span>
           </div>
           <table  class="fst_table">
-            <tr>
-              {{!-- {{#each name}} --}}
-            
+            <tr>  
               <td>&nbsp;&nbsp;Name&nbsp;&nbsp;</td>
               {{#each name}}
               <td>{{0}}</td>
@@ -77,7 +73,7 @@
                 <td class="equal_padding">Remarks</td>
               </tr>
               {{#each subjects}}
-              <tr><td>{{id}}</td><td>{{course_code}}</td><td>{{course_name}}</td><td>{{credit}}</td><td></td></tr>
+              <tr><td>{{incIndex @index}}.</td><td>{{course_code}}</td><td>{{course_name}}</td><td>{{credit}}</td><td></td></tr>
               {{/each}}
             </table>
           </div>
@@ -92,8 +88,8 @@
                 <td class="equal_padding">Credit</td>
                 <td class="equal_padding">Remarks</td>
               </tr>
-              {{#each code}}
-              <tr><td>1</td><td>asd</td><td>asf</td><td>asf</td><td></td></tr>
+              {{#each resubjects}}
+              <tr><td>{{incIndex @index}}.</td><td>{{courseCode}}</td><td>{{courseName}}</td><td>{{courseCredits}}</td><td></td></tr>
               {{/each}}
             </table>
           </div>
@@ -105,17 +101,14 @@
           </div>
 
         </form>
+          <button class="noprint" onclick="printPage()">Print</button>
       </div>
     </div>
-        <script>
-      function printPage() {
-        window.print();
-      }
+      <script>
+        function printPage() {
+          window.print();
+        }
       </script>
-
-      <button class="noprint" onclick="printPage()">Print</button>
-
     
-
   </body>
 </html>

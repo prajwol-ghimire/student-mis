@@ -183,7 +183,7 @@
                       
                     </div>
                     <div class="card-body">
-                      <form action="/exam-form" method="post">
+                      <form action="/exam-form" method="post" enctype="multipart/form-data">
                         <div class="row mb-3">
                           <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Exam Center</label>
                           <div class="col-sm-10">
@@ -306,7 +306,7 @@
                             </div>
                           </div>
                         </div>
-
+                       
                         <div class="row mb-3">
                           <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Date</label>
                           <div class="col-sm-10">
@@ -320,13 +320,34 @@
                             </div>
                           </div>
                         </div>
+                         <div class="row mb-3">
+                          <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">PP-Size Photo</label>
+                          <div class="col-sm-3">
+                            <div class="input-group input-group-merge">
+                              <span id="basic-icon-default-fullname2" class="input-group-text"></span>
+                              <input
+                                type="file"
+                                class="form-control"
+                                id="basic-icon-default-fullname"
+                                aria-label="John Doe"
+                                name="PP_photo"
+                                aria-describedby="basic-icon-default-fullname2"
+                                placeholder="Choose a Passport size Photo"
+                              />
+                            </div>
+                          </div> 
+                        </div>
+
                             {{#if SubjectAndCode}}
                               <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">RE-TAKE EXAM (If Any)</label>
+                                <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">RE-TAKE EXAM (If Any) <br>You Have: {{Totalback}} Back Logs </label>
                                 <div class="col-sm-10">
                                   {{#each SubjectAndCode}}
-                                    <input type="checkbox" class="subject" name ="code" value="{{codes}}">
-                                    <label for="subject">{{subjects}}</label> - <label for="subjectcode">{{codes}}</label><br>
+        
+                                     <input type="checkbox" name="subjects" value="{{codes}} -- {{subjects}} -- {{credit}}">
+                                     <b><label for="subject"> {{subjects}} </label></b> - <label for="subjectcode"> {{codes}} </label> ( <label for="subjectcredit">{{credit}} Credits )</label><br>
+                                    {{!-- <input type="checkbox" class="subject" name ="subjects" value="{{codes}}"> --}}
+                                    {{!-- <b><label for="subject">{{subjects}}</label></b> - <label for="subjectcode">{{codes}}</label>- <label for="subjectcredit">{{credit}} Credits</label><br> --}}
                                   {{/each}}
                                 </div>
                               </div>

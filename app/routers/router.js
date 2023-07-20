@@ -143,7 +143,8 @@ router.get('/showresult', urlencodedParser, (req, res) => {
 
 const exam_form = require('./exam_form.js');
 
-router.post('/exam-form', urlencodedParser,(req, res) => { 
+let FormUpload = require('../config/multer.form.config.js');
+router.post('/exam-form', urlencodedParser,FormUpload.single("PP_photo"),(req, res) => { 
   exam_form(req, res);
 });
 

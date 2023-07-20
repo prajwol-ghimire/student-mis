@@ -26,31 +26,6 @@ handlebars.registerHelper('jsonStringify', function (obj) {
   return new handlebars.SafeString(JSON.stringify(obj));
 });
 
-handlebars.registerHelper('subjectname', function (abbreviation) {
-  let qry = `SELECT course_name FROM subject_data where abbreviation = '`+abbreviation+`'`;
-  mysql.query(qry, (err, results) => {
-    if (err) {
-      console.log(err)
-    }
-    else{
-      const courseNames = results.map((item) => item.course_name);
-      const resultString = courseNames.join(', ');
-      console.log(resultString)
-      return resultString
-    }
-  });
-  
+handlebars.registerHelper('incIndex', function (index) {
+  return index + 1;
 });
-
-// handlebars.registerHelper('subjectcode', function (abbreviation) {
-//   let qry = `SELECT course_code FROM subject_data where abbreviation = `+abbreviation+``;
-//   mysql.query(qry, (err, results) => {
-//     if (err) {
-//     }
-//     else{
-//       console.log(results)
-//       return subject
-//     }
-//   });
-  
-// });
