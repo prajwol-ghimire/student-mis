@@ -17,16 +17,21 @@ function encrypt(text) {
   return iv.toString('hex') + ':' + encrypted.toString('hex');
 }
 
-function decrypt(encryptedword) {
+function decrypt(encryptedword,res, req) {
   // Ensure the encrypted text is in the correct format (no additional decoding)
-  let codedText = decodeURIComponent(encryptedword)
-  const [ivHex, encryptedHex] = codedText.split(':');
-  const iv = Buffer.from(ivHex, 'hex');
-  const encrypted = Buffer.from(encryptedHex, 'hex');
-  const decipher = crypto.createDecipheriv(algorithm, key, iv);
-  let decrypted = decipher.update(encrypted);
-  decrypted = Buffer.concat([decrypted, decipher.final()]);
-  return decrypted.toString();
+  try{
+      let codedText = decodeURIComponent(encryptedword)
+      const [ivHex, encryptedHex] = codedText.split(':');
+      const iv = Buffer.from(ivHex, 'hex');
+      const encrypted = Buffer.from(encryptedHex, 'hex');
+      const decipher = crypto.createDecipheriv(algorithm, key, iv);
+      let decrypted = decipher.update(encrypted);
+      decrypted = Buffer.concat([decrypted, decipher.final()]);
+      return decrypted.toString();
+  }catch{
+      
+  }
+
 }
 
 module.exports = {

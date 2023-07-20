@@ -25,10 +25,8 @@ mysql.query(query1, (err, results) => {
 });
 
 //user_cookies
-query2 = `INSERT INTO user_cookies (sid, username_cookie, sid_cookie, reset_token_temp, reset_token_time, createdAt, updatedAt)
+query2 = `INSERT INTO user_cookies (sid, reset_token_temp, reset_token_time, createdAt, updatedAt)
 SELECT 1 AS SID,
-NULL AS username_cookie, 
-NULL AS sid_cookie, 
 NULL AS reset_token_temp, 
 NULL AS reset_token_time, 
 CURRENT_TIMESTAMP AS createdAt, 

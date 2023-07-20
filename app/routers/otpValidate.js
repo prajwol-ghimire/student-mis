@@ -1,4 +1,3 @@
-const { check, validationResult } = require('express-validator');
 const mysql = require("./connection").con;
 const bcrypt = require("bcrypt");
 

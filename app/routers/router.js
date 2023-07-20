@@ -178,15 +178,7 @@ router.get('/signup', (req, res) => {
 });
 
 router.get('/viewsusers', (req, res) => {
-  // cookie_checker(req,res, "viewsusers") 
-  let sql = "SELECT * FROM user_infos";
-  let query = mysql.query(sql, (err, rows) => {
-    if (err) throw err;
-    res.render(path + '/html/viewsusers.hbs', {
-      title: 'Manage User',
-      user_infos: rows
-    });
-  });
+  cookie_checker(req,res, "viewsusers") 
 });
 
 
@@ -230,12 +222,7 @@ router.post('/delete', urlencodedParser, (req, res) => {
 });
 
 router.post('/edit', urlencodedParser, (req, res) => {
-  const sid = req.body.sid;
-  let sql = `Select * from user_infos where sid = ${sid}`;
-  let query = mysql.query(sql, (err, result) => {
-    if (err) throw err;
-    res.render(path + '/html/user_edit.hbs', { title: 'Edit User ', user: result[0] });
-  });
+  cookie_checker(req,res, "edit") 
 });
 
 router.post('/deletenotice', urlencodedParser, (req, res) => {

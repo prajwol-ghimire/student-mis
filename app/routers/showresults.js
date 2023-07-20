@@ -80,7 +80,7 @@ function showresults(req, res) {
     }
    
     if (rollno) {
-        const nonhashedroll = cookies.decrypt(hrollno);
+        const nonhashedroll = cookies.decrypt(hrollno,res,req);
         getResults(nonhashedroll, res);
     } else {
         res.render("html/login.hbs");

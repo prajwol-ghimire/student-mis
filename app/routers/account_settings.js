@@ -1,4 +1,5 @@
 const mysql = require("./connection").con;
+const express = require('express');
 const cookies = require('./cookieEnDc.js')
 
 function account_settings(req, res){
@@ -18,27 +19,26 @@ function account_settings(req, res){
         }
     } 
     if (username && rollno) {
-        const nroll = cookies.decrypt(rollno);
-        let qry = "select * from user_infos where sid = ?";   
-        mysql.query(qry, nroll, (err, recivedresults) => {
-            if (err) throw err;
-            else {
+        const nroll = cookies.decrypt(rollno,res,req);
+
+        let qry = "select * from user_infos join user_data on user_infos.sid=user_data.sid where user_infos.sid = '"+ nroll +"' ";   
+        mysql.query(qry, (err, recivedresults) => {
+            if(recivedresults.length > 0){
+                console.log("agojhujon")
                 username = recivedresults[0].username
                 email = recivedresults[0].email
-                permission = recivedresults[0].permission_type
-                let qry = "select * from user_data where sid = ?";   
-                mysql.query(qry, nroll, (err, recivedresults) => {
-                    if (err) throw err;
-                    else {
-                        photo = recivedresults[0].user_image
-                        crn = recivedresults[0].crn
-                        res.render("html/account_setting.hbs",{username : username, email : email, rollno : nroll, crn : crn, photo : photo, permission: permission})
-                    }
-                });   
-                
+                permission = recivedresults[0].permission_type   
+                photo = recivedresults[0].user_image
+                crn = recivedresults[0].crn
+                res.render("html/account_setting.hbs",{username : username, email : email, rollno : nroll, crn : crn, photo : photo, permission: permission}) 
+            }else{
+                res.redirect("/")
             }
-        });
-    }               
-}
+        });   
+                
+    }
+       
+}               
+
 
 module.exports = account_settings;

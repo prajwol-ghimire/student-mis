@@ -1,6 +1,9 @@
 const mysql = require("./connection").con;
 
-function examform(req, res, rollno, fullname){
+function examform(req, res, rollno, recivedresults){
+    fullname = recivedresults[0].username                            
+    user_image=recivedresults[0].user_image
+    permission = recivedresults[0].permission_type;
     let qry =   ` SELECT *
     FROM semester1s s1
     JOIN semester2s s2 ON s1.sid = s2.sid
@@ -42,7 +45,7 @@ function examform(req, res, rollno, fullname){
                             for (let i = 0; i < minLength; i++) {
                                 SubjectAndCode.push({ ...arraysubjectname[i], ...arraysubjectcode[i] });
                             }
-                            res.render("html/examform.hbs",{SubjectAndCode : SubjectAndCode, fullname: fullname, sid: rollno, permission:permission})
+                            res.render("html/examform.hbs",{SubjectAndCode : SubjectAndCode, fullname: fullname, sid: rollno, permission:permission, photo:user_image})
                         }
                         }
 
@@ -51,7 +54,7 @@ function examform(req, res, rollno, fullname){
                 });
 
             }else{
-                res.render("html/examform.hbs",{fullname: fullname, sid: rollno, permission:permission})
+                res.render("html/examform.hbs",{fullname: fullname, sid: rollno, permission:permission, photo:user_image})
             }
         }
     });          

@@ -48,7 +48,6 @@ const sendOTPVerification = async (nonhashedroll, email, res, nonhashedusername,
 
         const saltRounds = 7;
         const hashedOTP = await bcrypt.hash(otp, saltRounds);
-        await transporter.sendMail(mailOptions)
         console.log(otp)
         const query = `UPDATE user_infos SET otp_temp = '` + hashedOTP + `' WHERE sid = '` + nonhashedroll + `'`;
         mysql.query(query, (err, results) => {
@@ -58,6 +57,7 @@ const sendOTPVerification = async (nonhashedroll, email, res, nonhashedusername,
                 res.render("html/landing.hbs", { otpnotverified: true, cookies: true, rollno: nonhashedroll, user_name: nonhashedusername, permission: permission });
             }
         });
+        await transporter.sendMail(mailOptions)
     } catch (error) {
         res.json({
             status: "FAILED",
@@ -78,54 +78,38 @@ const sendOTPVerification = async (nonhashedroll, email, res, nonhashedusername,
  */
 
 function getUsername(username, rollno, res) {
-    let qry = "select * from user_infos where sid = ?";
-    mysql.query(qry, rollno, (err, recivedresults) => {
+    let qry = "select * from user_infos join user_data on user_infos.sid=user_data.sid where user_infos.sid = '"+ rollno +"' ";   
+    mysql.query(qry, (err, recivedresults) => {
         if (err) throw err;
-        else {
+        else { 
             if (recivedresults.length > 0) {
-                const otpverified = recivedresults[0].otp_verified;
+                username = recivedresults[0].username
+                crn=recivedresults[0].crn                                
+                user_image=recivedresults[0].user_image
+                email = recivedresults[0].email   
+                otpverified = recivedresults[0].otp_verified;
+                permission = recivedresults[0].permission_type;
                 if (otpverified) {
-                    const permission = recivedresults[0].permission_type;
-                    let qry = "select * from user_infos join user_data on user_infos.sid=user_data.sid where user_infos.sid = '"+ rollno +"' ";   
-                    mysql.query(qry, (err, recivedresults) => {
-                        if (err) throw err;
-                        else { 
-                            username = recivedresults[0].username
-                            crn=recivedresults[0].crn                                
-                            user_image=recivedresults[0].user_image
-                            email = recivedresults[0].email                     
-                            if (permission == "Student"){
-                                    res.render("html/index.hbs",{username : username, email : email, rollno : rollno,permission:permission, photo:user_image,crn:crn})
+                    if (permission == "Student"){
+                            res.render("html/index.hbs",{username : username, email : email, rollno : rollno,permission:permission, photo:user_image,crn:crn})
+                    }
+                    else if(permission == "Administrator"){
+                        let qry =  `SELECT permission_type, COUNT(*) AS total_count FROM user_infos GROUP BY permission_type; `
+                        mysql.query(qry,(err, recivedresults) => {
+                            if (err) throw err;
+                            else { 
+                                res.render("html/admin_index.hbs",{username : username, email : email, rollno : rollno,permission:permission, photo:user_image,crn:crn, dashboardinfo : recivedresults})
                             }
-                            else if(permission == "Administrator"){
-                                let qry =  `SELECT permission_type, COUNT(*) AS total_count FROM user_infos GROUP BY permission_type; `
-                                mysql.query(qry,(err, recivedresults) => {
-                                    if (err) throw err;
-                                    else { 
-                                        res.render("html/admin_index.hbs",{username : username, email : email, rollno : rollno,permission:permission, photo:user_image,crn:crn, dashboardinfo : recivedresults})
-                                    }
-                                });                                   
-                            }
-                        }
-                    });
+                        });                                   
+                    }
                 } else {
-                    let qry = "select * from user_infos join user_data on user_infos.sid=user_data.sid where user_infos.sid = '"+ rollno +"' ";   
-                    mysql.query(qry, (err, recivedresults) => {
-                        if (err) throw err;
-                        else { 
-                            username = recivedresults[0].username
-                            crn=recivedresults[0].crn                                
-                            user_image=recivedresults[0].user_image
-                            email = recivedresults[0].email
-                            permission=recivedresults[0].permission_type
-                            sendOTPVerification(crn, email, res, username, permission)
-                        }
-                    });
+                    sendOTPVerification(crn, email, res, username, permission)
                 }
             } else {
                 res.render("html/landing.hbs");
             }
         }
+
     });
 } 
 
@@ -153,7 +137,7 @@ function cookies_manager(req, res) {
     }
     if (username && rollno) {
         const nusername = cookies.decrypt(username);
-        const nroll = cookies.decrypt(rollno);
+        const nroll = cookies.decrypt(rollno,res,req);
         getUsername(nusername,nroll,res)        
     } else {
         res.render("html/landing.hbs");
