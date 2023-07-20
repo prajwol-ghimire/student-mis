@@ -31,7 +31,7 @@ const con = mysql.createConnection({
 // Connect to the MySQL server
 con.connect((err) => {
   if (err) throw err;
-  console.log("Connection created..!!");
+  console.log("Connection created..!!"); 
 });
 
 // Export the MySQL connection

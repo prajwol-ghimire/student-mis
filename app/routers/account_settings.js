@@ -1,15 +1,12 @@
-const express = require('express');
-const app = express();
 const mysql = require("./connection").con;
+const cookies = require('./cookieEnDc.js')
 
 function account_settings(req, res){
     const rawCookieHeader = req.header('Cookie');
     let username = null;
     let rollno = null;
-    
     if (rawCookieHeader) {
         const cookies = rawCookieHeader.split('; ');
-    
         for (const cookie of cookies) {
             const [cookieName, cookieValue] = cookie.split('=');
     
@@ -19,46 +16,29 @@ function account_settings(req, res){
                 rollno = cookieValue;
             }
         }
-    }
-    
+    } 
     if (username && rollno) {
-        let nusername = decodeURIComponent(username)
-        let nrollno = decodeURIComponent(rollno)
-        let qry = "select sid from user_cookies where username_cookie = ?";
-        mysql.query(qry, nusername, (err, recivedresults) => {
+        const nroll = cookies.decrypt(rollno);
+        let qry = "select * from user_infos where sid = ?";   
+        mysql.query(qry, nroll, (err, recivedresults) => {
             if (err) throw err;
             else {
-                if (recivedresults.length > 0) { 
-                    rollno = recivedresults[0].sid
-                    let qry = "select * from user_infos where sid = ?";   
-                    mysql.query(qry, rollno, (err, recivedresults) => {
-                        if (err) throw err;
-                        else {
-                            username = recivedresults[0].username
-                            email = recivedresults[0].email
-                            permission = recivedresults[0].permission_type
-                            let qry = "select * from user_data where sid = ?";   
-                            mysql.query(qry, rollno, (err, recivedresults) => {
-                                if (err) throw err;
-                                else {
-                                    photo = recivedresults[0].user_image
-                                    crn = recivedresults[0].crn
-                                   
-                                    res.render("html/account_setting.hbs",{username : username, email : email, rollno : rollno, crn : crn, photo : photo, permission: permission})
-                                }
-                            });   
-                           
-                        }
-                    });
-                    
-                } else {
-                    res.redirect("/")
-                }
+                username = recivedresults[0].username
+                email = recivedresults[0].email
+                permission = recivedresults[0].permission_type
+                let qry = "select * from user_data where sid = ?";   
+                mysql.query(qry, nroll, (err, recivedresults) => {
+                    if (err) throw err;
+                    else {
+                        photo = recivedresults[0].user_image
+                        crn = recivedresults[0].crn
+                        res.render("html/account_setting.hbs",{username : username, email : email, rollno : nroll, crn : crn, photo : photo, permission: permission})
+                    }
+                });   
+                
             }
         });
-    } else {
-        res.redirect("/")
-    }
+    }               
 }
 
 module.exports = account_settings;

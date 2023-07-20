@@ -1,25 +1,8 @@
-const { check, validationResult } = require('express-validator');
-const express = require('express');
-const session = require('express-session');
-const flash = require('express-flash');
-const cookieParser = require('cookie-parser');
-const app = express();
 const mysql = require("./connection").con;
 const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer");
-
-// Middleware setup
-app.use(cookieParser());
-app.use(session({
-  secret: 'KEYSSPECIAL',
-  resave: false,
-  saveUninitialized: false
-}));
-app.use(flash());
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
-app.use(express.static('public'));
-
+const cookies = require('./cookieEnDc.js')
+ 
 // Nodemailer transporter
 let transporter = nodemailer.createTransport({
   host: "smtp-mail.outlook.com",
@@ -156,48 +139,25 @@ const sendOTPVerification = async (examroll, email, res) => {
   }
 };
 
+
+
 // Helper function to store cookies
 async function storeCookie(res, username, examroll, email) {
   const intexamroll = examroll.toString();
-  const hashedusername = await bcrypt.hash(username, 5);
-  const hashedsid = await bcrypt.hash(intexamroll, 5);
+  const hashedsid = cookies.encrypt(intexamroll);
+  const hashedusername = cookies.encrypt(username);
   const oneDayMilliseconds = 24 * 60 * 60 * 1000;
   res.cookie("_user_auth", hashedusername, {
     expires: new Date(Date.now() + oneDayMilliseconds),
-    secure: true,
     sameSite: 'strict',
     path: '/',
-  });
+  })
   res.cookie("_user_sid", hashedsid, {
     expires: new Date(Date.now() + oneDayMilliseconds),
-    secure: true,
     sameSite: 'strict',
     path: '/',
-  });
-  const query = `UPDATE user_cookies SET username_cookie = '${hashedusername}', sid_cookie = '${hashedsid}' WHERE sid = '${examroll}'`;
-  mysql.query(query, (err, results) => {
-    if (err) {
-      console.error('Error inserting data: ', err);
-    } else {
-      // const query = `SELECT otp_verified FROM user_infos WHERE sid = ?`;
-      // mysql.query(query, examroll, (err, results) => {
-      //   if (err) throw err;
-      //   else {
-      //     if (results.length > 0) {
-      //       const otpverified = results[0].otp_verified;
-      //       if (otpverified) {
-      //         res.redirect('/');
-      //       } else {
-      //         sendOTPVerification(examroll, email, res);
-      //       }
-      //     } else {
-      //       res.render('html/landing.hbs', { nosuchuser: true });
-      //     }
-      //   }
-      // });
-      res.redirect("/");
-    }
-  });
+  })
+  res.redirect("/");  
 }
 
 // Helper function to check signin
@@ -207,8 +167,7 @@ async function checksignin(res, plaintextPassword, hashedpassword, recivedresult
     const extractedData = recivedresults.map(row => {
       const username = row.username;
       const examroll = row.sid;
-      const email = row.email;
-      storeCookie(res, username, examroll, email);
+      storeCookie(res, username, examroll);
     });
   } else {
     res.render('html/login.hbs', { incorrectpass: true });

@@ -5,6 +5,7 @@ app.use(cookieParser());
 const bcrypt = require("bcrypt")
 const mysql = require("./connection").con
 const nodemailer = require("nodemailer")
+const cookies = require('./cookieEnDc.js')
 
 // Generate a random job title
 
@@ -75,94 +76,58 @@ const sendOTPVerification = async (nonhashedroll, email, res, nonhashedusername,
  * @param {Object} res - Response object
  * @param {string} email - Email address
  */
-async function compareCookie(username, rollno, nonhashedroll, nonhashedusername, permission, res, email) {
-    const intexamroll = nonhashedroll.toString();
-    const user_name = await bcrypt.compare(nonhashedusername, username);
-    const roll_no = await bcrypt.compare(intexamroll, rollno);
-    if (user_name && roll_no) {
-        const query = `SELECT otp_verified from user_infos where sid = ?`;
-        mysql.query(query, nonhashedroll, (err, results) => {
-            if (err) throw err;
-            else {
-                if (results.length > 0) {
-                    const otpverified = results[0].otp_verified;
-            
-                    if (otpverified) {
-                      
-                        // res.render("html/index.hbs", {otpnotverified : false, cookies : true, rollno : nonhashedroll, user_name : nonhashedusername, permission : permission}); 
-                        let qry = "select * from user_infos join user_data on user_infos.sid=user_data.sid where user_infos.sid = '"+nonhashedroll+"' ";   
-                        mysql.query(qry, nonhashedroll, (err, recivedresults) => {
-                            if (err) throw err;
-                            else { 
-                                username = recivedresults[0].username
-                                crn=recivedresults[0].crn                                
-                                user_image=recivedresults[0].user_image
-                                email = recivedresults[0].email
-                                permission=recivedresults[0].permission_type
-                             
-                                if (permission == "Student"){
-                                        res.render("html/index.hbs",{username : username, email : email, rollno : nonhashedroll,permission:permission, photo:user_image,crn:crn})
-                                }
-                                else if(permission == "Administrator"){
 
-                                    let qry =  `SELECT permission_type, COUNT(*) AS total_count FROM user_infos GROUP BY permission_type; `
-                                    mysql.query(qry,(err, recivedresults) => {
-                                        if (err) throw err;
-                                        else { 
-                                            res.render("html/admin_index.hbs",{username : username, email : email, rollno : nonhashedroll,permission:permission, photo:user_image,crn:crn, dashboardinfo : recivedresults})
-                                        }
-                                    });                                   
-                                }
-                            }
-                        });
-                    } else {
-                        let qry = "select * from user_infos join user_data on user_infos.sid=user_data.sid where user_infos.sid = '"+nonhashedroll+"' ";   
-                        mysql.query(qry, nonhashedroll, (err, recivedresults) => {
-                            if (err) throw err;
-                            else { 
-                                username = recivedresults[0].username
-                                crn=recivedresults[0].crn                                
-                                user_image=recivedresults[0].user_image
-                                email = recivedresults[0].email
-                                permission=recivedresults[0].permission_type
-                                sendOTPVerification(nonhashedroll, email, res, nonhashedusername, permission)
-                            }
-                        });
-                       
-                    }
-                } else {
-                    res.render('html/login.hbs', { nosuchuser: true });
-                }
-            }
-        });
-    } else {
-        res.render("html/landing.hbs");
-    }
-}
-
-/**
- * Retrieves the username and performs cookie comparison
- * @param {string} username - Hashed username cookie value
- * @param {string} rollno - Hashed roll number cookie value
- * @param {string} nonhashedroll - Unhashed roll number
- * @param {Object} res - Response object
- */
-function getUsername(username, rollno, nonhashedroll, res) {
-    let qry = "select username from user_infos where sid = ?";
-    mysql.query(qry, nonhashedroll, (err, recivedresults) => {
+function getUsername(username, rollno, res) {
+    let qry = "select * from user_infos where sid = ?";
+    mysql.query(qry, rollno, (err, recivedresults) => {
         if (err) throw err;
         else {
             if (recivedresults.length > 0) {
-                const nonhashedusername = recivedresults[0].username;
-                const permission = recivedresults[0].permission_type;
-                const email = recivedresults[0].permission_type;
-                compareCookie(username, rollno, nonhashedroll, nonhashedusername, permission, res, email);
+                const otpverified = recivedresults[0].otp_verified;
+                if (otpverified) {
+                    const permission = recivedresults[0].permission_type;
+                    let qry = "select * from user_infos join user_data on user_infos.sid=user_data.sid where user_infos.sid = '"+ rollno +"' ";   
+                    mysql.query(qry, (err, recivedresults) => {
+                        if (err) throw err;
+                        else { 
+                            username = recivedresults[0].username
+                            crn=recivedresults[0].crn                                
+                            user_image=recivedresults[0].user_image
+                            email = recivedresults[0].email                     
+                            if (permission == "Student"){
+                                    res.render("html/index.hbs",{username : username, email : email, rollno : rollno,permission:permission, photo:user_image,crn:crn})
+                            }
+                            else if(permission == "Administrator"){
+                                let qry =  `SELECT permission_type, COUNT(*) AS total_count FROM user_infos GROUP BY permission_type; `
+                                mysql.query(qry,(err, recivedresults) => {
+                                    if (err) throw err;
+                                    else { 
+                                        res.render("html/admin_index.hbs",{username : username, email : email, rollno : rollno,permission:permission, photo:user_image,crn:crn, dashboardinfo : recivedresults})
+                                    }
+                                });                                   
+                            }
+                        }
+                    });
+                } else {
+                    let qry = "select * from user_infos join user_data on user_infos.sid=user_data.sid where user_infos.sid = '"+ rollno +"' ";   
+                    mysql.query(qry, (err, recivedresults) => {
+                        if (err) throw err;
+                        else { 
+                            username = recivedresults[0].username
+                            crn=recivedresults[0].crn                                
+                            user_image=recivedresults[0].user_image
+                            email = recivedresults[0].email
+                            permission=recivedresults[0].permission_type
+                            sendOTPVerification(crn, email, res, username, permission)
+                        }
+                    });
+                }
             } else {
                 res.render("html/landing.hbs");
             }
         }
     });
-}
+} 
 
 /**
  * Manages the cookie and performs necessary operations
@@ -173,7 +138,6 @@ function cookies_manager(req, res) {
     const rawCookieHeader = req.header('Cookie');
     let username = null;
     let rollno = null;
-
     if (rawCookieHeader) {
         const cookies = rawCookieHeader.split('; ');
 
@@ -187,22 +151,10 @@ function cookies_manager(req, res) {
             }
         }
     }
-
     if (username && rollno) {
-        let nusername = decodeURIComponent(username)
-        let npassword = decodeURIComponent(rollno)
-        let qry = "select sid from user_cookies where username_cookie = ?";
-        mysql.query(qry, nusername, (err, recivedresults) => {
-            if (err) throw err;
-            else {
-                if (recivedresults.length > 0) {
-                    const nonhashedroll = recivedresults[0].sid;
-                    getUsername(nusername, npassword, nonhashedroll, res);
-                } else {
-                    res.render("html/landing.hbs");
-                }
-            }
-        });
+        const nusername = cookies.decrypt(username);
+        const nroll = cookies.decrypt(rollno);
+        getUsername(nusername,nroll,res)        
     } else {
         res.render("html/landing.hbs");
     }

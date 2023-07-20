@@ -78,21 +78,10 @@ function showresults(req, res) {
             }
         }
     }
-
+   
     if (rollno) {
-        let n_sid = decodeURIComponent(rollno);
-        let qry = "SELECT sid FROM user_cookies WHERE sid_cookie = ?";
-        mysql.query(qry, n_sid, (err, recivedresults) => {
-            if (err) throw err;
-            else {
-                if (recivedresults.length > 0) {
-                    const nonhashedroll = recivedresults[0].sid;
-                    getResults(nonhashedroll, res);
-                } else {
-                    res.render("html/login.hbs");
-                }
-            }
-        });
+        const nonhashedroll = cookies.decrypt(hrollno);
+        getResults(nonhashedroll, res);
     } else {
         res.render("html/login.hbs");
     }

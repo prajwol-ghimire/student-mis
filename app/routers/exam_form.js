@@ -1,32 +1,36 @@
+const mysql = require("./connection").con;
+
 function exam_form(req, res){
-
-    // semsester
-
-    const semester = "Semester 1";
-
-
-    // ---------------- NAME ------------------------------------
-    const result = "Prajwol Ghimire";
-    let name = result.toUpperCase();
-    let length = name.length;
-    if (length < 28) {
-      const neededlength = 28 - length;
-      for (let i = 0; i < neededlength; i++) {
-        name = name + " ";
-      }
+  console.log(req.body)
+  let name = req.body.fullname
+  name = name.toUpperCase();
+  let length = name.length;
+  if (length < 28) {
+    const neededlength = 28 - length;
+    for (let i = 0; i < neededlength; i++) {
+      name = name + " ";
     }
-    let split_name = name.split("");
-
-    // ---------------- ROLL ------------------------------------
-
-    const rollno = "2021-1-18-0150";
-    const split_rollno = rollno.split("");
-
-    // ---------------------------------------------------------
-    
-    res.render("exam_form.hbs", { semester: semester,name: split_name, rollno: split_rollno });
-    
-    
+  }
+  let split_name = name.split("");
+  // ---------------------------------------------------
+  registration = req.body.registration
+  const split_registration = registration.split("");
+  // ---------------------------------------------------
+  sid = req.body.sid
+  level = req.body.level
+  year = req.body.year
+  program = req.body.program
+  center = req.body.center
+  semester = req.body.semester
+  code = req.body.code
+  // ----------------------------------------------------
+  qry = `SELECT * FROM subject_data where semester = `+semester+``;
+  mysql.query(qry, (err, recivedresults) => {
+    if (err) throw err;
+    else {
+      res.render("html/exam_forms.hbs", { year: year,name: split_name, rollno: split_registration, level: level,  program:program, sid:sid,center:center, subjects : recivedresults, code: code});
+    }
+  }); 
 }
 
 

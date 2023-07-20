@@ -6,7 +6,9 @@ let router = express.Router();
 const mysql = require("./connection").con
 const bodyParser = require('body-parser')
 const urlencodedParser = bodyParser.urlencoded({ extended: false })
+require("../routers/adminAccount")
 require("../routers/handlebars.js")
+
 
 
 const firstsem = require('../controllers/firstsem.controller.js');
@@ -134,11 +136,18 @@ router.get('/showresult', urlencodedParser, (req, res) => {
   showresults(req, res)
 });
 
+//--------------------------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------ POST REQUEST(student) ------------------------------------------------------
+//--------------------------------------------------------------------------------------------------------------------------------
+
+
 const exam_form = require('./exam_form.js');
 
-router.get('/exam-form', (req, res) => { //yo post ma halnu xa
+router.post('/exam-form', urlencodedParser,(req, res) => { 
   exam_form(req, res);
 });
+
+
 
 
 //--------------------------------------------------------------------------------------------------------------------------------
