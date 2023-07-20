@@ -36,7 +36,6 @@ function cookie_checker(req, res, page){
                             examform(req, res, rollno, recivedresults);                   
                         }
                         else if (page == "result"){
-                            // examform(req, res, rollno);      // examform  resul
                             fullname = recivedresults[0].username                            
                             user_image=recivedresults[0].user_image
                             res.render("html/result.hbs",{permission:permission, username: fullname, photo:user_image})
