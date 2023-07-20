@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>    
+    <link rel="stylesheet" type="text/css" href="assets/css/result.css">
+</head>
+<body>
+    <br>
+
+
+    {{#if sem1}}  
+      <div class="card">
+        {{#each sem1result}}
+          <div class="container">
+            
+            <hr>
+            <h4>Semester 1</h4>  
+            <hr>
+
+            <b>Roll No :</b>  {{sid}} <br/>
+
+            {{#isBlank mathi}}
+            {{else}}
+              <b>Engineering Mathematics I :</b> {{mathi}} <br/>
+            {{/isBlank}}
+
+            {{#isBlank cprog}}
+            {{else}}
+                <b>C Programming :</b>  {{cprog}} <br/>
+            {{/isBlank}}
+
+            {{#isBlank fit}}
+            {{else}}
+              <b>Fundamentals of IT :</b> {{fit}} <br/>
+            {{/isBlank}}
+
+            {{#isBlank pst}}
+            {{else}}
+              <b>Problem Solving Technique :</b>  {{pst}} <br/>
+            {{/isBlank}}
+ 
+            {{#isBlank physics}}
+            {{else}}
+                <span class="{{changeString physics}}color"><b>Physic :</b> {{physics}} <br/></span>
+            {{/isBlank}}
+
+            {{#isBlank ct}}
+            {{else}}
+              <span class="{{ct}}color"><b>Communication Technique :</b> {{ct}} <br/></span>
+            {{/isBlank}}
+
+            
+
+            {{#compareString sgpa "-"}}  
+            {{else}}
+              <b>SGPA :</b> {{sgpa}} <br/>
+            {{/compareString}}
+            
+          </div>
+        {{/each}} 
+      </div> 
+    {{/if}}
+
+
+     {{#if sem2}}  
+      <div class="card">
+        {{#each sem2result}}
+          <div class="container">
+            
+            <hr>
+            <h4>Semester 2</h4>  
+            <hr>
+
+            <b>Roll No :</b>  {{sid}} <br/>
+
+            {{#isBlank mathii}}
+            {{else}}
+              <b>Engineering Mathematics II :</b> {{mathii}} <br/>
+            {{/isBlank}}
+
+            {{#isBlank lc}}
+            {{else}}
+                <b>Logic Circuit :</b>  {{lc}} <br/>
+            {{/isBlank}}
+
+            {{#isBlank oop}}
+            {{else}}
+              <b>Object Oriented Programming in C++ :</b> {{oop}} <br/>
+            {{/isBlank}}
+
+            {{#isBlank wt}}
+            {{else}}
+              <b>Web Technology	:</b>  {{wt}} <br/>
+            {{/isBlank}}
+
+            {{#isBlank drawing}}
+            {{else}}
+                <span class="{{drawing}}color"><b>Engineering Drawing	:</b> {{drawing}} <br/></span>
+            {{/isBlank}}
+
+            {{#isBlank mfcs}}
+            {{else}}
+              <span class="{{mfcs}}color"><b>Mathematical Foundation of Computer Science	:</b> {{mfcs}} <br/></span>
+            {{/isBlank}}
+
+            {{#compareString sgpa "-"}}  
+            {{else}}
+              <b>SGPA :</b> {{sgpa}} <br/>
+            {{/compareString}}
+            
+          </div>
+        {{/each}} 
+      </div> 
+    {{/if}}
+
+
+    {{#if mesg2}}
+      <h3>Not Found</h3>
+    {{/if}}  
+
+
+</body>
+</html>

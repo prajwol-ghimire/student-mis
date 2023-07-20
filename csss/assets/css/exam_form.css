@@ -1,0 +1,109 @@
+*{
+    font-family: Arial, Helvetica, serif;
+}
+.container{
+    background-color: white;
+    height: 220vh;
+    width: 100%;
+    margin: auto;
+}
+.form{
+    height: 220vh;
+    width: 75%;
+    /* padding-left: 0%;
+    padding-right: 0%; */
+    margin: auto;
+    background-color: white;
+}
+.heading{
+    display: flex;
+    background-color:white;
+    line-height: 20px;
+    width: 80%;
+    margin: auto;
+}
+.logo{
+    margin-top: 0px;
+    margin-left: 0px;
+}
+.title{
+    width: fill-content;
+    background-color: white;
+    text-align: center;
+        line-height: 16px;
+    margin:auto;
+}
+.title h1{
+    font-weight: 550;
+}
+.image{
+    width: 150px;
+}
+.image img{
+    margin-left: 30px;
+    margin-top: 0px;
+}
+form{
+    background-color:white;
+    margin: auto;
+    width: 80%;
+}
+.input_section .first_line{
+    line-height: 0%;
+}
+.input_section .first_line,.second_line,.third_line{
+    display: flex;
+}
+.input_section .fml_name{
+    display: flex;  
+}
+.input_section .fml_name span{
+    margin: auto;
+}
+.input_section table{
+    border:1px solid black;
+}
+.input_section table{
+    border-collapse: collapse;
+}
+.fst_table td{
+    border: 1px solid black;
+    width: 31px;
+    height: 30px;
+    text-align: center;
+}
+.snd_table #pu_rno{
+    width: 220px;
+}
+.snd_table td{
+    border: 1px solid black;
+    width: 70px;
+    height: 30px;
+    text-align: center;
+}
+.regular_courses td{
+    /* border-collapse: collapse; */
+    border: 1px solid black;
+    text-align: center;
+    padding: 6px;
+}
+.regular_courses .course_title{
+    padding-left: 155px;
+    padding-right: 155px;
+}
+.regular_courses .equal_padding{
+    padding-left: 40px;
+    padding-right: 40px;
+}
+.regular_courses .sno{
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.last{
+    display: flex;
+}
+
+.dotted-line {
+    border-bottom: 1px dotted black;
+    width: 100%;
+}

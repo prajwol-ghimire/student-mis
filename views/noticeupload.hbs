@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+      <form action="/sendnotice" method="POST" enctype="multipart/form-data">
+        <center>
+          <br><br><br>
+          <label for="exampleFormControlInput1">Title</label>
+          <input  name="title" value="asgew"> <br><br>
+          <label placeholder="write here" >Description</label><br>
+          <textarea rows="5" name="description" >asgasgasg</textarea><br><br>
+          <span class="d-none d-sm-block">Upload new photo</span>
+          <input type="file" class="form-control" placeholder="Choose a upload file" name="notice" required></input>		
+
+          <br> <br> <br> <br> <br> <br>
+            <button type="submit" class="btn btn-danger">Submit</button>
+        </center>
+      </form>
+
+      {{#if error}}
+          <p>Error 500, re-try or check backend </p>
+      {{/if}}
+</body>
+</html>
