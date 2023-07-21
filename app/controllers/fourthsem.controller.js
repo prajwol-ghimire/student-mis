@@ -7,10 +7,11 @@ dbs.Sequelize = Sequelize;
 dbs.sequelize = sequelize;
 
 
-exports.uploadFilesem1 = (req, res) => {
+exports.uploadFilesem4 = (req, res) => {
     dbs.results = require('../models/4th.model.js')(sequelize, Sequelize);
     const results = dbs.results;
     try{
+        year = req.body.year
         let filePath = __basedir + "/uploads/results/" + req.file.filename;
 
         readXlsxFile(filePath).then(rows => {
@@ -31,7 +32,8 @@ exports.uploadFilesem1 = (req, res) => {
                     CMP_321: rows[i][4],
                     MTH_230: rows[i][5],
                     CMP_290: rows[i][6],
-                    sgpa: rows[i][7]
+                    sgpa: rows[i][7],
+                    year:year
                 }
     
                 semesters.push(results);

@@ -19,6 +19,9 @@ module.exports = (sequelize, Sequelize) => {
 	sgpa: {
 		type: Sequelize.STRING
 	},
+	year: {
+		type: Sequelize.STRING
+	},
 	id: {
 		type: Sequelize.INTEGER,
 		autoIncrement: true,

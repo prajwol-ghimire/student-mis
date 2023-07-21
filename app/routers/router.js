@@ -11,11 +11,6 @@ require("../routers/handlebars.js")
 
 
 
-const firstsem = require('../controllers/firstsem.controller.js');
-const secondsem = require('../controllers/secondsem.controller.js');
-const thirdsem = require('../controllers/thirdsem.controller.js');
-
-
 let path = __basedir + '/views/';
 router.use(express.static(path));
 let paths = __basedir ;
@@ -257,6 +252,10 @@ router.post('/deletenotice', urlencodedParser, (req, res) => {
 
 
 let Resultupload = require('../config/multer.result.config.js');
+
+const firstsem = require('../controllers/firstsem.controller.js');
+const secondsem = require('../controllers/secondsem.controller.js');
+const thirdsem = require('../controllers/thirdsem.controller.js');
 
 router.post('/api/file/upload/sem1', Resultupload.single("file"), firstsem.uploadFilesem1);
 router.post('/api/file/upload/sem2', Resultupload.single("file"), secondsem.uploadFilesem2);
