@@ -1,33 +1,8 @@
-var stream = require('stream');
-var await = require('await')
-
-const db = require('../config/db.config.js');
-// const results = db.results;
-
-
-const excel = require('exceljs');
-
 const readXlsxFile = require('read-excel-file/node');
-
-
-const env = require('../config/env.js');
- 
 const Sequelize = require('sequelize');
-const sequelize = new Sequelize(env.database, env.username, env.password, {
-  host: env.host,
-  dialect: env.dialect,
-  operatorsAliases: false,
- 
-  pool: {
-    max: env.max,
-    min: env.pool.min,
-    acquire: env.pool.acquire,
-    idle: env.pool.idle
-  }
-});
- 
+sequelize = require('../config/sequelize_adapter.js');
+
 const dbs = {};
- 
 dbs.Sequelize = Sequelize;
 dbs.sequelize = sequelize;
 
