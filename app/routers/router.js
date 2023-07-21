@@ -198,17 +198,21 @@ router.get('/viewsusers', (req, res) => {
 
 router.post('/update', urlencodedParser, (req, res) => {
   const sid = req.body.sid;
-  const { username, email, permission_type } = req.body;
-  let sql = `UPDATE user_infos SET
-              username = '${username}',
-              email = '${email}',
-              permission_type = '${permission_type}'
-              WHERE sid = ${sid}`;
+  if(sid == 1){
+    res.redirect('/viewsusers?error=master');
+  }else{
+    const { username, email, permission_type } = req.body;
+    let sql = `UPDATE user_infos SET
+                username = '${username}',
+                email = '${email}',
+                permission_type = '${permission_type}'
+                WHERE sid = ${sid}`;
 
-  let query = mysql.query(sql, (err, results) => {
-    if (err) throw err;
-    res.redirect('/viewsusers');
-  });
+    let query = mysql.query(sql, (err, results) => {
+      if (err) throw err;
+      res.redirect('/viewsusers');
+    });
+  }
 });
 
 router.post('/delete', urlencodedParser, (req, res) => {

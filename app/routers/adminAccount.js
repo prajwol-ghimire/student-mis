@@ -43,7 +43,7 @@ mysql.query(query2, (err, results) => {
 query3 = `INSERT INTO user_data (sid, crn, user_image, createdAt, updatedAt)
 SELECT 1 AS SID,
 NULL AS crn, 
-NULL AS user_image,  
+'user.png' AS user_image,  
 CURRENT_TIMESTAMP AS createdAt, 
 CURRENT_TIMESTAMP AS updatedAt
 WHERE NOT EXISTS (SELECT 1 FROM user_data WHERE SID = 1)`

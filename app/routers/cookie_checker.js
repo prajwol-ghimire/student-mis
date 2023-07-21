@@ -43,7 +43,11 @@ function cookie_checker(req, res, page){
                         else if (page == "pile_pass_change"){
                             fullname = recivedresults[0].username                            
                             user_image=recivedresults[0].user_image
-                            res.render("html/pass_change.hbs",{permission:permission, username: fullname, photo:user_image})
+                            if (rollno == 1){
+                                res.redirect("/profile-setting?error=master")
+                            }else{
+                                res.render("html/pass_change.hbs",{permission:permission, username: fullname, photo:user_image})
+                            }
                         }
                         else{
                             res.render('html/pages-misc-error.hbs');
@@ -79,7 +83,11 @@ function cookie_checker(req, res, page){
                         else if (page == "pile_pass_change"){
                             fullname = recivedresults[0].username                            
                             user_image=recivedresults[0].user_image
-                            res.render("html/pass_change.hbs",{permission:permission, username: fullname, photo:user_image})
+                            if (rollno == 1){
+                                res.redirect("/profile-setting?error=master")
+                            }else{
+                                res.render("html/pass_change.hbs",{permission:permission, username: fullname, photo:user_image})
+                            }
                         }  
                         else if (page == "viewsusers"){
                             fullname = recivedresults[0].username                            
@@ -89,7 +97,6 @@ function cookie_checker(req, res, page){
                                 if (err) throw err;
                                 errorParam = req.query.error
                                 const referrer = req.headers.referer || req.headers.referrer;
-                                if (referrer && referrer.includes('http://localhost:8080/viewsusers')) {
                                     if( errorParam == "master" ){
                                         res.render('html/viewsusers.hbs', {
                                             title: 'Manage User',
@@ -109,17 +116,7 @@ function cookie_checker(req, res, page){
                                             master: false
                                         });
                                     }
-                                  } else {
-                                    res.render('html/viewsusers.hbs', {
-                                        title: 'Manage User',
-                                        user_infos: rows,
-                                        permission:permission, 
-                                        username: fullname, 
-                                        photo:user_image,
-                                        master: false
-                                    });
-                                  }
-                            });
+                                });
                         }
                         else if (page == "uploadnotice"){
                             fullname = recivedresults[0].username                            

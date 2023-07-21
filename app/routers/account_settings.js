@@ -28,7 +28,12 @@ function account_settings(req, res){
                 permission = recivedresults[0].permission_type   
                 photo = recivedresults[0].user_image
                 crn = recivedresults[0].crn
-                res.render("html/account_setting.hbs",{username : username, email : email, rollno : nroll, crn : crn, photo : photo, permission: permission}) 
+                const error = req.query.error; 
+                if (error == 'master'){  
+                    res.render("html/account_setting.hbs",{username : username, email : email, rollno : nroll, crn : crn, photo : photo, permission: permission, master: true})
+                }else{
+                    res.render("html/account_setting.hbs",{username : username, email : email, rollno : nroll, crn : crn, photo : photo, permission: permission})  
+                } 
             }else{
                 res.redirect("/")
             }
