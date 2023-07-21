@@ -7,7 +7,7 @@ function examform(req, res, rollno, recived){
     const subjectsWithFGrade = [];
     const pushedSub = [];
     loop = 0
-    for(sem = 1; sem<4; sem++){
+    for(sem = 1; sem<9; sem++){  
         let qry = `SELECT * FROM semester`+sem+`s where sid = `+rollno+``;
         mysql.query(qry, (err, recivedresults) => {
             if (err) throw err;
