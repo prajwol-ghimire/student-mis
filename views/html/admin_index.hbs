@@ -56,6 +56,7 @@
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../assets/js/config.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <script src='https://cdn.plot.ly/plotly-2.24.1.min.js'></script>
   </head>
 
   <body>
@@ -261,45 +262,25 @@
                       <div>
                         
                   <h2>Users Graph</h2>
-                    <div class="chart-container" id="chartContainer">
+                    <div class="chart-container" id="myDiv">
                       <!-- Bars will be dynamically added here -->
                     </div>
 
 
 
-                  <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+                  {{!-- <canvas id="myDiv" style="width:100%;max-width:600px"></canvas> --}}
 
-                          
-            <script>
-              var Permission_name = [{{#each dashboardinfo}}{{jsonStringify permission_type}},{{/each}}];
-              var Permission_Count = [{{#each dashboardinfo}}{{total_count}},{{/each}}];
-              var barColors = ["blue", "green", "red"];
-              new Chart("myChart", {
-                type: "bar",
-                data: {
-                  labels: Permission_name,
-                  datasets: [{
-                    backgroundColor: barColors,
-                    data: Permission_Count
-                  }]
-                },
-                options: {
-                  legend: { display: false },
-                  title: {
-                    display: true,
-                    text: "Total User Count"
-                  },
-                  scales: {
-                    y: {
-                      suggestedMin: 1 // Ensure the y-axis starts from 0
-                    },
-                    x: {
-                      suggestedMin: 1 // Ensure the y-axis starts from 0
-                    }
-                  }
-                }
-              });
-            </script>
+                                  
+                    <script>
+                      var data = [
+                        {
+                          x: ['giraffes', 'orangutans', 'monkeys'],
+                          y: [20, 14, 23],
+                          type: 'bar'
+                        }
+                      ];
+                      Plotly.newPlot('myDiv', data);
+                    </script>
 
 
 

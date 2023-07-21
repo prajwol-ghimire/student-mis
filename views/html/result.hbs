@@ -49,6 +49,7 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../assets/js/config.js"></script>
+      <link rel="stylesheet" type="text/css" href="../assets/css/result.css">
   </head>
 
   <body>
@@ -174,55 +175,268 @@
           </nav>
 
           <!-- / Navbar -->
-
           <!-- Content wrapper -->
-          <div class="content-wrapper">
-            <!-- Content -->
-
-            <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"></span>Result</h4>
-
-              <!-- Basic Bootstrap Table -->
+       
+ <div class="content-wrapper">
+      {{#if sem1}}  
+     
+        <div class="container-xxl flex-grow-1 container-p-y"> 
+          <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"></span>Semester 1</h4>
+            {{#each sem1result}}
+                              <!-- Basic Bootstrap Table -->
               <div class="card">
-                <h5 class="card-header">Year: 2021</h5>
-                <div class="table-responsive text-nowrap">
-                  <table class="table">
+                <h5 class="card-header">Year: {{year}}</h5>
+                <div class="table-responsive ">
+                  <table class="table table-hover">
                     <thead>
                       <tr>
                         <th>Subject</th>
                         <th>Grade</th>
-                        
-                      </tr>
-                    </thead>
-                    <tbody class="table-border-bottom-0">
+
+
+                        </tr> 
+                      </thead>
+                      <tbody class="table-border-bottom-0">
+                         {{#isBlank mathi}}
+                          {{else}}
+                             <tr>
+                              <td><i class="fab fa-angular fa-lg text-danger me-6"></i> <strong>Engineering Math I</strong></td>
+                              <td class="{{changeString mathi}}color">{{mathi}}</td>
+                            </tr>
+                          {{/isBlank}}
+
+                           {{#isBlank cprog}}
+                            {{else}}
+                                <tr>
+                                <td><i class="fab fa-angular fa-lg text-danger me-6"></i> <strong>Programming in C</strong></td>
+                                  <td class="{{changeString cprog}}color">{{cprog}}</td>
+                                </tr>
+                            {{/isBlank}}
+
+                            {{#isBlank fit}}
+                            {{else}}
+                               <tr>
+                              <td><i class="fab fa-angular fa-lg text-danger me-6"></i> <strong>Fundamental of Information Technology</strong></td>
+                              <td class="{{changeString fit}}color">{{fit}}</td>
+                             </tr>
+                            {{/isBlank}}
+
+                            {{#isBlank pst}}
+                            {{else}}
+                              <tr>
+                                <td><i class="fab fa-angular fa-lg text-danger me-6"></i> <strong>Problem Solving Technique</strong></td>
+                                <td class="{{changeString pst}}color">{{pst}}</td>
+                              </tr>
+                            {{/isBlank}}
+                
+                            {{#isBlank physics}}
+                            {{else}}
+                                <tr>
+                                  <td><i class="fab fa-angular fa-lg text-danger me-6"></i> <strong>Physics</strong></td>
+                                  <td class="{{changeString physics}}color">{{physics}}</td>
+                                </tr>
+                            {{/isBlank}}
+
+                            {{#isBlank ct}}
+                            {{else}}
+                                <tr>
+                                  <td><i class="fab fa-angular fa-lg text-danger me-6"></i> <strong>Communication Technique</strong></td>
+                                  <td class="{{changeString ct}}color">{{ct}}</td>
+                                </tr>
+                               
+                            {{/isBlank}}   
+                            {{#compareString sgpa "-"}}  
+                              {{else}}
+                                  <tr>
+                                  <td><i class="fab fa-angular fa-lg text-danger me-6"></i> <strong>SGPA</strong></td>
+                                  <td class="{{changeString sgpa}}color">{{sgpa}}</td>
+                                </tr>
+                              {{/compareString}}         
+                      </tbody>
+                    </table>
+                  </div>
+                  
+                  </div>
+                  <br> 
+                 {{/each}}
+          </div>
+      {{/if}}
+{{!-- ------------------------------------------------------------------------------------------------------------------------- --}}
+        {{#if sem2}}  
+          <div class="container-xxl flex-grow-1 container-p-y">
+            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"></span>Semester 2</h4>
+              {{#each sem2result}}
+              <div class="card">
+                <h5 class="card-header">Year: {{year}}</h5>
+                 <div class="table-responsive ">
+                  <table class="table table-hover">
+                    <thead>
                       <tr>
-                        <td><i class="fab fa-angular fa-lg text-danger me-6"></i> <strong>Engineering Math I</strong></td>
-                        <td>F</td>
-                      </tr>
+                        <th>Subject</th>
+                        <th>Grade</th>
+                          
+                        </tr> 
+                      </thead>
+                      <tbody class="table-border-bottom-0">
+                         {{#isBlank mathii}}
+                          {{else}}
+                             <tr>
+                               <td><i class="fab fa-angular fa-lg text-danger me-6"></i> <strong>Engineering Math II</strong></td>
+                              <td class="{{changeString mathii}}color">{{mathii}}</td>
+                            </tr>
+                          {{/isBlank}}
+
+                           {{#isBlank lc}}
+                            {{else}}
+                                <tr>
+                                   <td><i class="fab fa-angular fa-lg text-danger me-6"></i> <strong>Logic Circuit</strong></td>
+                                  <td class="{{changeString lc}}color">{{lc}}</td>
+                                </tr>
+                            {{/isBlank}}
+
+                            {{#isBlank oop}}
+                            {{else}}
+                               <tr>
+                                 <td><i class="fab fa-angular fa-lg text-danger me-6"></i> <strong>Object Oriented Programming in C++</strong></td>
+                              <td class="{{changeString oop}}color">{{oop}}</td>
+                             </tr>
+                            {{/isBlank}}
+
+                            {{#isBlank wt}}
+                            {{else}}
+                              <tr>
+                                <td><i class="fab fa-angular fa-lg text-danger me-6"></i> <strong>Web Technology</strong></td>
+                                <td class="{{changeString wt}}color">{{wt}}</td>
+                              </tr>
+                            {{/isBlank}}
+                
+                            {{#isBlank drawing}}
+                            {{else}}
+                                <tr>
+                                  <td><i class="fab fa-angular fa-lg text-danger me-6"></i> <strong>Engineering Drawing</strong></td>
+                                  <td class="{{changeString drawing}}color">{{drawing}}</td>
+                                </tr>
+                            {{/isBlank}}
+
+                            {{#isBlank mfcs}}
+                            {{else}}
+                                <tr>
+                                  <td><i class="fab fa-angular fa-lg text-danger me-6"></i> <strong>Mathematical Foundation of Computer Science</strong></td>
+                                  <td class="{{changeString mfcs}}color">{{mfcs}}</td>
+                                </tr>
+                               
+                            {{/isBlank}} 
+
+
+                              {{#compareString sgpa "-"}}  
+                              {{else}}
+                                <tr>
+                                  <td><i class="fab fa-angular fa-lg text-danger me-6"></i> <strong>SGPA</strong></td>
+                                  <td class="{{changeString sgpa}}color">{{sgpa}}</td>
+                                </tr>
+                              {{/compareString}}  
+                      </tbody>
+                    </table>
+                  </div>
+                  <br>
+                   </div>
+                 {{/each}}
+          </div>
+      {{/if}}
+{{!-- ------------------------------------------------------------------------------------------------------------------------- --}}
+
+        {{#if sem3}}  
+          <div class="container-xxl flex-grow-1 container-p-y">
+          
+                <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"></span>Semester 3</h4>
+
+              {{#each sem3result}}
+              <div class="card">
+                <h5 class="card-header">Year: {{year}}</h5>
+                 <div class="table-responsive ">
+                  <table class="table table-hover">
+                    <thead>
                       <tr>
-                        <td><i class="fab fa-angular fa-lg text-danger me-6"></i> <strong>Programming in C</strong></td>
-                        <td>A-</td>
-                      </tr>
-                      <tr>
-                        <td><i class="fab fa-angular fa-lg text-danger me-6"></i> <strong>Communication Technique</strong></td>
-                        <td>B+</td>
-                      </tr>
-                      <tr>
-                        <td><i class="fab fa-angular fa-lg text-danger me-6"></i> <strong>Physics</strong></td>
-                        <td>B-</td>
-                      </tr>
-                      <tr>
-                        <td><i class="fab fa-angular fa-lg text-danger me-6"></i> <strong>Problem Solving Technique</strong></td>
-                        <td>B</td>
-                      </tr>
-                      <tr>
-                        <td><i class="fab fa-angular fa-lg text-danger me-6"></i> <strong>Fundamental of Information Technology</strong></td>
-                        <td>A-</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
+                        <th>Subject</th>
+                        <th>Grade</th>
+                          
+                        </tr> 
+                      </thead>
+                      <tbody class="table-border-bottom-0">
+                         {{#isBlank mathiii}}
+                          {{else}}
+                             <tr>
+                               <td><i class="fab fa-angular fa-lg text-danger me-6"></i> <strong>Engineering Mathematics III</strong></td>
+                              <td class="{{changeString mathiii}}color">{{mathiii}}</td>
+                            </tr>
+                          {{/isBlank}}
+
+                           {{#isBlank sef}}
+                            {{else}}
+                                <tr>
+                                   <td><i class="fab fa-angular fa-lg text-danger me-6"></i> <strong>Software Engineering Fundamentals</strong></td>
+                                  <td class="{{changeString sef}}color">{{sef}}</td>
+                                </tr>
+                            {{/isBlank}}
+
+                            {{#isBlank dsa}}
+                            {{else}}
+                               <tr>
+                                 <td><i class="fab fa-angular fa-lg text-danger me-6"></i> <strong>Data Structure and Algorithms</strong></td>
+                              <td class="{{changeString dsa}}color">{{dsa}}</td>
+                             </tr>
+                            {{/isBlank}}
+
+                            {{#isBlank pqt}}
+                            {{else}}
+                              <tr>
+                                 <td><i class="fab fa-angular fa-lg text-danger me-6"></i> <strong>Probability and Queuing Theory</strong></td>
+                                <td class="{{changeString pqt}}color">{{pqt}}</td>
+                              </tr>
+                            {{/isBlank}}
+                
+                            {{#isBlank java}}
+                            {{else}}
+                                <tr>
+                                   <td><i class="fab fa-angular fa-lg text-danger me-6"></i> <strong>Programming in Java</strong></td>
+                                  <td class="{{changeString java}}color">{{java}}</td>
+                                </tr>
+                            {{/isBlank}}
+
+                            {{#isBlank malp}}
+                            {{else}}
+                                <tr>
+                                   <td><i class="fab fa-angular fa-lg text-danger me-6"></i> <strong>Microprocessor and Assembly Language Programming</strong></td>
+                                  <td class="{{changeString malp}}color">{{malp}}</td>
+                                </tr>
+                               
+                            {{/isBlank}} 
+
+
+                              {{#compareString sgpa "-"}}  
+                              {{else}}
+                                  <tr>
+                                     <td><i class="fab fa-angular fa-lg text-danger me-6"></i> <strong>SGPA</strong></td>
+                                  <td class="{{changeString sgpa}}color">{{sgpa}}</td>
+                                </tr>
+                              {{/compareString}}  
+                      </tbody>
+                    </table>
+                  </div>
+                  <br>
+                   </div>
+                 {{/each}}
+          </div>
+      {{/if}}
+    </div>
+
+{{!-- ------------------------------------------------------------------------------------------------------------------------- --}}
+
+
+
+
+    
+
               <!--/ Basic Bootstrap Table -->
 
               <hr class="my-5" />

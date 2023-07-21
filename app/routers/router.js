@@ -38,6 +38,8 @@ const cookies_manager = require('./cookies_manager.js');
 const showNotice = require('./showNotice.js');
 const verify_token = require('./verify_token.js');
 const account_settings = require('./account_settings.js');
+const cookie_checker = require('./cookie_checker.js');
+
 
 
 router.get('/', (req, res) => {
@@ -79,6 +81,11 @@ router.get('/login', (req, res) => {
 router.get('/profile-setting', (req,res) => {
   account_settings(req,res);
 });
+
+router.get('/pile_pass_change', (req,res) => {
+  cookie_checker(req,res, "pile_pass_change");
+});
+
 
 
 //--------------------------------------------------------------------------------------------------------------------------------
@@ -122,17 +129,16 @@ router.post('/changed_password', urlencodedParser,(req,res) => {
 
 
 const showresults = require('./showresults.js');
-const cookie_checker = require('./cookie_checker.js');
 
 router.get('/form', (req,res) => {
   cookie_checker(req,res, "form") 
 }); 
 
-router.get('/result', (req,res) => {
-  cookie_checker(req,res, "result") 
-});
+// router.get('/result', (req,res) => {
+//   cookie_checker(req,res, "result") 
+// });
 
-router.get('/showresult', urlencodedParser, (req, res) => {
+router.get('/result', urlencodedParser, (req, res) => {
   showresults(req, res)
 });
 

@@ -1,11 +1,9 @@
 const { check, validationResult } = require('express-validator');
 const mysql = require("./connection").con;
-const cookieParser = require("cookie-parser");
-const { await } = require('await');
-const { Result } = require('../config/db.config');
+const cookies = require('./cookieEnDc.js')
 
 // Get the results for a specific student ID (SID)
-function getResults(sid, res) {
+function getResults(sid,permission,fullname,user_image, res) {
     let qry1 = `SELECT * FROM semester1s WHERE sid = '` + sid + `'`;
     mysql.query(qry1, (err, results1) => {
         if (err) {
@@ -27,34 +25,38 @@ function getResults(sid, res) {
                                     res.render("html/login.hbs");
                                 } else {
                                     if (results3.length > 0) {
-                                        res.render('result.hbs', {
+                                        res.render('html/result.hbs', {
                                             sem1: true,
                                             sem1result: results1,
                                             sem2: true,
                                             sem2result: results2,
                                             sem3: true,
                                             sem3result: results3
+                                            ,permission:permission, username: fullname, photo:user_image
                                         });
                                     } else {
-                                        res.render('result.hbs', {
+                                        res.render('html/result.hbs', {
                                             sem1: true,
                                             sem1result: results1,
                                             sem2: true,
                                             sem2result: results2
+                                            ,permission:permission, username: fullname, photo:user_image
                                         });
                                     }
                                 }
                             });
                         } else {
-                            res.render('result.hbs', {
+                            // console.log(results1)                
+                            res.render('html/result.hbs', {
                                 sem1: true,
                                 sem1result: results1
+                                ,permission:permission, username: fullname, photo:user_image
                             });
                         }
                     }
                 });
             } else {
-                res.render('result.hbs');
+                res.render('html/result.hbs');
             }
         }
     });
@@ -80,8 +82,23 @@ function showresults(req, res) {
     }
    
     if (rollno) {
-        const nonhashedroll = cookies.decrypt(hrollno,res,req);
-        getResults(nonhashedroll, res);
+        const nonhashedroll = cookies.decrypt(rollno,res,req);
+        let qry = "select * from user_infos join user_data on user_infos.sid=user_data.sid where user_infos.sid = '"+ nonhashedroll +"' ";   
+        mysql.query(qry, (err, recivedresults) => {
+            if (err) throw err;
+            else { 
+                if(recivedresults.length > 0){
+                    permission = recivedresults[0].permission_type
+                    fullname = recivedresults[0].username                            
+                    user_image=recivedresults[0].user_image
+                    getResults(nonhashedroll,permission,fullname,user_image, res);
+                }else{
+                    res.redirect("/")
+                }
+            }
+        });
+    
+      
     } else {
         res.render("html/login.hbs");
     }

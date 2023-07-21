@@ -40,6 +40,11 @@ function cookie_checker(req, res, page){
                             user_image=recivedresults[0].user_image
                             res.render("html/result.hbs",{permission:permission, username: fullname, photo:user_image})
                         }
+                        else if (page == "pile_pass_change"){
+                            fullname = recivedresults[0].username                            
+                            user_image=recivedresults[0].user_image
+                            res.render("html/pass_change.hbs",{permission:permission, username: fullname, photo:user_image})
+                        }
                         else{
                             res.render('html/pages-misc-error.hbs');
                         }
@@ -70,6 +75,11 @@ function cookie_checker(req, res, page){
                             fullname = recivedresults[0].username                            
                             user_image=recivedresults[0].user_image
                             res.render("html/uploadresult.hbs",{permission:permission, username: fullname, photo:user_image})
+                        }  
+                        else if (page == "pile_pass_change"){
+                            fullname = recivedresults[0].username                            
+                            user_image=recivedresults[0].user_image
+                            res.render("html/pass_change.hbs",{permission:permission, username: fullname, photo:user_image})
                         }  
                         else if (page == "viewsusers"){
                             fullname = recivedresults[0].username                            
