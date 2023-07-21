@@ -321,6 +321,10 @@
 
               <div class="row">
                 <div class="col-md-12">
+                     {{!-- <input type="text"  /> --}}
+                      {{#if master}}
+                          <span style="color: red;"><b><h7> * Master Account Can't be deleted/Edited * </h7></b></span>
+                      {{/if}}
                   <div class="card mb-4">
                     <h5 class="card-header">Profile Details</h5>
                     <!-- Account -->
