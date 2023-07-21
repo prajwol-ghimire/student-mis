@@ -20,11 +20,9 @@ function account_settings(req, res){
     } 
     if (username && rollno) {
         const nroll = cookies.decrypt(rollno,res,req);
-
         let qry = "select * from user_infos join user_data on user_infos.sid=user_data.sid where user_infos.sid = '"+ nroll +"' ";   
         mysql.query(qry, (err, recivedresults) => {
             if(recivedresults.length > 0){
-                console.log("agojhujon")
                 username = recivedresults[0].username
                 email = recivedresults[0].email
                 permission = recivedresults[0].permission_type   
