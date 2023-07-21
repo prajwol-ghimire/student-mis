@@ -4,22 +4,22 @@ module.exports = (sequelize, Sequelize) => {
 		type: Sequelize.INTEGER,
 		allowNull: false
 	},
-	mathi: {
+	MTH_112: {
 		type: Sequelize.STRING
 	},
-	cprog: {
+	CMP_113: {
 		type: Sequelize.STRING
 	},
-	fit: {
+	CMP_110: {
 		type: Sequelize.STRING
 	},
-	pst: {
+	CMP_114: {
 		type: Sequelize.STRING
 	},
-	physics: {
+	PHY_111: {
 		type: Sequelize.STRING
 	},
-	ct: {
+	ENG_111: {
 		type: Sequelize.STRING
 	},
 	sgpa: {

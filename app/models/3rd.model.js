@@ -4,22 +4,22 @@ module.exports = (sequelize, Sequelize) => {
 		type: Sequelize.INTEGER,
 		allowNull: false
 	},
-	mathiii: {
+	MTH_212: {
 		type: Sequelize.STRING
 	},
-	sef: {
+	CMP_220: {
 		type: Sequelize.STRING
 	},
-	dsa: {
+	CMP_225: {
 		type: Sequelize.STRING
 	},
-	pqt: {
+	MTH_221: {
 		type: Sequelize.STRING
 	},
-	java: {
+	CMP_212: {
 		type: Sequelize.STRING
 	},
-	malp: {
+	CMP_214: {
 		type: Sequelize.STRING
 	},
 	sgpa: {

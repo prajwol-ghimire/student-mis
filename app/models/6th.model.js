@@ -1,25 +1,25 @@
 module.exports = (sequelize, Sequelize) => {
-	const semester2 = sequelize.define('semester2', {	
+	const semester6 = sequelize.define('semester6', {	
 	sid: {
 		type: Sequelize.INTEGER,
 		allowNull: false
 	},
-	MTH_114: {
+	CMP_335: {
 		type: Sequelize.STRING
 	},
-	ELX_212: {
+	CMP_312: {
 		type: Sequelize.STRING
 	},
-	CMP_115: {
+	ECO_411: {
 		type: Sequelize.STRING
 	},
-	CMP_213: {
+	CMP_322: {
 		type: Sequelize.STRING
 	},
-	MEC_120: {
+	CMP_341: {
 		type: Sequelize.STRING
 	},
-	MTH_130: {
+	CMP_390: {
 		type: Sequelize.STRING
 	},
 	sgpa: {
@@ -27,13 +27,12 @@ module.exports = (sequelize, Sequelize) => {
 	},
 	id: {
 		type: Sequelize.INTEGER,
-		// allowNull: false
 		autoIncrement: true,
 		primaryKey: true
 	}
 
 
-	});
+    });
 	
-	return semester2;
+	return semester6;
 }
