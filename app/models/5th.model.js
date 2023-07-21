@@ -19,7 +19,7 @@ module.exports = (sequelize, Sequelize) => {
 	CMP_325: {
 		type: Sequelize.STRING
 	},
-	CMP_331: {
+	CMP_311: {
 		type: Sequelize.STRING
 	},
 	sgpa: {
