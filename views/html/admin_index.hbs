@@ -56,7 +56,6 @@
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../assets/js/config.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
-    <script src='https://cdn.plot.ly/plotly-2.24.1.min.js'></script>
   </head>
 
   <body>
@@ -146,7 +145,7 @@
                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
                   <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                     <div class="avatar avatar-online">
-                        <img src="../../uploads/profile/{{photo}}" onerror = "../assets/img/user.png"  class="w-px-32 h-auto rounded-circle"alt="User-Image" />
+                        <img src="../../uploads/profile/{{photo}}" onerror = "../assets/img/user.png"  class="w-px-31 h-auto rounded-circle"alt="User-Image" />
                     </div>
                   </a>
                   <ul class="dropdown-menu dropdown-menu-end">
@@ -155,7 +154,7 @@
                         <div class="d-flex">
                           <div class="flex-shrink-0 me-3">
                             <div class="avatar avatar-online">
-                                  <img src="../../uploads/profile/{{photo}}" onerror = "../assets/img/user.png"  class="w-px-32 h-auto rounded-circle"alt="User-Image" />
+                                  <img src="../../uploads/profile/{{photo}}" onerror = "../assets/img/user.png"  class="w-px-31 h-auto rounded-circle"alt="User-Image" />
                             </div>
                           </div>
                           <div class="flex-grow-1">
@@ -228,18 +227,13 @@
                   <div class="card h-100">
                     <div class="card-header d-flex align-items-center justify-content-between pb-0">
                       <div class="card-title mb-0">
-                        <h3 class="m-0 me-2">Dash</h3>
-                        <small class="text-muted">42.82k Total Sales</small>
+                        <h3 class="m-0 me-2">Dashboard</h3>
+                        <br>
+                       
                       </div>
 
                     </div> 
                     <div class="card-body">
-                      <div class="d-flex justify-content-between align-items-center mb-3">
-                        <div class="d-flex flex-column align-items-center gap-1">
-                          <h2 class="mb-2">8,258</h2>
-                          <span>Total Orders</span>
-                        </div>
-                      </div>
                       <ul class="p-0 m-0">
                          {{#each dashboardinfo}}
                           <li class="d-flex mb-4 pb-1">
@@ -260,27 +254,41 @@
                          {{/each}}
                       </ul>
                       <div>
-                        
-                  <h2>Users Graph</h2>
-                    <div class="chart-container" id="myDiv">
-                      <!-- Bars will be dynamically added here -->
-                    </div>
+                        <a href="/viewsusers" class="btn btn-primary btn-block">View All</a>
+            <div id="chartContainer" style="height: 300px; width: 100%;"></div>
+            <script>
+                function getChartData(callback) {
 
+        var Permission_name =[{{#each dashboardinfo}}{{jsonStringify permission_type}},{{/each}}];
+        var Permission_Count = [{{#each dashboardinfo}}{{total_count}},{{/each}}];
+        var barColors = ["blue", "green", "red"];
 
+        var dashboardInfo = [];
+        for (var i = 0; i < Permission_name.length; i++) {
+          dashboardInfo.push({ label: Permission_name[i], y: Permission_Count[i], color: barColors[i] });
+        }
 
-                  {{!-- <canvas id="myDiv" style="width:100%;max-width:600px"></canvas> --}}
+        callback(dashboardInfo);
+      }
 
-                                  
-                    <script>
-                      var data = [
-                        {
-                          x: ['giraffes', 'orangutans', 'monkeys'],
-                          y: [20, 14, 23],
-                          type: 'bar'
-                        }
-                      ];
-                      Plotly.newPlot('myDiv', data);
-                    </script>
+      // Construct the CanvasJS chart for the first graph
+      window.onload = function () {
+        getChartData(function (dashboardInfo) {
+          var options = {
+            title: {
+              text: "Total User Count"              
+            },
+            data: [              
+              {
+                type: "column",
+                dataPoints: dashboardInfo
+              }
+            ]
+          };
+          $("#chartContainer").CanvasJSChart(options);
+        });
+      };
+              </script>
 
 
 
@@ -343,5 +351,8 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="https://cdn.canvasjs.com/jquery.canvasjs.min.js"></script>
   </body>
 </html>
