@@ -25,10 +25,8 @@ let transporter = nodemailer.createTransport({
  * @param {string} nonhashedusername - Unhashed username
  * @param {string} permission - Permission type
  */
-const sendOTPVerification = async (sid, email, res, nonhashedusername, permission) => {
-    console.log(sid)
-    try {
-        const otp = `${Math.floor(10000 + Math.random() * 90000)}`;
+const sendOTPVerification = async (sid, email, res, nonhashedusername, permission, otp) => {
+    try { 
         const mailOptions = {
             from: "student_mis.ncit@outlook.com",
             to: email,
@@ -49,7 +47,6 @@ const sendOTPVerification = async (sid, email, res, nonhashedusername, permissio
 
         const saltRounds = 7;
         const hashedOTP = await bcrypt.hash(otp, saltRounds);
-        console.log(otp)
         const query = `UPDATE user_infos SET otp_temp = '` + hashedOTP + `' WHERE sid = '` + sid + `'`;
         mysql.query(query, (err, results) => {
             if (err) {
@@ -60,10 +57,10 @@ const sendOTPVerification = async (sid, email, res, nonhashedusername, permissio
         });
         await transporter.sendMail(mailOptions)
     } catch (error) {
-        res.json({
-            status: "FAILED",
-            message: error.message,
-        });
+        // res.json({
+        //     status: "FAILED",
+        //     message: error.message,
+        // });
     }
 }
 
@@ -104,7 +101,9 @@ function getUsername(username, rollno, res) {
                         });                                   
                     }
                 } else {
-                    sendOTPVerification(rollno, email, res, username, permission)
+                    const otp = `${Math.floor(10000 + Math.random() * 90000)}`;
+                    console.log(otp)
+                    sendOTPVerification(rollno, email, res, username, permission, otp)
                 }
             } else {
                 res.render("html/landing.hbs");

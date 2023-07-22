@@ -6,9 +6,8 @@ let router = express.Router();
 const mysql = require("./connection").con
 const bodyParser = require('body-parser')
 const urlencodedParser = bodyParser.urlencoded({ extended: false })
-require("../routers/adminAccount")
 require("../routers/handlebars.js")
-
+require("../routers/adminAccount")
 
 
 let path = __basedir + '/views/';
@@ -92,6 +91,7 @@ const signinValidate = require('./signinvalidate.js');
 const otpValidate = require('./otpValidate.js');
 const reset_password = require('./reset_password.js');
 const change_password = require('./change_password.js');
+const pass_change = require('./pass_change.js');
 
 
 router.post('/registeruser', urlencodedParser, (req, res) => {
@@ -113,6 +113,11 @@ router.post('/reset_password', urlencodedParser, (req, res) => {
 router.post('/changed_password', urlencodedParser,(req,res) => { 
     change_password(req, res)
 });
+
+router.post('/pass_change', urlencodedParser,(req,res) => { 
+  pass_change(req, res)
+});
+
 
 
 
@@ -288,7 +293,6 @@ router.post('/sendnotice', urlencodedParser, Noticeupload.single("notice"), (req
 router.get('*', (req,res) => {
   res.render('html/pages-misc-error.hbs');
 });
-
 
 
 module.exports = router;

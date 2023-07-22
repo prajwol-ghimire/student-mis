@@ -39,6 +39,34 @@
     <!-- Helpers -->
     <script src="../assets/vendor/js/helpers.js"></script>
     <script src="../assets/js/config.js"></script>
+    <style>
+      #password-strength-bar-container {
+        width: 200px;
+        height: 10px;
+        background-color: #000000;
+        border-radius: 10px;
+        position: relative;
+      }
+
+      #password-strength-bar {
+        height: 100%;
+        background-color: rgb(255, 255, 255);
+        border-radius: 15px;
+        transition: width 0.4s;
+      }
+
+      #password-strength-label {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: rgb(255, 255, 255);
+
+        font-size: 10px;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+      }
+
+    </style>
 </head>
 <body>
   <!-- Layout wrapper -->
@@ -67,7 +95,7 @@
                       <div data-i18n="Analytics">Dashboard</div>
                     </a>
                   </li>
-                  <li class="menu-item ">
+                  <li class="menu-item active">
                     <a href="/profile-setting" class="menu-link">
                       <i class="menu-icon tf-icons bx bx-dock-top"></i>
                       <div data-i18n="Account Settings">Account Settings</div>
@@ -75,7 +103,7 @@
                   
                   </li>
 
-                  <li class="menu-item active">
+                  <li class="menu-item ">
                     <a href="/viewsusers" class="menu-link">
                       <i class="menu-icon tf-icons bx bx-detail"></i>
                       <div data-i18n="Form Layouts">Manage Users</div>
@@ -170,21 +198,38 @@
           <div class="content-wrapper">
             <!-- Content -->
               <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"></span>Add New User</h4>
+              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"></span>Change Password</h4>
                 <!-- Basic with Icons -->
                 <div class="col-xxl">
                   <div class="card mb-4">
         
                     <div class="card-body">
-                          <form action="/changed_password" method="POST" onsubmit="return validateForm()">
+                          <form action="/pass_change" method="POST" onsubmit="return validateForm()" autocomplete="off">
+                           
+                            
                               <div class="row mb-3">
                                   <label class="col-sm-2 col-form-label">New Password</label>
                                   <div class="col-sm-10">
                                       <div class="input-group input-group-merge">
-                                          <input type="password" class="form-control" name="password" id="password" required/>
+                                          <input type="password" class="form-control" name="password" id="password" onkeyup="validatePassword(event)" required/>
+                                         
                                       </div>
+
+                                      {{!-- ----------------------- --}}
+                                        <div class="col-sm-10 ">
+                                            <div id="password-strength-bar-container">
+                                                <div id="password-strength-bar"></div>
+                                                <span id="password-strength-label"></span>
+                                            </div>
+                                            <span id="password-text-strong"></span>
+                                        </div>
+
+                                         {{!-- ----------------------- --}}
                                   </div>
+                                  
+                                  
                               </div>
+                             
 
                               <div class="row mb-3">
                                   <label class="col-sm-2 col-form-label">Confirm Password</label>
@@ -195,21 +240,33 @@
                                   </div>
                               </div>
 
+                            
+
+                                 {{!-- <script src="script.js"></script> --}}
+
                               <!-- Error message display -->
                               <div class="row mb-3">
                                   <div class="col-sm-10">
                                       <p id="errorText" style="color: red; display: none;">Passwords do not match!</p>
                                   </div>
                               </div>
+                              {{#if changed}}
+                                  <div class="row justify-content-end">
+                                    <div class="col-sm-10">
+                                        <span style="color: rgb(47, 78, 0);">Password Has been changed</span>
+                                    </div>
+                                </div>
+                              {{else}}
+                                <div class="row justify-content-end">
+                                    <div class="col-sm-10">
+                                        <button type="submit" class="btn btn-primary">Change Password</button>
+                                    </div>
+                                </div>
+                              {{/if}}
 
-                              <div class="row justify-content-end">
-                                  <div class="col-sm-10">
-                                      <button type="submit" class="btn btn-primary">Change Password</button>
-                                  </div>
-                              </div>
                           </form>
 
-                  
+                         
                     </div>
                   </div>
                 </div>
@@ -260,27 +317,12 @@
       <script src="../assets/js/main.js"></script>
   
       <!-- Page JS -->
+      <script src="../assets/js/pages-account-settings-account.js"></script>
+       <script src="../assets/js/passvalidate.js"></script>
   
       <!-- Place this tag in your head or just before your close body tag. -->
       <script async defer src="https://buttons.github.io/buttons.js"></script>
-      <script>
-        function validateForm() {
-            const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirmpassword').value;
 
-            if (password !== confirmPassword) {
-                // Show the error message
-                document.getElementById('errorText').style.display = 'block';
-                // Prevent form submission
-                return false;
-            } else {
-                // Hide the error message if passwords match
-                document.getElementById('errorText').style.display = 'none';
-                // Allow form submission
-                return true;
-            }
-        }
-    </script>
       
              
 </body>

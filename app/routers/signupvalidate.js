@@ -49,12 +49,12 @@ async function sendUserDetails(examroll, email, password, username, res) {
  * @param {string} faculty - Faculty of the user
  * @param {string} semester - Semester of the user
  */
-async function signUpSQL(res, examroll, username, email, permission,faculty,semester) {
-    const min = Math.ceil(11111);
-    const max = Math.floor(999999);
+async function signUpSQL(res, examroll, username, email, permission,faculty) {
+    const min = Math.ceil(1111);
+    const max = Math.floor(9999);
     const randomnum1 = Math.floor(Math.random() * (max - min)) + min;
     const randomnum2 = Math.floor(Math.random() * (max - min)) + min;
-    const plaintextPassword = randomnum1 + "@ncit!" + randomnum2;
+    const plaintextPassword = randomnum1 + "@NciT!" + randomnum2;
     const hashedpassword = await bcrypt.hash(plaintextPassword, 10);
     let qry = "select * from user_infos where sid = ?";
     mysql.query(qry, examroll, (err, results) => {
@@ -73,8 +73,7 @@ async function signUpSQL(res, examroll, username, email, permission,faculty,seme
                             const regex = /\d+/; // Matches one or more digits
                             const match = email.match(regex);
                             const crn = match ? match[0] : null;
-
-                            const query = `INSERT INTO user_data (sid,faculty,semester,crn,registration, user_image) VALUES ('${examroll}','${faculty}',semester,'${crn}',registration,'user.png')`
+                            const query = `INSERT INTO user_data (sid,faculty,crn, user_image) VALUES ('${examroll}','${faculty}','${crn}','user.png')`
                             mysql.query(query, (err, results) => {
                                 if (err) {
                                     console.error('Error inserting data: ', err);
@@ -93,10 +92,10 @@ async function signUpSQL(res, examroll, username, email, permission,faculty,seme
                             });       
                         }
                         else{
-                            const query = `INSERT INTO user_data (sid) VALUES ('${examroll}')`
+                            const query = `INSERT INTO user_data (sid, user_image) VALUES ('${examroll}','user.png')`
                             mysql.query(query, (err, results) => {
                                 if (err) {
-                                   console.log(err) 
+                                    res.redirect("/signup?error=500error")
                                 }else{
                                     const query = `INSERT INTO user_cookies (sid) VALUES ('${examroll}')`;
                                     mysql.query(query, (err, results) => {

@@ -17,7 +17,7 @@ function updateAccount(req, res){
                 if (err) throw err;
                 else {
                     const fileName = path.basename(files);
-                    let qry = `UPDATE user_data SET user_image = '`+ fileName + `',semester = `+ semester +`, registration=`+ registration +` WHERE sid = ?`
+                    let qry = `UPDATE user_data SET user_image = '`+ fileName + `',semester = '`+ semester +`', registration='`+ registration +`' WHERE sid = ?`
                     mysql.query(qry, sid, (err, recivedresults) => {
                         if (err) throw err;
                         else {
@@ -28,12 +28,13 @@ function updateAccount(req, res){
                 }
             });
         }else{
-            let qry = `UPDATE user_infos SET username = '`+ username +`' WHERE sid = ?`
-            mysql.query(qry, sid, (err, recivedresults) => {
+            let qry = `UPDATE user_infos SET username = ? WHERE sid = ?`
+                    // 1; const nqry = `select * from user_infos`; //
+            mysql.query(qry,  [username, sid], (err, recivedresults) => {
                 if (err) throw err;
                 else {
-                    let qry = `UPDATE user_data SET semester = `+ semester +`, registration=`+ registration +` WHERE sid = ?`
-                    mysql.query(qry, sid, (err, recivedresults) => {
+                    let qry = `UPDATE user_data SET semester = ?, registration= ? WHERE sid = ?`
+                    mysql.query(qry, [semester,registration, sid], (err, recivedresults) => {
                         if (err) throw err;
                         else {
                             res.redirect("/profile-setting")
