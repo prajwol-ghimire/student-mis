@@ -28,11 +28,14 @@ function account_settings(req, res){
                 permission = recivedresults[0].permission_type   
                 photo = recivedresults[0].user_image
                 crn = recivedresults[0].crn
+                registration = recivedresults[0].registration
+                faculty = recivedresults[0].faculty
+                semester = recivedresults[0].semester
                 const error = req.query.error; 
                 if (error == 'master'){  
-                    res.render("html/account_setting.hbs",{username : username, email : email, rollno : nroll, crn : crn, photo : photo, permission: permission, master: true})
+                    res.render("html/account_setting.hbs",{username : username, email : email, rollno : nroll, crn : crn, photo : photo, permission: permission,registration: registration, semester: semester,faculty:faculty, master: true})
                 }else{
-                    res.render("html/account_setting.hbs",{username : username, email : email, rollno : nroll, crn : crn, photo : photo, permission: permission})  
+                    res.render("html/account_setting.hbs",{username : username, email : email, rollno : nroll, crn : crn, photo : photo,registration:registration, permission: permission,semester: semester,faculty:faculty})  
                 } 
             }else{
                 res.redirect("/")

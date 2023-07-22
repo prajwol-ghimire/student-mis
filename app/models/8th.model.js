@@ -1,4 +1,10 @@
-module.exports = (sequelize, Sequelize) => {
+/*
+	network programming - CMP 436
+	software project management MCIS_SPM
+	elective II - ELECTIVE_II
+	project II- ELX 490
+
+*/module.exports = (sequelize, Sequelize) => {
 	const semester8 = sequelize.define('semester8', {	
 	sid: {
 		type: Sequelize.INTEGER,
@@ -7,13 +13,13 @@ module.exports = (sequelize, Sequelize) => {
 	CMP_436: {
 		type: Sequelize.STRING
 	},
-	CMP_420: {
+	MCIS_SPM: {
 		type: Sequelize.STRING
 	},
 	Elective_II: {
 		type: Sequelize.STRING
 	},
-	CMP_490: {
+	ELX_490: {
 		type: Sequelize.STRING
 	},
 	sgpa: {

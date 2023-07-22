@@ -8,6 +8,15 @@ module.exports = (sequelize, Sequelize) => {
 	crn: {
 		type: Sequelize.STRING
 	},
+	registration: {
+		type: Sequelize.STRING
+	},
+	faculty: {
+		type: Sequelize.STRING
+	},
+	semester: {
+		type: Sequelize.STRING
+	},
     user_image: {
 		type: Sequelize.STRING
 	},

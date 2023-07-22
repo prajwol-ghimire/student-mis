@@ -26,10 +26,10 @@ exports.uploadFilesem7 = (req, res) => {
     
                 let results = {
                     sid: rows[i][0],
-                    CMP_430: rows[i][1],
+                    COM_704: rows[i][1],
                     CMP_435: rows[i][2],
                     CMP_480: rows[i][3],
-                    CMP_441: rows[i][4],
+                    COM_706: rows[i][4],
                     CMP_421: rows[i][5],
                     Elective_I: rows[i][6],
                     sgpa: rows[i][7],

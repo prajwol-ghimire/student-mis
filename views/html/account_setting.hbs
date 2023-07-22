@@ -416,8 +416,17 @@
                               value="{{rollno}}"
                             />
                           </div>
-
-                            <div class="mb-3 col-md-6">
+                          <div class="mb-3 col-md-6">
+                              <label for="rollno" class="form-label">Registration Number</label>
+                              <input
+                                type="text"
+                                class="form-control"
+                                id="registration"
+                                name="registration"
+                                value="{{registration}}"
+                              />
+                          </div>
+                          <div class="mb-3 col-md-6">
                             <label for="rollNo" class="form-label">College Roll</label>
                             <input
                               type="text"
@@ -429,6 +438,35 @@
                               value="{{crn}}"
                             />
                           </div>
+
+                          <div class="mb-3 col-md-6">
+                              <label for="rollno" class="form-label">Faculty</label>
+                              <input
+                                type="text"
+                                class="form-control"
+                                id="faculty"
+                                name="faculty"
+                                maxlength="6"
+                                readonly
+                                value="{{faculty}}"
+                              />
+                          </div>
+
+
+                          <div class="mb-3 col-md-6">
+                              <label for="rollno" class="form-label">Semester</label>
+                              <input
+                                type="number"
+                                class="form-control"
+                                id="semester"
+                                name="semester"
+                                maxlength="1"
+                                value="{{semester}}"
+                              />
+                          </div>
+
+
+
                           {{/compareString}}
                          
                         
@@ -455,21 +493,6 @@
                 </div>
               </div>
             </div>
-            <!-- / Content -->
-
-                {{!-- <div class="popup-form" id="changePasswordPopup">
-                  <form id="changePasswordForm">
-                    <label for="newPassword" style="color: black;">New Password:</label>
-                    <input type="password" id="newPassword" required>
-                    
-                    <label for="confirmPassword"style="color:black" >Confirm New Password:</label>
-                    <input type="password" id="confirmPassword" required>
-                    
-                    <button type="submit">Submit</button>
-                    <button type="button" id="closePopup">Close</button>
-                  </form>
-                </div> --}}
-
 
             <!-- Footer -->
             <footer class="content-footer footer bg-footer-theme">

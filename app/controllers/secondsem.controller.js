@@ -22,10 +22,10 @@ exports.uploadFilesem2 = (req, res) => {
                     sid: rows[i][0],
                     MTH_114: rows[i][1],
                     ELX_212: rows[i][2],
-                    CMP_115: rows[i][3],
-                    CMP_213: rows[i][4],
-                    MTH_120: rows[i][5],
-                    MTH_130: rows[i][6],
+                    MTH_130: rows[i][3],
+                    MEC_120: rows[i][4],
+                    CMP_115: rows[i][5],
+                    CMP_213: rows[i][6],                   
                     sgpa: rows[i][7],
                     year : year
                 }

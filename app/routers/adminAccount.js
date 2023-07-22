@@ -80,7 +80,7 @@ ON DUPLICATE KEY UPDATE
     \`abbreviation\` = VALUES(\`abbreviation\`),
     \`course_code\` = VALUES(\`course_code\`),
     \`faculty\` = VALUES(\`faculty\`),
-    \`semester\` = VALUES(\`semester\`),
+    \`semester\` = VALUES(\`semester\`),  
     \`credit\` = VALUES(\`credit\`),
     \`createdAt\` = VALUES(\`createdAt\`),
     \`updatedAt\` = VALUES(\`updatedAt\`);

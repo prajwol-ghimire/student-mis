@@ -7,19 +7,19 @@ module.exports = (sequelize, Sequelize) => {
 	MTH_112: {
 		type: Sequelize.STRING
 	},
-	CMP_113: {
+	PHY_111: {
+		type: Sequelize.STRING
+	},
+	ENG_111: {
 		type: Sequelize.STRING
 	},
 	CMP_110: {
 		type: Sequelize.STRING
 	},
+	CMP_113: {
+		type: Sequelize.STRING
+	},
 	CMP_114: {
-		type: Sequelize.STRING
-	},
-	PHY_111: {
-		type: Sequelize.STRING
-	},
-	ENG_111: {
 		type: Sequelize.STRING
 	},
 	sgpa: {
@@ -40,3 +40,12 @@ module.exports = (sequelize, Sequelize) => {
 	
 	return semester1;
 }
+
+/* Order in Result Sheet
+ Enginerring Mathematics I- mth 112
+ Physics - phy 111
+ Communication Technique - eng 111
+ Fundamentals of IT - cmp 110
+ Programming in C - cmp 113
+ Probelm Solving Techniques- cmp 114
+ */

@@ -27,7 +27,7 @@ exports.uploadFilesem3 = (req, res) => {
                     sid: rows[i][0],
                     MTH_212: rows[i][1],
                     CMP_220: rows[i][2],
-                    CMP_225: rows[i][3],
+                    CMP_227: rows[i][3],
                     MTH_221: rows[i][4],
                     CMP_212: rows[i][5],
                     CMP_214: rows[i][6],
