@@ -1,3 +1,11 @@
+/*
+	applies os - cmp 331
+	simulation and modeling - cmp 350
+	ai - cmp 457
+	organization and management - mgt 321
+	analysis and design of algorithms - cmp 325
+	system programming - cmp 311
+*/
 module.exports = (sequelize, Sequelize) => {
 	const semester5 = sequelize.define('semester5', {	
 	sid: {

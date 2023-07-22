@@ -1,19 +1,29 @@
+/*
+	rts COM 704
+	ds CMP 435	 
+	ead cmp 480
+	ip&pr com 706
+	st - cmp 421
+	elective I - ELECTIVE_I
+
+*/
+
 module.exports = (sequelize, Sequelize) => {
 	const semester7 = sequelize.define('semester7', {	
 	sid: {
 		type: Sequelize.INTEGER,
 		allowNull: false
 	},
-	CMP_430: {
-		type: Sequelize.STRING
+	COM_704: {
+		type: Sequelize.STRING 
 	},
 	CMP_435: {
-		type: Sequelize.STRING
+		type: Sequelize.STRING 
 	},
 	CMP_480: {
-		type: Sequelize.STRING
+		type: Sequelize.STRING 
 	},
-	CMP_441: {
+	COM_706: {
 		type: Sequelize.STRING
 	},
 	CMP_421: {

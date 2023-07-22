@@ -27,11 +27,11 @@ exports.uploadFilesem6 = (req, res) => {
                 let results = {
                     sid: rows[i][0],
                     CMP_335: rows[i][1],
-                    CMP_312: rows[i][2],
+                    PPL: rows[i][2],
                     ECO_411: rows[i][3],
                     CMP_322: rows[i][4],
                     CMP_341: rows[i][5],
-                    CMP_390: rows[i][6],
+                    PRJ_251: rows[i][6],
                     sgpa: rows[i][7],
                     year:year
                 }

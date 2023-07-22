@@ -26,12 +26,12 @@ exports.uploadFilesem4 = (req, res) => {
     
                 let results = {
                     sid: rows[i][0],
-                    CMP_334: rows[i][1],
-                    CMP_226: rows[i][2],
-                    CMP_241: rows[i][3],
-                    CMP_321: rows[i][4],
                     MTH_230: rows[i][5],
-                    CMP_290: rows[i][6],
+                    CMP_714: rows[i][1],
+                    CMP_334: rows[i][2],
+                    CMP_226: rows[i][3],
+                    CMP_321: rows[i][4],
+                    CVL_290: rows[i][6],
                     sgpa: rows[i][7],
                     year:year
                 }

@@ -35,7 +35,7 @@ async function sendUserDetails(examroll, email, password, username, res) {
     };
     console.log(password);
     res.redirect('/viewsusers');
-    await transporter.sendMail(mailOptions);
+    // await transporter.sendMail(mailOptions);
    
 }
 
@@ -46,8 +46,10 @@ async function sendUserDetails(examroll, email, password, username, res) {
  * @param {string} username - User's username
  * @param {string} email - User's email address
  * @param {string} permission - User's permission type
+ * @param {string} faculty - Faculty of the user
+ * @param {string} semester - Semester of the user
  */
-async function signUpSQL(res, examroll, username, email, permission) {
+async function signUpSQL(res, examroll, username, email, permission,faculty,semester) {
     const min = Math.ceil(11111);
     const max = Math.floor(999999);
     const randomnum1 = Math.floor(Math.random() * (max - min)) + min;
@@ -72,7 +74,7 @@ async function signUpSQL(res, examroll, username, email, permission) {
                             const match = email.match(regex);
                             const crn = match ? match[0] : null;
 
-                            const query = `INSERT INTO user_data (sid,crn, user_image) VALUES ('${examroll}','${crn}','user.png')`
+                            const query = `INSERT INTO user_data (sid,faculty,semester,crn,registration, user_image) VALUES ('${examroll}','${faculty}',semester,'${crn}',registration,'user.png')`
                             mysql.query(query, (err, results) => {
                                 if (err) {
                                     console.error('Error inserting data: ', err);
@@ -148,7 +150,10 @@ function signupValidate(req, res) {
         const sid = req.body.examroll;
         const username = req.body.username;
         const permission = req.body.permission_type;
-        signUpSQL(res, sid, username, email, permission);
+        const faculty = req.body.faculty;
+        const semester = null;
+        const registration = null;
+        signUpSQL(res, sid, username, email, permission,faculty,semester,registration);
     } else {
         res.redirect("/signup?error=emailInvalid")
     }

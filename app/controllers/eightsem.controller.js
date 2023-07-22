@@ -27,9 +27,9 @@ exports.uploadFilesem8 = (req, res) => {
                 let results = {
                     sid: rows[i][0],
                     CMP_436: rows[i][1],
-                    CMP_420: rows[i][2],
+                    MCIS_SPM: rows[i][2],
                     Elective_II: rows[i][3],
-                    CMP_490: rows[i][4],
+                    ELX_490: rows[i][4],
                     sgpa: rows[i][7],
                     year : year
                 }

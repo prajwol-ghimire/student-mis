@@ -10,7 +10,7 @@ module.exports = (sequelize, Sequelize) => {
 	CMP_220: {
 		type: Sequelize.STRING
 	},
-	CMP_225: {
+	CMP_227: {
 		type: Sequelize.STRING
 	},
 	MTH_221: {
@@ -40,3 +40,13 @@ module.exports = (sequelize, Sequelize) => {
 	
 	return semester3;
 }
+
+/**
+ Order in Result Sheet
+ Enginerring Mathematics III- mth 212
+ Software Engineering fundamental - cmp 220
+ Data Structure and Algorithm - cmp 227
+ Probability and queuing theory - mth 221
+ programming in java - cmp 212
+ microprocessor and assembly language - cmp 214
+ */

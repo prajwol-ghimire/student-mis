@@ -1,3 +1,12 @@
+/*
+	computer networks cmp 335
+	principles of programming languages - PPL
+	engineering economics - eco 411
+	oosd - cmp 322
+	multimedia systems - cmp 341
+	project II - prj 251
+*/
+
 module.exports = (sequelize, Sequelize) => {
 	const semester6 = sequelize.define('semester6', {	
 	sid: {
@@ -7,7 +16,7 @@ module.exports = (sequelize, Sequelize) => {
 	CMP_335: {
 		type: Sequelize.STRING
 	},
-	CMP_312: {
+	PPL: {
 		type: Sequelize.STRING
 	},
 	ECO_411: {
@@ -19,9 +28,10 @@ module.exports = (sequelize, Sequelize) => {
 	CMP_341: {
 		type: Sequelize.STRING
 	},
-	CMP_390: {
+	PRJ_251: {
 		type: Sequelize.STRING
 	},
+	
 	sgpa: {
 		type: Sequelize.STRING
 	},
