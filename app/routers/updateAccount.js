@@ -30,6 +30,7 @@ function updateAccount(req, res){
         }else{
             let qry = `UPDATE user_infos SET username = ? WHERE sid = ?`
                     // 1; const nqry = `select * from user_infos`; //
+                    
             mysql.query(qry,  [username, sid], (err, recivedresults) => {
                 if (err) throw err;
                 else {
