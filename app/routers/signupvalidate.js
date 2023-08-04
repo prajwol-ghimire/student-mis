@@ -35,7 +35,7 @@ async function sendUserDetails(examroll, email, password, username, res) {
     };
     console.log(password);
     res.redirect('/viewsusers');
-    // await transporter.sendMail(mailOptions);
+    await transporter.sendMail(mailOptions);
    
 }
 

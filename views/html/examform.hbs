@@ -219,7 +219,7 @@
                           <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Registration no.</label>
                           <div class="col-sm-10">
                             <div class="input-group input-group-merge">
-                              <span id="basic-icon-default-fullname2" class="input-group-text"></span>
+                            
                               <input
                                 type="text"
                                 class="form-control"
@@ -227,6 +227,8 @@
                                 aria-label="John Doe"
                                 aria-describedby="basic-icon-default-fullname2"
                                 name="registration"
+                                value = {{registration}}
+                                readonly
                               />
                             </div>
                           </div>
@@ -254,7 +256,7 @@
                           <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Program</label>
                           <div class="col-sm-10">
                             <div class="input-group input-group-merge">
-                              <span id="basic-icon-default-fullname2" class="input-group-text"></span>
+                            
                               <input
                                 type="text"
                                 class="form-control"
@@ -262,6 +264,8 @@
                                 aria-label="John Doe"
                                 aria-describedby="basic-icon-default-fullname2"
                                 name="program"
+                                value = {{faculty}}
+                                readonly
                               />
                             </div>
                           </div>
@@ -271,16 +275,16 @@
                           <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Semester</label>
                           <div class="col-sm-2 ">
                             <div class="">
-                              <select name="semester" id="basic-icon-default-fullname2" class="input-group-text">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                                <option value="8">8</option>
-                              </select>
+                               <input
+                                type="text"
+                                class="form-control"
+                                id="basic-icon-default-fullname"
+                                aria-label="John Doe"
+                                aria-describedby="basic-icon-default-fullname2"
+                                value = {{semester}}
+                                name="semester"
+                                readonly
+                              />
                               
                             </div>
                           </div>

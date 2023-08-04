@@ -14,8 +14,8 @@ function exam_form(req, res){
   // ---------------------------------------------------
   registration = req.body.registration
   reglength = registration.length
-  if (reglength < 18) {
-    const neededlengthreg = 18 - reglength;
+  if (reglength < 16) {
+    const neededlengthreg = 16 - reglength;
     for (let i = 0; i < neededlengthreg; i++) {
       registration = registration + " ";
     }
@@ -28,6 +28,7 @@ function exam_form(req, res){
   program = req.body.program
   center = req.body.center
   semester = req.body.semester
+  date = req.body.date
   if (req.file){
     photo = req.file.filename
   }else{
@@ -76,7 +77,7 @@ function exam_form(req, res){
         }
       }
       // extra box end
-        res.render("html/exam_forms.hbs", { year: year,name: split_name, rollno: split_registration, level: level,  program:program, sid:sid,center:center, subjects : recivedresults, resubjects : resubjects, photo : photo});
+        res.render("html/exam_forms.hbs", { year: year,name: split_name, rollno: split_registration, level: level,  program:program, sid:sid,center:center, subjects : recivedresults, resubjects : resubjects, photo : photo,date: date, semester: semester});
     }
   }); 
 }

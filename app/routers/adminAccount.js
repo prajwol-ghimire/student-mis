@@ -54,39 +54,3 @@ mysql.query(query3, (err, results) => {
   }
 });
 
-
-query4 =  `
-INSERT INTO \`subject_data\` (\`id\`, \`course_name\`, \`abbreviation\`, \`course_code\`, \`faculty\`, \`semester\`, \`credit\`, \`createdAt\`, \`updatedAt\`) VALUES
-    (1, 'C Programming', 'cprog', 'CMP-114', 'BE Software', 1, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-    (2, 'Engineering Mathematics I', 'mathi', 'MTH 112', 'BE Software', 1, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-    (3, 'Communication Techniques', 'ct', 'ENG 111', 'BE Software', 1, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-    (4, 'Fundamentals of IT', 'fit', 'CMP 110', 'BE Software', 1, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-    (5, 'Physics', 'physics', 'PHY 111', 'BE Software', 1, 4, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-    (6, 'Problem Solving Techniques', 'pst', 'CMP 114', 'BE Software', 1, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-    (7, 'Engineering Mathematics II', 'mathii', 'MTH 114', 'BE Software', 2, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-    (8, 'Logic Circuits', 'lc', 'ELX 212', 'BE Software', 2, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-    (9, 'Mathematical Foundation of Computer Science', 'mfcs', 'MTH 130', 'BE Software', 2, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-    (10, 'Object Oriented Programming in C++', 'oop', 'CMP 115', 'BE Software', 2, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-    (11, 'Engineering Drawing', 'drawing', 'MEC 120', 'BE Software', 2, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-    (12, 'Web Technology', 'wt', 'CMP 213', 'BE Software', 2, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-    (13, 'Engineering Mathematics III', 'mathiii', 'MTH 212', 'BE Software', 3, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-    (14, 'Data Structure and Algorithms', 'dsa', 'CMP 225', 'BE Software', 3, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-    (15, 'Software Engineering Fundamentals', 'sef', 'CMP 220', 'BE Software', 3, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-    (16, 'Probability and Queuing Theory', 'pqt', 'MTH 221', 'BE Software', 3, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-    (17, 'Programming in Java', 'java', 'CMP 212', 'BE Software', 3, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-    (18, 'Microprocessor and Assembly Language Programming', 'malp', 'CMP 214', 'BE Software', 3, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
-ON DUPLICATE KEY UPDATE
-    \`course_name\` = VALUES(\`course_name\`),
-    \`abbreviation\` = VALUES(\`abbreviation\`),
-    \`course_code\` = VALUES(\`course_code\`),
-    \`faculty\` = VALUES(\`faculty\`),
-    \`semester\` = VALUES(\`semester\`),  
-    \`credit\` = VALUES(\`credit\`),
-    \`createdAt\` = VALUES(\`createdAt\`),
-    \`updatedAt\` = VALUES(\`updatedAt\`);
-`;
-mysql.query(query4, (err, results) => {
-  if (err) {
-    console.error('Error inserting data: ', err);
-  }
-});

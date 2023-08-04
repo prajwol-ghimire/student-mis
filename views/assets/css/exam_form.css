@@ -1,109 +1,321 @@
-*{
+* {
     font-family: Arial, Helvetica, serif;
-}
-.container{
-    background-color: white;
+  }
+  
+  .container {
+  
     height: 220vh;
     width: 100%;
     margin: auto;
-}
-.form{
+  }
+  
+  .form {
     height: 220vh;
     width: 75%;
     /* padding-left: 0%;
     padding-right: 0%; */
     margin: auto;
     background-color: white;
-}
-.heading{
+  }
+  
+  .heading {
     display: flex;
-    background-color:white;
+    background-color: white;
     line-height: 20px;
     width: 80%;
     margin: auto;
-}
-.logo{
+  }
+  
+  .logo {
     margin-top: 0px;
     margin-left: 0px;
-}
-.title{
+  }
+  
+  .title {
     width: fill-content;
     background-color: white;
     text-align: center;
-        line-height: 16px;
-    margin:auto;
-}
-.title h1{
+    line-height: 16px;
+    margin: auto;
+  }
+  
+  .title h1 {
     font-weight: 550;
-}
-.image{
+  }
+  
+  .image {
     width: 150px;
-}
-.image img{
+  }
+  
+  .image img {
     margin-left: 30px;
     margin-top: 0px;
-}
-form{
-    background-color:white;
+  }
+  
+  form {
+    background-color: white;
     margin: auto;
     width: 80%;
-}
-.input_section .first_line{
-    line-height: 0%;
-}
-.input_section .first_line,.second_line,.third_line{
+  }
+  
+  .first_line input {
+    border-bottom: 2px dotted black;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    margin-bottom: 10px;
+  }
+  
+  .first_line .eroll_no {
+    width: 300px;
+  }
+  
+  .first_line .e_center {
+    width: 380px;
+  }
+  
+  .second_line input {
+    border-bottom: 2px dotted black;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    margin-bottom: 10px;
+  }
+  
+  .second_line .level {
+    width: 480px;
+  }
+  
+  .second_line .program {
+    width: 350px;
+  }
+  
+  .third_line input {
+    border-bottom: 2px dotted black;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    margin-bottom: 10px;
+  }
+  
+  .third_line .sem {
+    width: 450px;
+  }
+  
+  .third_line .year {
+    width: 500px;
+  }
+  .yeartag{
+    margin-left: 40px;
+  }
+  .programtag{
+    margin-left: 50px;
+  }
+  
+  .input_section .first_line,
+  .second_line,
+  .third_line {
     display: flex;
-}
-.input_section .fml_name{
-    display: flex;  
-}
-.input_section .fml_name span{
+    line-height: 30px;
+  }
+  
+  .input_section .fml_name {
+    display: flex;
+    margin-left: 100px;
+  }
+  
+  .input_section .fml_name span {
     margin: auto;
-}
-.input_section table{
-    border:1px solid black;
-}
-.input_section table{
+  }
+  
+  .input_section table {
+    border: 1px solid black;
     border-collapse: collapse;
-}
-.fst_table td{
+  }
+  
+  .fst_table td {
     border: 1px solid black;
     width: 31px;
     height: 30px;
     text-align: center;
-}
-.snd_table #pu_rno{
-    width: 220px;
-}
-.snd_table td{
+  }
+  
+  .snd_table #pu_rno {
+    width: 280px;
+    flex: none;
+  }
+  
+  .snd_table td {
     border: 1px solid black;
     width: 70px;
     height: 30px;
     text-align: center;
-}
-.regular_courses td{
+  }
+  
+  .coll_name input {
+    border-bottom: 2px dotted black;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    width: auto;
+    min-width: 80%;
+    padding-top: 10px;
+    vertical-align: 6px;
+  }
+  
+  .regular_courses td {
     /* border-collapse: collapse; */
     border: 1px solid black;
     text-align: center;
     padding: 6px;
-}
-.regular_courses .course_title{
-    padding-left: 155px;
+  }
+  
+  .regular_courses .course_title {
+    padding-left: 105px;
     padding-right: 155px;
-}
-.regular_courses .equal_padding{
-    padding-left: 40px;
+    flex-wrap: 0;
+  }
+  
+  .regular_courses .equal_padding {
+    padding-left: 10px;
     padding-right: 40px;
-}
-.regular_courses .sno{
+  }
+  
+  .regular_courses .sno {
     padding-left: 10px;
     padding-right: 10px;
-}
-.last{
+  }
+  
+  .last {
     display: flex;
-}
-
-.dotted-line {
-    border-bottom: 1px dotted black;
-    width: 100%;
-}
+  }
+  
+  .last input {
+    border-bottom: 2px dotted black;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    margin-bottom: 4px;
+    width: 141px;
+  }
+  
+  .last label {
+    margin-top: 30px;
+  
+  }
+  
+  @media print {
+    .container {
+        height: auto; /* Adjust as needed */
+    }
+  
+    .form {
+        width: 100%; /* Adjust as needed */
+    }
+  
+    /* Additional print-specific styles can be added here */
+  }
+  
+    body {
+      margin: 0; /* Remove default margin to prevent extra space */
+      overflow-x: hidden; /* Hide horizontal overflow */
+    }
+    
+    .global-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      overflow: hidden; /* Hide any overflow beyond viewport */
+    }
+    
+    .form {
+      width: 90%; /* Adjust as needed */
+      max-width: 1200px; /* Limit the maximum width */
+      margin: 0 auto; /* Center the form horizontally */
+      /* ... other styles ... */
+    }
+  
+  @media print {
+    body {
+      margin: 0; /* Remove default margin to maximize printable area */
+    }
+  
+    .global-container {
+      justify-content: flex-start; /* Start from the top of the page */
+      min-height: 0; /* Allow the container to shrink */
+      overflow: visible; /* Allow overflow for printing */
+      page-break-inside: avoid; /* Prevent breaking container across pages */
+    }
+  
+    .form {
+      width: 100%; /* Utilize the full printable width */
+      max-width: 1200px; /* Remove max-width constraint for printing */
+      margin: 10px; /* Remove margin for printing */
+      padding: 0px; /* Add padding to provide spacing around content */
+      box-sizing: border-box; /* Include padding in width calculation */
+      /* ... other print-specific styles ... */
+    }
+    
+  }
+  /* Set fixed widths for individual elements */
+  .first_line input,
+  .second_line input,
+  .third_line input,
+  .coll_name input,
+  .last input,
+  .regular_courses td,
+  .snd_table td,
+  .fst_table td {
+    width: 120px; 
+  }
+  
+  
+  @media print {
+    body {
+      margin: 0; /* Remove default margin to maximize printable area */
+    }
+  
+    .global-container {
+      justify-content: flex-start;
+      min-height: 0;
+      overflow: visible;
+      page-break-inside: avoid;
+      margin-top: 50px;
+    }
+  
+    .form {
+      width:100%; /* Adjust for the margins */
+      margin: 10px; /* Remove margin for printing */
+      /* padding: 0px;
+      box-sizing: border-box; */
+      /* ... other print-specific styles ... */
+    }
+  
+    /* Adjust the widths for printing */
+    .first_line input,
+    .second_line input,
+    .third_line input,
+    .coll_name input,
+    .last input,
+    .regular_courses td,
+    .snd_table td,
+    .fst_table td {
+      width: 120px; /* Adjust as needed for print layout */
+  
+      /* ... other styles ... */
+    }
+    @page {
+      size: auto;
+      margin: 0px;
+      
+    }
+    
+    html {
+      zoom: 0.68; /* Set the default printing scale */
+    }
+  }
+  
+  input{
+    font-size: 17px;
+  }

@@ -287,51 +287,51 @@
                         </tr> 
                       </thead>
                       <tbody class="table-border-bottom-0">
-                         {{#isBlank mathii}}
+                         {{#isBlank MTH_114}}
                           {{else}}
                              <tr>
                                <td><i class="fab fa-angular fa-lg text-danger me-6"></i> <strong>Engineering Math II</strong></td>
-                              <td class="{{changeString mathii}}color">{{mathii}}</td>
+                              <td class="{{changeString MTH_114}}color">{{MTH_114}}</td>
                             </tr>
                           {{/isBlank}}
 
-                           {{#isBlank lc}}
+                           {{#isBlank ELX_212}}
                             {{else}}
                                 <tr>
                                    <td><i class="fab fa-angular fa-lg text-danger me-6"></i> <strong>Logic Circuit</strong></td>
-                                  <td class="{{changeString lc}}color">{{lc}}</td>
+                                  <td class="{{changeString ELX_212}}color">{{ELX_212}}</td>
                                 </tr>
                             {{/isBlank}}
 
-                            {{#isBlank oop}}
+                            {{#isBlank CMP_115}}
                             {{else}}
                                <tr>
                                  <td><i class="fab fa-angular fa-lg text-danger me-6"></i> <strong>Object Oriented Programming in C++</strong></td>
-                              <td class="{{changeString oop}}color">{{oop}}</td>
+                              <td class="{{changeString CMP_115}}color">{{CMP_115}}</td>
                              </tr>
                             {{/isBlank}}
 
-                            {{#isBlank wt}}
+                            {{#isBlank CMP_213}}
                             {{else}}
                               <tr>
                                 <td><i class="fab fa-angular fa-lg text-danger me-6"></i> <strong>Web Technology</strong></td>
-                                <td class="{{changeString wt}}color">{{wt}}</td>
+                                <td class="{{changeString CMP_213}}color">{{CMP_213}}</td>
                               </tr>
                             {{/isBlank}}
                 
-                            {{#isBlank drawing}}
+                            {{#isBlank MEC_120}}
                             {{else}}
                                 <tr>
                                   <td><i class="fab fa-angular fa-lg text-danger me-6"></i> <strong>Engineering Drawing</strong></td>
-                                  <td class="{{changeString drawing}}color">{{drawing}}</td>
+                                  <td class="{{changeString MEC_120}}color">{{MEC_120}}</td>
                                 </tr>
                             {{/isBlank}}
 
-                            {{#isBlank mfcs}}
+                            {{#isBlank MTH_130}}
                             {{else}}
                                 <tr>
                                   <td><i class="fab fa-angular fa-lg text-danger me-6"></i> <strong>Mathematical Foundation of Computer Science</strong></td>
-                                  <td class="{{changeString mfcs}}color">{{mfcs}}</td>
+                                  <td class="{{changeString MTH_130}}color">{{MTH_130}}</td>
                                 </tr>
                                
                             {{/isBlank}} 
@@ -372,51 +372,51 @@
                         </tr> 
                       </thead>
                       <tbody class="table-border-bottom-0">
-                         {{#isBlank mathiii}}
+                         {{#isBlank MTH_212}}
                           {{else}}
                              <tr>
                                <td><i class="fab fa-angular fa-lg text-danger me-6"></i> <strong>Engineering Mathematics III</strong></td>
-                              <td class="{{changeString mathiii}}color">{{mathiii}}</td>
+                              <td class="{{changeString MTH_212}}color">{{MTH_212}}</td>
                             </tr>
                           {{/isBlank}}
 
-                           {{#isBlank sef}}
+                           {{#isBlank CMP_220}}
                             {{else}}
                                 <tr>
                                    <td><i class="fab fa-angular fa-lg text-danger me-6"></i> <strong>Software Engineering Fundamentals</strong></td>
-                                  <td class="{{changeString sef}}color">{{sef}}</td>
+                                  <td class="{{changeString CMP_220}}color">{{CMP_220}}</td>
                                 </tr>
                             {{/isBlank}}
 
-                            {{#isBlank dsa}}
+                            {{#isBlank CMP_225}}
                             {{else}}
                                <tr>
                                  <td><i class="fab fa-angular fa-lg text-danger me-6"></i> <strong>Data Structure and Algorithms</strong></td>
-                              <td class="{{changeString dsa}}color">{{dsa}}</td>
+                              <td class="{{changeString CMP_225}}color">{{CMP_225}}</td>
                              </tr>
                             {{/isBlank}}
 
-                            {{#isBlank pqt}}
+                            {{#isBlank MTH_221}}
                             {{else}}
                               <tr>
                                  <td><i class="fab fa-angular fa-lg text-danger me-6"></i> <strong>Probability and Queuing Theory</strong></td>
-                                <td class="{{changeString pqt}}color">{{pqt}}</td>
+                                <td class="{{changeString MTH_221}}color">{{MTH_221}}</td>
                               </tr>
                             {{/isBlank}}
                 
-                            {{#isBlank java}}
+                            {{#isBlank CMP_212}}
                             {{else}}
                                 <tr>
                                    <td><i class="fab fa-angular fa-lg text-danger me-6"></i> <strong>Programming in Java</strong></td>
-                                  <td class="{{changeString java}}color">{{java}}</td>
+                                  <td class="{{changeString CMP_212}}color">{{CMP_212}}</td>
                                 </tr>
                             {{/isBlank}}
 
-                            {{#isBlank malp}}
+                            {{#isBlank CMP_214}}
                             {{else}}
                                 <tr>
                                    <td><i class="fab fa-angular fa-lg text-danger me-6"></i> <strong>Microprocessor and Assembly Language Programming</strong></td>
-                                  <td class="{{changeString malp}}color">{{malp}}</td>
+                                  <td class="{{changeString CMP_214}}color">{{CMP_214}}</td>
                                 </tr>
                                
                             {{/isBlank}} 
@@ -437,9 +437,110 @@
                  {{/each}}
           </div>
       {{/if}}
+
+      {{!-- ------------------------------------------------------------------------------------------------------------------------- --}}
+
+       {{#if sem4}}  
+          <div class="container-xxl flex-grow-1 container-p-y">
+          
+                <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"></span>Semester 4</h4>
+
+              {{#each sem4result}}
+              <div class="card">
+                <h5 class="card-header">Year: {{year}}</h5>
+                 <div class="table-responsive ">
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th>Subject</th>
+                        <th>Grade</th>
+                          
+                        </tr> 
+                      </thead>
+                      <tbody class="table-border-bottom-0">
+                         {{#isBlank MTH_230}}
+                          {{else}}
+                             <tr>
+                               <td><i class="fab fa-angular fa-lg text-danger me-6"></i> <strong>Numerical Methods</strong></td>
+                              <td class="{{changeString MTH_230}}color">{{MTH_230}}</td>
+                            </tr>
+                          {{/isBlank}}
+
+                           {{#isBlank CMP_241}}
+                            {{else}}
+                                <tr>
+                                   <td><i class="fab fa-angular fa-lg text-danger me-6"></i> <strong>Computer Graphics</strong></td>
+                                  <td class="{{changeString CMP_241}}color">{{CMP_241}}</td>
+                                </tr>
+                            {{/isBlank}}
+
+                            {{#isBlank CMP_334}}
+                            {{else}}
+                               <tr>
+                                 <td><i class="fab fa-angular fa-lg text-danger me-6"></i> <strong>Computer Organization and Architecture</strong></td>
+                              <td class="{{changeString CMP_334}}color">{{CMP_334}}</td>
+                             </tr>
+                            {{/isBlank}}
+
+                            {{#isBlank CMP_226}}
+                            {{else}}
+                              <tr>
+                                 <td><i class="fab fa-angular fa-lg text-danger me-6"></i> <strong>Database Management Systems</strong></td>
+                                <td class="{{changeString CMP_226}}color">{{CMP_226}}</td>
+                              </tr>
+                            {{/isBlank}}
+                
+                            {{#isBlank CMP_321}}
+                            {{else}}
+                                <tr>
+                                   <td><i class="fab fa-angular fa-lg text-danger me-6"></i> <strong>Object Oriented Design and Modeling through UML</strong></td>
+                                  <td class="{{changeString CMP_321}}color">{{CMP_321}}</td>
+                                </tr>
+                            {{/isBlank}}
+
+                            {{#isBlank CMP_290}}
+                            {{else}}
+                                <tr>
+                                   <td><i class="fab fa-angular fa-lg text-danger me-6"></i> <strong>Project I</strong></td>
+                                  <td class="{{changeString CMP_290}}color">{{CMP_290}}</td>
+                                </tr>
+                               
+                            {{/isBlank}} 
+
+
+                              {{#compareString sgpa "-"}}  
+                              {{else}}
+                                  <tr>
+                                     <td><i class="fab fa-angular fa-lg text-danger me-6"></i> <strong>SGPA</strong></td>
+                                  <td class="{{changeString sgpa}}color">{{sgpa}}</td>
+                                </tr>
+                              {{/compareString}}  
+                      </tbody>
+                    </table>
+                  </div>
+                  <br>
+                   </div>
+                 {{/each}}
+          </div>
+        {{/if}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        {{!-- ------------------------------------------------------------------------------------------------------------------------- --}}
     </div>
 
-{{!-- ------------------------------------------------------------------------------------------------------------------------- --}}
+
 
 
 
