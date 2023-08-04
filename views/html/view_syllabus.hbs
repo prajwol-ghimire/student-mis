@@ -1,5 +1,6 @@
+
 <!DOCTYPE html>
-<!-- beautify ignore:start -->
+
 <html
   lang="en"
   class="light-style layout-menu-fixed"
@@ -15,7 +16,7 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Student MIS</title>
+    <title>Result</title>
 
     <meta name="description" content="" />
 
@@ -30,9 +31,6 @@
       rel="stylesheet"
     />
 
-
-
-
     <!-- Icons. Uncomment required icon fonts -->
     <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
 
@@ -44,8 +42,6 @@
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
 
-    <link rel="stylesheet" href="../assets/vendor/libs/apex-charts/apex-charts.css" />
-
     <!-- Page CSS -->
 
     <!-- Helpers -->
@@ -54,10 +50,11 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../assets/js/config.js"></script>
+      <link rel="stylesheet" type="text/css" href="../assets/css/result.css">
   </head>
 
   <body>
-    <!-- Layout wrapper -->
+  <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
         <!-- Menu -->
@@ -77,7 +74,7 @@
           <div class="dropdown-divider"></div>
           <ul class="menu-inner py-1">
             <!-- Dashboard -->
-            <li class="menu-item active">
+            <li class="menu-item">
               <a href="/" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Dashboard</div>
@@ -99,14 +96,14 @@
               </a>
             </li>
               <!-- Tables -->
-                          <li class="menu-item">
+                          <li class="menu-item ">
                             <a href="/result" class="menu-link">
                               <i class="menu-icon tf-icons bx bx-table"></i>
                               <div data-i18n="Tables">Result</div>
                             </a>
                           </li>
 
-            <li class="menu-item">
+            <li class="menu-item active">
             <a href="/syllabus" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-book"></i>
                 <div data-i18n="Tables">Curriculum</div>
@@ -123,6 +120,7 @@
           </ul>
         </aside>
         <!-- / Menu -->
+       
        
 
         <!-- Layout container -->
@@ -143,7 +141,7 @@
 
               <ul class="navbar-nav flex-row align-items-center ms-auto">
                 <!-- Place this tag where you want the button to render. -->
-              
+                
 
                 <!-- User -->
                          <li class="nav-item navbar-dropdown dropdown-user dropdown">
@@ -185,134 +183,55 @@
           </nav>
 
           <!-- / Navbar -->
-
           <!-- Content wrapper -->
-          <div class="content-wrapper">
-            <div class="container-xxl flex-grow-1 container-p-y">
-              <div class="row">
-                
-                <div class="col-md-6 col-lg-6 col-xl-6 mb-4">
-                  <div class="card">
-                    <div class="card-body text-center">
-                      <div class="mt-3 mb-4">
-                        <img src="../../uploads/profile/{{photo}}" onerror = "../assets/img/user.png" class="rounded img-fluid" style="width: 150px;"alt="User-Image" />
-                      </div>
-                      <h4 class="mb-2" value="">{{username}}</h4>
-                      <p class="text-primary mb-4">@{{permission}} <span class="mx-2"></span></p>
-                      <p class="text-dark mb-4">E-mail: {{email}} <span class="mx-2"></span></p>
-                      <p class="text-dark mb-4">Exam Roll Number: {{rollno}} <span class="mx-2"></span></p>
-                      <p class="text-dark mb-4">Class Roll Number: {{crn}} <span class="mx-2"></span></p>                      
-                      <a  href="/profile-setting">
-                        <span class="btn btn-primary btn-rounded btn-lg">
-                        Edit Account
-                        </span>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-6 col-lg-6 col-xl-6 mb-4">
-                  <div class="card h-100">
-                    <div class="card-header d-flex align-items-center justify-content-between pb-0">
-                      <div class="card-title mb-0">
-                        <h5 class="m-0 me-2">Recent Notice Goes Here</h5>
-                        <small class="text-muted">42.82k Total Sales</small>
-                      </div>
-                      <div class="dropdown">
-                        <button
-                          class="btn p-0"
-                          type="button"
-                          id="orederStatistics"
-                          data-bs-toggle="dropdown"
-                          aria-haspopup="true"
-                          aria-expanded="false"
-                        >
-                          <i class="bx bx-dots-vertical-rounded"></i>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="orederStatistics">
-                          <a class="dropdown-item" href="javascript:void(0);">Select All</a>
-                          <a class="dropdown-item" href="javascript:void(0);">Refresh</a>
-                          <a class="dropdown-item" href="javascript:void(0);">Share</a>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="card-body">
-                      <div class="d-flex justify-content-between align-items-center mb-3">
-                        <div class="d-flex flex-column align-items-center gap-1">
-                          <h2 class="mb-2">8,258</h2>
-                          <span>Total Orders</span>
-                        </div>
-                        <div id="orderStatisticsChart"></div>
-                      </div>
-                      <ul class="p-0 m-0">
-                        <li class="d-flex mb-4 pb-1">
-                          <div class="avatar flex-shrink-0 me-3">
-                            <span class="avatar-initial rounded bg-label-primary"
-                              ><i class="bx bx-mobile-alt"></i
-                            ></span>
-                          </div>
-                          <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                            <div class="me-2">
-                              <h6 class="mb-0">Electronic</h6>
-                              <small class="text-muted">Mobile, Earbuds, TV</small>
-                            </div>
-                            <div class="user-progress">
-                              <small class="fw-semibold">82.5k</small>
-                            </div>
-                          </div>
-                        </li>
-                        <li class="d-flex mb-4 pb-1">
-                          <div class="avatar flex-shrink-0 me-3">
-                            <span class="avatar-initial rounded bg-label-success"><i class="bx bx-closet"></i></span>
-                          </div>
-                          <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                            <div class="me-2">
-                              <h6 class="mb-0">Fashion</h6>
-                              <small class="text-muted">T-shirt, Jeans, Shoes</small>
-                            </div>
-                            <div class="user-progress">
-                              <small class="fw-semibold">23.8k</small>
-                            </div>
-                          </div>
-                        </li>
-                        <li class="d-flex mb-4 pb-1">
-                          <div class="avatar flex-shrink-0 me-3">
-                            <span class="avatar-initial rounded bg-label-info"><i class="bx bx-home-alt"></i></span>
-                          </div>
-                          <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                            <div class="me-2">
-                              <h6 class="mb-0">Decor</h6>
-                              <small class="text-muted">Fine Art, Dining</small>
-                            </div>
-                            <div class="user-progress">
-                              <small class="fw-semibold">849k</small>
-                            </div>
-                          </div>
-                        </li>
-                        <li class="d-flex">
-                          <div class="avatar flex-shrink-0 me-3">
-                            <span class="avatar-initial rounded bg-label-secondary"
-                              ><i class="bx bx-football"></i
-                            ></span>
-                          </div>
-                          <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                            <div class="me-2">
-                              <h6 class="mb-0">Sports</h6>
-                              <small class="text-muted">Football, Cricket Kit</small>
-                            </div>
-                            <div class="user-progress">
-                              <small class="fw-semibold">99</small>
-                            </div>
-                          </div>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>     
-            </div>   
-            </div>
-            <!-- / Content -->
+       
+ <div class="content-wrapper">
+      
+        <div class="container-xxl flex-grow-1 container-p-y"> 
+          <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"></span>Program: {{faculty}}</h4>
+           
+              <div class="card">
+                <h5 class="card-header">Semester: {{semester}}</h5>
+                <div class="table-responsive ">
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th>Course Code</th>
+                        <th>Subject</th>
+                        <th>Credit</th>
 
+
+                        </tr> 
+                      </thead>
+                      <tbody class="table-border-bottom-0">
+                        {{#each syllabus}}
+                            <tr>
+                              <td>{{course_code}}</td>
+                              <td><i class="fab fa-angular fa-lg text-danger me-6"></i> <strong>{{course_name}}</strong></td>
+                              <td>{{credit}}</td>
+                            </tr>
+                        {{/each}}
+
+                               
+                           
+                                  
+                                     
+                      </tbody>
+                    </table>
+                  </div>
+                  
+                  </div>
+                  <br> 
+                  <div class="row justify-content-left">
+                    <div class="col-sm-10">
+                      <button id="pdfButton" class="btn btn-primary">View Syllabus</button>
+                    </div>
+          </div>
+       
+
+              <!--/ Basic Bootstrap Table -->
+
+              <hr class="my-5" />
             <!-- Footer -->
             <footer class="content-footer footer bg-footer-theme">
               <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
@@ -321,14 +240,13 @@
                   <script>
                     document.write(new Date().getFullYear());
                   </script>
-                  , , Student-MIS
-                  
+                   , Student-MIS
                 </div>
-                
               </div>
             </footer>
             <!-- / Footer -->
 
+            <div class="content-backdrop fade"></div>
           </div>
           <!-- Content wrapper -->
         </div>
@@ -336,9 +254,37 @@
       </div>
 
       <!-- Overlay -->
+      <div class="layout-overlay layout-menu-toggle"></div>
     </div>
     <!-- / Layout wrapper -->
-
+    <script>
+        document.getElementById("pdfButton").addEventListener("click", function() {
+            {{#compareString semester '1'}}
+                window.open("/views/assets/syllabus/software_1.pdf", "_blank");
+            {{/compareString}}
+            {{#compareString semester '2'}}
+                window.open("/views/assets/syllabus/software_2.pdf", "_blank");
+            {{/compareString}}
+            {{#compareString semester '3'}}
+                window.open("/views/assets/syllabus/software_3.pdf", "_blank");
+            {{/compareString}}
+            {{#compareString semester '4'}}
+                window.open("/views/assets/syllabus/software_4.pdf", "_blank");
+            {{/compareString}}
+            {{#compareString semester '5'}}
+                window.open("/views/assets/syllabus/software_5.pdf", "_blank");
+            {{/compareString}}
+            {{#compareString semester '6'}}
+                window.open("/views/assets/syllabus/software_6.pdf", "_blank");
+            {{/compareString}} 
+            {{#compareString semester '7'}}
+                window.open("/views/assets/syllabus/software_7.pdf", "_blank");
+            {{/compareString}}
+            {{#compareString semester '8'}}
+                window.open("/views/assets/syllabus/software_8.pdf", "_blank");
+            {{/compareString}}
+        });
+    </script>
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
@@ -351,13 +297,11 @@
     <!-- endbuild -->
 
     <!-- Vendors JS -->
-    <script src="../assets/vendor/libs/apex-charts/apexcharts.js"></script>
 
     <!-- Main JS -->
     <script src="../assets/js/main.js"></script>
 
     <!-- Page JS -->
-    <script src="../assets/js/dashboards-analytics.js"></script>
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>

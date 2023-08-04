@@ -45,6 +45,13 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../assets/js/config.js"></script>
+     <script>
+        function openLinkInNewTab() {
+            var form = document.getElementById('exam_form');
+            form.target = '_blank';
+            form.submit();
+        }
+    </script>
 </head>
 <body>
   <!-- Layout wrapper -->
@@ -95,6 +102,13 @@
                               <div data-i18n="Tables">Result</div>
                             </a>
                           </li>
+
+                             <li class="menu-item">
+            <a href="/syllabus" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-book"></i>
+                <div data-i18n="Tables">Curriculum</div>
+            </a>
+            </li>
                         
             <!-- Forms & Tables -->
             <li class="menu-item active">
@@ -183,7 +197,7 @@
                       
                     </div>
                     <div class="card-body">
-                      <form action="/exam-form" method="post" enctype="multipart/form-data">
+                      <form id= "exam_form" action="/exam-form" method="post" enctype="multipart/form-data">
                         <div class="row mb-3">
                           <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Exam Center</label>
                           <div class="col-sm-10">
@@ -354,7 +368,7 @@
                             {{/if}}
                         <div class="row justify-content-end">
                           <div class="col-sm-10">
-                            <button type="submit" class="btn btn-primary">Send</button>
+                            <button type="submit" onclick="openLinkInNewTab()" class="btn btn-primary">Send</button>
                           </div>
                         </div>
                       </form>

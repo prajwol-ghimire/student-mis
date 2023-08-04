@@ -1,5 +1,17 @@
 const cookies = require('./cookieEnDc.js')
 const mysql = require("./connection").con;
+const bcrypt = require("bcrypt");
+
+async function change_pass(fullname, user_image, rollno,permission, newpass, res){
+    const hashedpassword = await bcrypt.hash(newpass, 10);
+    let qry = `UPDATE user_infos SET password = '${hashedpassword}' WHERE sid = '${rollno}'`
+    mysql.query(qry, rollno, (err, recivedresults) => {
+        if (err) throw err;
+        else {
+            res.render("html/pass_change.hbs",{permission:permission, username: fullname, photo:user_image, changed : true})                                     
+        }
+    });
+}
 
 function pass_change(req, res) {
     const rawCookieHeader = req.header('Cookie');
@@ -32,13 +44,9 @@ function pass_change(req, res) {
                         fullname = recivedresults[0].username                            
                         user_image=recivedresults[0].user_image
                         newpass = req.body.password;
-                        let qry = `UPDATE user_infos SET password = '${newpass}' WHERE sid = '${rollno}'`
-                        mysql.query(qry, rollno, (err, recivedresults) => {
-                            if (err) throw err;
-                            else {
-                                res.render("html/pass_change.hbs",{permission:permission, username: fullname, photo:user_image, changed : true})                                     
-                            }
-                        });
+                        change_pass(fullname, user_image, rollno,permission, newpass, res);
+
+                      
                     }else{
                         res.redirect("/"); 
                     }

@@ -129,17 +129,18 @@ router.post('/pass_change', urlencodedParser,(req,res) => {
 
 
 const showresults = require('./showresults.js');
+const syllabus = require('./syllabus.js');
 
 router.get('/form', (req,res) => {
   cookie_checker(req,res, "form") 
 }); 
 
-// router.get('/result', (req,res) => {
-//   cookie_checker(req,res, "result") 
-// });
-
 router.get('/result', urlencodedParser, (req, res) => {
   showresults(req, res)
+});
+
+router.get('/syllabus', (req, res) => {
+  syllabus(req, res) 
 });
 
 //--------------------------------------------------------------------------------------------------------------------------------
@@ -187,6 +188,10 @@ router.get('/signup', (req, res) => {
 router.get('/viewsusers', (req, res) => {
   cookie_checker(req,res, "viewsusers") 
 });
+
+
+
+
 
 
 

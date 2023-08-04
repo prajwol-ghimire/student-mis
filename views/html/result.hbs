@@ -101,6 +101,13 @@
                               <div data-i18n="Tables">Result</div>
                             </a>
                           </li>
+
+                             <li class="menu-item">
+            <a href="/syllabus" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-book"></i>
+                <div data-i18n="Tables">Curriculum</div>
+            </a>
+            </li>
                         
             <!-- Forms & Tables -->
             <li class="menu-item">
@@ -197,51 +204,51 @@
                         </tr> 
                       </thead>
                       <tbody class="table-border-bottom-0">
-                         {{#isBlank mathi}}
+                         {{#isBlank MTH_112}}
                           {{else}}
                              <tr>
                               <td><i class="fab fa-angular fa-lg text-danger me-6"></i> <strong>Engineering Math I</strong></td>
-                              <td class="{{changeString mathi}}color">{{mathi}}</td>
+                              <td class="{{changeString MTH_112}}color">{{MTH_112}}</td>
                             </tr>
                           {{/isBlank}}
 
-                           {{#isBlank cprog}}
+                           {{#isBlank CMP_113}}
                             {{else}}
                                 <tr>
                                 <td><i class="fab fa-angular fa-lg text-danger me-6"></i> <strong>Programming in C</strong></td>
-                                  <td class="{{changeString cprog}}color">{{cprog}}</td>
+                                  <td class="{{changeString CMP_113}}color">{{CMP_113}}</td>
                                 </tr>
                             {{/isBlank}}
 
-                            {{#isBlank fit}}
+                            {{#isBlank CMP_110}}
                             {{else}}
                                <tr>
                               <td><i class="fab fa-angular fa-lg text-danger me-6"></i> <strong>Fundamental of Information Technology</strong></td>
-                              <td class="{{changeString fit}}color">{{fit}}</td>
+                              <td class="{{changeString CMP_110}}color">{{CMP_110}}</td>
                              </tr>
                             {{/isBlank}}
 
-                            {{#isBlank pst}}
+                            {{#isBlank CMP_114}}
                             {{else}}
                               <tr>
                                 <td><i class="fab fa-angular fa-lg text-danger me-6"></i> <strong>Problem Solving Technique</strong></td>
-                                <td class="{{changeString pst}}color">{{pst}}</td>
+                                <td class="{{changeString CMP_114}}color">{{CMP_114}}</td>
                               </tr>
                             {{/isBlank}}
                 
-                            {{#isBlank physics}}
+                            {{#isBlank PHY_111}}
                             {{else}}
                                 <tr>
                                   <td><i class="fab fa-angular fa-lg text-danger me-6"></i> <strong>Physics</strong></td>
-                                  <td class="{{changeString physics}}color">{{physics}}</td>
+                                  <td class="{{changeString PHY_111}}color">{{PHY_111}}</td>
                                 </tr>
                             {{/isBlank}}
 
-                            {{#isBlank ct}}
+                            {{#isBlank ENG_111}}
                             {{else}}
                                 <tr>
                                   <td><i class="fab fa-angular fa-lg text-danger me-6"></i> <strong>Communication Technique</strong></td>
-                                  <td class="{{changeString ct}}color">{{ct}}</td>
+                                  <td class="{{changeString ENG_111}}color">{{ENG_111}}</td>
                                 </tr>
                                
                             {{/isBlank}}   
@@ -260,8 +267,8 @@
                   <br> 
                  {{/each}}
           </div>
-        {{else}}
-          <h4>You have not attempt any exams</h4>
+      {{else}}
+          <center><h4 style="color: red; margin-top: 200px" >You have not attempt any exams</h4></center>
       {{/if}}
 {{!-- ------------------------------------------------------------------------------------------------------------------------- --}}
         {{#if sem2}}  
