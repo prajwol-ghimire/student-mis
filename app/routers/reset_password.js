@@ -7,8 +7,8 @@ const crypto = require('crypto');
 let transporter = nodemailer.createTransport({
     host: "smtp-mail.outlook.com",
     auth : {
-        user : "Mis@123sTudent!@outlook.com",
-        pass : "Mis@123sTudent!",
+        user: "student_mis.ncit@outlook.com",
+        pass: "Mis@123sTudent!",
     },
 });
 
@@ -37,15 +37,26 @@ function generateRandomString(length) {
 async function send_Reset_Password(user_email, recivedresults, req, res) {
     const token = generateRandomString(80);
     const mailOptions = {
-        from: "Mis@123sTudent!@outlook.com",
+        from: "student_mis.ncit@outlook.com",
         to: user_email,
         subject: "Reset Password Link - Student MIS",
-        html: `'<p>You requested for reset password, kindly use this 
-        <a href="http://localhost:8080/reset-password?token=` + token + `">link</a> to reset your password</p>'
+        html: `'
+        
+        <div style="font-family: Helvetica,Arial,sans-serif;min-width:1000px;overflow:auto;line-height:2">
+        <div style="margin:50px auto;width:70%;padding:20px 0">
+        <div style="border-bottom:1px solid #eee">
+            <a href="" style="font-size:1.4em;color: #00466a;text-decoration:none;font-weight:600">Student-MIS</a>
+        </div>
+        <p>Click here <br> http://localhost:8080/reset-password?token=` + token + `><br> to reset password  of your Student-MIS account.</p>
+       
+
+        <p style="font-size:0.9em;">Regards,<br />Student-MIS<br />Nepal College of Information Technology<br />Balkumari, Lalitpur</p>
+        <hr style="border:none;border-top:1px solid #eee" />
+        </div>
+        </div>'
         `,
     };
     const html = '<p>You requested for reset password, kindly use this <a href="http://localhost:8080/reset-password?token=' + token + '">link</a> to reset your password</p>';
-    await transporter.sendMail(mailOptions);
     console.log(html)
     const sid = recivedresults[0].sid;
     nowdate = Date.now();
@@ -58,6 +69,8 @@ async function send_Reset_Password(user_email, recivedresults, req, res) {
             res.redirect("/password_reset?sucess=hasbeensent")
         }
     });
+    await transporter.sendMail(mailOptions);
+
 }
 
 /**
@@ -79,5 +92,6 @@ function reset_password(req, res) {
         }
     });
 }
+
 
 module.exports = reset_password;

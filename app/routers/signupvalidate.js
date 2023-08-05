@@ -25,13 +25,26 @@ async function sendUserDetails(examroll, email, password, username, res) {
     const mailOptions = {
         from: "student_mis.ncit@outlook.com",
         to: email,
-        subject: "STUDENT MIS REGISTRATION",
-        html: `<p>Use the following credentials to login:<p>
-            examroll: ${examroll}<br>
-            email: ${email}<br>
-            username: ${username}<br>
-            password: ${password}<br>
-        `,
+        subject: "STUDENT-MIS REGISTRATION",
+        html: `<div style="font-family: Helvetica,Arial,sans-serif;min-width:1000px;overflow:auto;line-height:2">
+            <div style="margin:50px auto;width:70%;padding:20px 0">
+            <div style="border-bottom:1px solid #eee">
+                <a href="" style="font-size:1.4em;color: #00466a;text-decoration:none;font-weight:600">Student-MIS</a>
+            </div>
+            <p style="font-size:1.1em">Congratulations you're succefully signed-up to Student-MIS.</p>
+            <p>Please use the following credentials to <a href="http://34.124.157.134/">login</a> to Student-MIS.</p>
+            <h4>Exam Roll: ${examroll}</h4>
+            <h4>E-mail:  ${email}</h4>
+            <h4>Username: ${username}</h4>
+            <h4>Password:  ${password}</h4>
+
+            <p style="font-size:0.9em;">Regards,<br />Student-MIS<br />Nepal College of Information Technology<br />Balkumari, Lalitpur</p>
+            <hr style="border:none;border-top:1px solid #eee" />
+            </div>
+        </div>
+        
+        
+            `,
     };
     console.log(password);
     res.redirect('/viewsusers');
