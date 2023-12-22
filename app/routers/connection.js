@@ -3,7 +3,7 @@ const mysql = require("mysql2");
 const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "",
+  password: "Prajwol@123",
 });
 
 
@@ -23,7 +23,7 @@ connection.query('CREATE DATABASE IF NOT EXISTS student_mis', (error, results) =
 const con = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "",
+  password: "Prajwol@123",
   database: "student_mis",
   port: 3306
 });
