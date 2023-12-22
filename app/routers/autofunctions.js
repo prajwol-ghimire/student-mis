@@ -41,4 +41,4 @@ function CheckPasswordRequest() {
 }
 
 // Call the CheckPasswordRequest function initially and repeat every 30 seconds
-setTimeout(CheckPasswordRequest, 30000);
+// setTimeout(CheckPasswordRequest, 30000);
